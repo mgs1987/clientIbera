@@ -4,7 +4,6 @@ import logo from "../../images/ibera.jpeg";
 import Icon from "@chakra-ui/icon";
 import { RiLuggageCartLine} from "react-icons/ri"
 
-
 function Header() {
   return (
     <div>
@@ -28,15 +27,16 @@ function Header() {
       
       <Box color="green">
     <HStack spacing="30px">
-      <Link ml="5px" href="/reserve">Reserve Now!</Link>
+      <Link ml="10px" href="/reserve">Reserve Now!</Link>
       <Link href="/activities">Local Experiences</Link>
       <Link href="/destinations">Destinations</Link> 
       <Link href="/aboutus">About Us </Link>
+      <Link href="/createHotel">Create Hotel </Link>
 
       <Icon as={RiLuggageCartLine} boxSize={5}/>
      
-        <Button colorScheme='teal' variant='solid'>Log In</Button>
-        <Button colorScheme='teal' variant='outline'>Sign Up</Button>
+      <Button colorScheme='teal' variant='solid'>Log In</Button>
+      <Button colorScheme='teal' variant='outline'>Sign Up</Button>
     </HStack>
     </Box>
  </Flex>

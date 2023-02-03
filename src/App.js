@@ -7,6 +7,8 @@ import CreateHotel from "./Components/Create/CreateHotel";
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import Destinations from './Components/Destinations/Destinations';
+import Landing from "./Components/Landing/Landing";
+
 
 function App() {
   return (
@@ -14,12 +16,10 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-
-          <Route exact path="/" element={<Home/>}/>
-          <Route exact path='/createHotels' element={<CreateHotel/>}/>
-                    
-          <Route exact path="/home" element={<Home/>}/> 
-           <Route exact path="/destinations" element={<Destinations/>}/> 
+              <Route exact path="/" element={<Landing />} />          
+              <Route exact path='/createHotel' element={<CreateHotel/>}/>
+              <Route exact path="/home" element={<Home/>}/> 
+              <Route exact path="/destinations" element={<Destinations/>}/> 
            {/* <Route exact path="/activities" element={<Reservations/>}/> */}
         </Routes>
         <Footer />

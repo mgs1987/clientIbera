@@ -292,8 +292,8 @@ export default function Multistep() {
                 variant="solid"
                 onClick={() => {
                   toast({
-                    title: 'Account created.',
-                    description: "We've created your account for you.",
+                    title: 'Hotel created.',
+                    description: "We've created your Hotel for Iberá.",
                     status: 'success',
                     duration: 3000,
                     isClosable: true,

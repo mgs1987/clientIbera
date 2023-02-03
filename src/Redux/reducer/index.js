@@ -1,5 +1,6 @@
 import { 
-    GET_ALL_HOTELS
+    GET_ALL_HOTELS,
+    GET_HOTEL_BY_LOCATION
 } from "../actions-types/index";
 
 const initialState = { 
@@ -15,7 +16,11 @@ export default function rootReducer (state=initialState, action){
             hotels: action.payload,
             allHotels: action.payload,
         } 
-        
+        case GET_HOTEL_BY_LOCATION:
+            return {
+                ...state,
+                
+            }
         default: return state;
     }
 }

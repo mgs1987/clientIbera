@@ -21,9 +21,7 @@ const [input, setInput]=useState("")
 
  function handleChange(e){
     e.preventDefault();
-    setInput(
-        [e.target.value]:e.target.name
-    )
+    setInput(e.target.value)
 
  }
   return (

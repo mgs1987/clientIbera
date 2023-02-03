@@ -10,11 +10,11 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
+  <ChakraProvider>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </Provider>
+  </ChakraProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button, ButtonGroup } from '@chakra-ui/react';
+import "./Landing.css";
 
 function LandingPage(props) {
     return (

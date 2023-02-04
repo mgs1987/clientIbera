@@ -1,22 +1,25 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import allActions from "../../Redux/actions";
+import React from "react";
+import { Image, Box } from "@chakra-ui/react";
+import homeImage from "../../images/imageHome.jpg"
 
-const { getAllHotels } = allActions;
+
+// import SearchBar from "../SearchBar/SearchBar";
+
 
 function Home() {
-  const dispatch = useDispatch();
 
-  const hotels = useSelector((state) => state.hotels);
-
-  useEffect(() => {
-    dispatch(getAllHotels());
-  }, [dispatch]);
-
-  console.log(hotels);
 
   return (
-  <div>Hola lola </div>
+
+  <div className="main">
+  <Box>
+     <Image src={homeImage} alt="imgHome"/>
+  </Box>
+   {/* <SearchBar/> */}
+   <br></br>
+
+
+  </div>
 )}
 
 export default Home;

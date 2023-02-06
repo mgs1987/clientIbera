@@ -25,3 +25,10 @@ export function filterHotelsByCity(city){
   return {type: FILTER_BY_CITY, payload: city}
 }
 
+export function createHotel(hotel) {
+  return async function () {
+            const response = await axios.post(
+            "http://localhost:3000/createHotel",
+            hotel
+            )};
+}

@@ -28,9 +28,9 @@ function Header() {
       
       <Box color="teal">
     <HStack spacing="30px">
+      <Link fontSize={18} href="/destinations">Destinations</Link> 
       <Link fontSize={18} ml="10px" href="/reserve">Reserve Now!</Link>
       <Link fontSize={18} href="/activities">Local Experiences</Link>
-      <Link fontSize={18} href="/destinations">Destinations</Link> 
       <Link fontSize={18} href="/aboutus">About Us </Link>
       <Link fontSize={18} href="/createHotel">Create Hotel </Link>
 

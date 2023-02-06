@@ -63,7 +63,7 @@ function Home() {
       </Box>
       <Box marginTop="120px"mr="150px" >
         <Text marginTop="60px"fontSize="3xl"fontWeight="bold" color="teal">Stay connected!</Text><Icon as={FcWiFiLogo} boxSize={12}/>
-        <Text marginTop="10px" fontSize="2xl"> We offer high-speed Wi-Fi in all our hotels  </Text>
+        <Text marginTop="10px" fontSize="2xl"> We offer high-speed Wi-Fi in all our hotels and co-working spot </Text>
       </Box>
     </Grid>
     <Box height="2px" width="50%" ml="25%"backgroundColor="teal" marginTop="10px" />

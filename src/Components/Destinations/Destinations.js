@@ -25,6 +25,8 @@ function Destinations() {
     dispatch(filterHotelsByCity(e.target.value))
 
  }
+ console.log(hotels)
+ console.log(cities)
   return (
     <div>
   <Flex justifyContent="flex-start" ml="50px" mt="40px">

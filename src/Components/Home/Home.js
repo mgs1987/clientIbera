@@ -8,7 +8,7 @@ import trekking from "../../images/trekking.jpg"
 import {FcWiFiLogo} from "react-icons/fc"
 
 
-// import SearchBar from "../SearchBar/SearchBar";
+// import SearchBar from "../SearchBar/SearchBar";;
 
 function Home() {
   return (

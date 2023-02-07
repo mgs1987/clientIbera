@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import Card from '../Card/Card';
+import CardHotel from '../Card/Card';
 import allActions from "../../Redux/actions";
 import { Box, Flex, Select } from "@chakra-ui/react";
 
@@ -45,7 +45,7 @@ function Destinations() {
     {hotels &&
         hotels.map((hotel) => {
           return (
-            <Card
+            <CardHotel
               name={hotel.name}
               city={hotel.city}
               img={hotel.img}

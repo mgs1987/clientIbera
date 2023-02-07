@@ -14,15 +14,16 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
+         <Header />
         <Routes>
-              <Route exact path="/" element={<Landing />} />          
+              <Route exact path="/" element={<Landing />} />  
+              <Route exact path="/landing" element={<Landing />} />        
               <Route exact path='/createHotel' element={<CreateHotel/>}/>
               <Route exact path="/home" element={<Home/>}/> 
               <Route exact path="/destinations" element={<Destinations/>}/> 
            {/* <Route exact path="/activities" element={<Reservations/>}/> */}
         </Routes>
-        <Footer />
+         <Footer />
       </div>
     </BrowserRouter>
   );

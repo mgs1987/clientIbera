@@ -21,19 +21,20 @@ function Header() {
          borderRadius='full'
          boxSize='80px'
          src={logo} alt="logo" 
-         ml="25px"/>
+         ml="25px"
+         />
          </Link>
       </Flex>
       
-      <Box color="green">
+      <Box color="teal">
     <HStack spacing="30px">
-      <Link ml="10px" href="/reserve">Reserve Now!</Link>
-      <Link href="/activities">Local Experiences</Link>
-      <Link href="/destinations">Destinations</Link> 
-      <Link href="/aboutus">About Us </Link>
-      <Link href="/createHotel">Create Hotel </Link>
+      <Link fontSize={18} href="/destinations">Destinations</Link> 
+      <Link fontSize={18} ml="10px" href="/reserve">Reserve Now!</Link>
+      <Link fontSize={18} href="/activities">Local Experiences</Link>
+      <Link fontSize={18} href="/aboutus">About Us </Link>
+      <Link fontSize={18} href="/createHotel">Create Hotel </Link>
 
-      <Icon as={RiLuggageCartLine} boxSize={5}/>
+      <Link><Icon href="#" as={RiLuggageCartLine} boxSize={7}/></Link>
      
       <Button colorScheme='teal' variant='solid'>Log In</Button>
       <Button colorScheme='teal' variant='outline'>Sign Up</Button>

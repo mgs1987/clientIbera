@@ -1,36 +1,48 @@
-import React from 'react';
-import{useState, useEffect} from 'react';
-import { useDispatch, useSelector} from "react-redux";
-import {getAllHotels} from '../../Redux/actions/hotels.js'
-import './Card.css'
 
-function Card() {
-  const dispatch = useDispatch();
-   const allHotels = useSelector((state) => state.allHotels);
+import React from 'react'
+import { Card, Image, Stack, CardBody, Text, CardFooter, Heading, Button } from "@chakra-ui/react";
 
-console.log(allHotels)
-  useEffect(() =>{
-    dispatch(getAllHotels())
-  }, [dispatch])
 
+function CardHotel({name,city,img,stars}) {
   return (
     <div>
-     {
-      allHotels?.map(el =>{
-        return (
-        <div  className='cardContainer' >
-        <h1 className='name'>{el.name} </h1>
-        <h1>{el.address}</h1>
-        <h1>{el.city}</h1>
-        <img src={el.image} alt='img not found' />
-        </div>
-        )
+    <Card
+        direction={{ base: 'column', sm: 'row' }}
+        overflow='hidden'
+        variant='outline'
+      >
+     <Image
+        objectFit='cover'
+        maxW={{ base: '100%', sm: '200px' }}
+        src={img}
+        alt='hotelIbera'
+     />
 
-       
-      })
-     }
+  <Stack>
+    <CardBody>
+      <Heading size='md'>{name}</Heading>
+
+      <Text py='2'>
+        {city}
+        {stars}
+      </Text>
+    </CardBody>
+
+    <CardFooter>
+      <Button variant='solid' colorScheme='teal'>
+        Add to cart
+      </Button>
+    </CardFooter>
+  </Stack>
+</Card>
+
     </div>
   )
 }
 
-export default Card
+
+export default CardHotel;
+
+
+
+

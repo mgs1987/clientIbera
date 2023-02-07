@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Image, Box, Text, Link, Button, Grid, Icon } from "@chakra-ui/react";
 import homeImage from "../../images/imageHome.jpg";
 import homeImage2 from "../../images/greenmountains.jpg"
@@ -8,9 +9,11 @@ import trekking from "../../images/trekking.jpg"
 import {FcWiFiLogo} from "react-icons/fc"
 
 
+
 // import SearchBar from "../SearchBar/SearchBar";;
 
 function Home() {
+
   return (
     <div className="main">
       <Grid templateColumns="1fr 1fr 1fr">
@@ -43,6 +46,7 @@ function Home() {
         <Link><Button colorScheme='teal' variant="solid" size="md"> Learn More </Button></Link>
       </Box>
     </Grid>
+
 
     <Grid templateColumns="1fr 1fr">
       <Box marginTop="100px">

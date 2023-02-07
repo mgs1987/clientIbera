@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Card, Image, Stack, CardBody, Text, CardFooter, Heading, Button } from "@chakra-ui/react";
 
@@ -34,11 +35,14 @@ function CardHotel({name,city,img,stars}) {
     </CardFooter>
   </Stack>
 </Card>
+
     </div>
   )
 }
 
+
 export default CardHotel;
+
 
 
 

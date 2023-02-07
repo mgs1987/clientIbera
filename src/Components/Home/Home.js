@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Image, Box } from "@chakra-ui/react";
 import homeImage from "../../images/imageHome.jpg";
 import Loader from '../Loader/Loader.js'
-import Card from '../Card/Card.js'
+import Card from '../CardHotel/CardHotel.js'
 
 
 // import SearchBar from "../SearchBar/SearchBar";

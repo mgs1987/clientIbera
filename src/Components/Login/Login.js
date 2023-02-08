@@ -12,6 +12,7 @@ function Login(props) {
     const DayArray = [];
     const MonthArray = [];
     const YearArray = [];
+    const appId = "1644606985997067";
 
     for (let i = 1; i < 32; i++) {
         DayArray.push(i);
@@ -49,9 +50,13 @@ function Login(props) {
 
     const handleBirthdayChange = (e) => {
 
+        const selectDay = document.getElementById('select-day');
+        const selectMonth = document.getElementById('select-month');
+        const selectYear = document.getElementById('select-year');
+
         setInput({
             ...input,
-            [e.target.name]: `${input.birthday} ${e.target.value}`
+            [e.target.name]: `${selectDay.value}/${selectMonth.value}/${selectYear.value}`
         });
 
         console.log(input)
@@ -60,9 +65,14 @@ function Login(props) {
 
     const handeleSubmit = (e) => {
 
+        const selectDay = document.getElementById('select-day');
+        const selectMonth = document.getElementById('select-month');
+        const selectYear = document.getElementById('select-year');
+
         if (
             !errorEmail && !errorName && !errorLastName && !errorPassword &&
-            errorEMsuccessful && errorNsuccessful && errorLNsuccessful && errorPsuccessful && input.nationality && input.birthday
+            errorEMsuccessful && errorNsuccessful && errorLNsuccessful && errorPsuccessful && input.nationality
+            && input.birthday && selectDay.value && selectMonth.value && selectYear.value
         ) {
 
             Users.push(input);
@@ -79,9 +89,6 @@ function Login(props) {
 
             setErrorSubmit("");
 
-            const selectDay = document.getElementById('select-day');
-            const selectMonth = document.getElementById('select-month');
-            const selectYear = document.getElementById('select-year');
             selectDay.value = "";
             selectMonth.value = "";
             selectYear.value = "";
@@ -92,6 +99,22 @@ function Login(props) {
 
     };
 
+    var errorBirthday = "error";
+    var errorBsuccessful = "";
+
+    if (input.birthday.length >= 8) {
+        var errorBirthday = "";
+        var errorBsuccessful = "error";
+    };
+
+
+    var errorNTsuccessful = "";
+    var errorNation = "error";
+
+    if (input.nationality) {
+        var errorNTsuccessful = "error";
+        var errorNation = "";
+    };
 
 
     var errorEmail = "";
@@ -305,17 +328,63 @@ function Login(props) {
 
                 </div>
 
+                <div className='form'>
+
+                    <FormControl>
+
+                        {errorBirthday && !errorBsuccessful ? (
+                            <FormHelperText>
+                                Complete Birthday.
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage></FormErrorMessage>
+                        )}
+                        {!errorBirthday && errorBsuccessful ? (
+                            <FormHelperText color="red" className="letter">
+                                Successful
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage></FormErrorMessage>
+                        )}
+
+                    </FormControl>
+
+                </div>
+
                 <div className="form">
 
                     <FormLabel>Nationality</FormLabel>
 
-                    <Select placeholder='Select option' name="nationality" value={input.nationality} onChange={handleInputChange} borderWidth='3px'>
+                    <Select placeholder='Select option' id="select-nation" name="nationality" value={input.nationality} onChange={handleInputChange} borderWidth='3px'>
                         {PaisesArray && PaisesArray.map((p) => {
                             return (
                                 <option> {p} </option>
                             )
                         })}
                     </Select>
+
+                </div>
+
+                <div className='form'>
+
+                    <FormControl>
+
+                        {errorNation && !errorNTsuccessful ? (
+                            <FormHelperText>
+                                Complete Nationality.
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage></FormErrorMessage>
+                        )}
+                        {!errorNation && errorNTsuccessful ? (
+                            <FormHelperText color="red" className="letter">
+                                Successful
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage></FormErrorMessage>
+                        )}
+
+                    </FormControl>
 
                 </div>
 
@@ -343,8 +412,8 @@ function Login(props) {
 
                 <div className="form">
 
-                    {!profile ? <LoginSocialFacebook
-                        appId="1644606985997067"
+                    <LoginSocialFacebook
+                        appId={appId}
                         onResolve={(response) => {
                             console.log(response)
                             setProfile(response.data)
@@ -356,7 +425,7 @@ function Login(props) {
 
                         <FacebookLoginButton />
 
-                    </LoginSocialFacebook> : ""}
+                    </LoginSocialFacebook>
 
                 </div>
 

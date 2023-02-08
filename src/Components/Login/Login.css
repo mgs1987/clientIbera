@@ -1,0 +1,10 @@
+.form {
+    display: flex;
+    padding: 1% 6%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.letter {
+    font-weight: bold;
+}

@@ -1,48 +1,52 @@
+import React from "react";
+import {
+  Card,
+  Image,
+  Stack,
+  CardBody,
+  Text,
+  CardFooter,
+  Heading,
+  Button,
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
-import React from 'react'
-import { Card, Image, Stack, CardBody, Text, CardFooter, Heading, Button } from "@chakra-ui/react";
-
-
-function CardHotel({name,city,img,stars}) {
+function CardHotel({ id, name, city, img, stars }) {
   return (
     <div>
-    <Card
-        direction={{ base: 'column', sm: 'row' }}
-        overflow='hidden'
-        variant='outline'
+      <Card
+        direction={{ base: "column", sm: "row" }}
+        overflow="hidden"
+        variant="outline"
       >
-     <Image
-        objectFit='cover'
-        maxW={{ base: '100%', sm: '200px' }}
-        src={img}
-        alt='hotelIbera'
-     />
+        <Image
+          objectFit="cover"
+          maxW={{ base: "100%", sm: "200px" }}
+          src={img}
+          alt="hotelIbera"
+        />
 
-  <Stack>
-    <CardBody>
-      <Heading size='md'>{name}</Heading>
+        <Stack>
+          <CardBody>
+            <Heading size="md">{name}</Heading>
 
-      <Text py='2'>
-        {city}
-        {stars}
-      </Text>
-    </CardBody>
+            <Text py="2">
+              {city}
+              <Text>{stars} stars</Text>
+            </Text>
+          </CardBody>
 
-    <CardFooter>
-      <Button variant='solid' colorScheme='teal'>
-        Add to cart
-      </Button>
-    </CardFooter>
-  </Stack>
-</Card>
-
+          <CardFooter>
+            <Link to={`/hotels/${id}`}>
+              <Button variant="solid" colorScheme="teal">
+                View More
+              </Button>
+            </Link>
+          </CardFooter>
+        </Stack>
+      </Card>
     </div>
-  )
+  );
 }
 
-
 export default CardHotel;
-
-
-
-

@@ -8,6 +8,7 @@ import Footer from "./Components/Footer/Footer";
 import Destinations from "./Components/Destinations/Destinations";
 import Reserve from "./Components/Reserve/Reserve";
 import HotelDetails from "../src/Components/HotelDetails/HotelDetails.js";
+import Login from "./Components/Login/Login";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/createHotel" element={<CreateHotel />} />
           <Route exact path="/destinations" element={<Destinations />} />
           <Route exact path="/reserve" element={<Reserve />} />
+          <Route exact path="/login" element={<Login />} />
           <Route exact path="/hotels/:id" element={<HotelDetails />} />
           {/* <Route exact path="/activities" element={<Reservations/>}/> */}
         </Routes>

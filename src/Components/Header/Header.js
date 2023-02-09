@@ -46,13 +46,16 @@ function Header() {
               Create Hotel{" "}
             </Link>
 
-            <Link>
+            <Link href="/aboutus">
               <Icon href="#" as={RiLuggageCartLine} boxSize={7} />
             </Link>
 
-            <Button colorScheme="teal" variant="solid">
-              Log In
-            </Button>
+            <a href="/login">
+              <Button colorScheme="teal" variant="solid">
+                Log In
+              </Button>
+            </a>
+
             <Button colorScheme="teal" variant="outline">
               Sign Up
             </Button>

@@ -185,36 +185,45 @@ function Login(props) {
         }
     };
 
-    if (isAuthenticated) {
+    if (isLoading) {
+        return (
+            <div>Loading...</div>
+        )
+    } else if (isAuthenticated) {
+
+        console.log(user);
+
         return (
 
-            <div>
+            <div className='form'>
 
-                <Card maxW='sm'>
+                <article key="" className="card">
 
-                    <CardBody>
+                    <div className="card-header">
+                        <img src={user.picture} alt="picture" />
+                    </div>
 
-                        <Image
-                            src={user.name}
-                            alt={user.name}
-                            borderRadius='lg'
-                        />
+                    <div className="card-info">
+                        <ul>
 
-                        <Stack mt='6' spacing='3'>
+                            <li>
+                                <span>
+                                    Name:
+                                </span>
+                                {user.name}
+                            </li>
 
-                            <Heading size='md'>{user.name}</Heading>
-
-                            <Text>
+                            <li>
+                                <span>
+                                    Email:
+                                </span>
                                 {user.email}
-                            </Text>
+                            </li>
 
-                        </Stack>
+                        </ul>
+                    </div>
 
-                    </CardBody>
-
-                    <Divider />
-
-                </Card>
+                </article>
 
                 <Button colorScheme='blue'
                     onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>

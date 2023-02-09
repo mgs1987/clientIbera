@@ -1,9 +1,12 @@
-import { FormControl, FormLabel, FormErrorMessage, FormHelperText, Input, Stack, Button, Select } from '@chakra-ui/react';
+import {
+    FormControl, FormLabel, FormErrorMessage, FormHelperText, Input,
+    Stack, Button, Select, Card, CardBody, Image,
+    Heading, Text, Divider
+} from '@chakra-ui/react';
 import { useState } from "react";
 import "./Login.css";
-import { LoginSocialFacebook } from 'reactjs-social-login';
-import { FacebookLoginButton } from 'react-social-login-buttons';
-import { Card, Heading, CardBody, Image, Text } from '@chakra-ui/react';
+import { useAuth0 } from "@auth0/auth0-react";
+import { FacebookLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
 
 function Login(props) {
 
@@ -13,6 +16,10 @@ function Login(props) {
     const MonthArray = [];
     const YearArray = [];
     const appId = "1644606985997067";
+    const { loginWithRedirect } = useAuth0();
+    const { logout } = useAuth0();
+    const { user, isAuthenticated, isLoading } = useAuth0();
+
 
     for (let i = 1; i < 32; i++) {
         DayArray.push(i);
@@ -27,7 +34,6 @@ function Login(props) {
     };
 
     const [errorSubmit, setErrorSubmit] = useState("");
-    const [profile, setProfile] = useState("");
     const [input, setInput] = useState({
         email: "",
         name: "",
@@ -179,11 +185,63 @@ function Login(props) {
         }
     };
 
-    if (!profile) {
+    if (isAuthenticated) {
+        return (
+
+            <div>
+
+                <Card maxW='sm'>
+
+                    <CardBody>
+
+                        <Image
+                            src={user.name}
+                            alt={user.name}
+                            borderRadius='lg'
+                        />
+
+                        <Stack mt='6' spacing='3'>
+
+                            <Heading size='md'>{user.name}</Heading>
+
+                            <Text>
+                                {user.email}
+                            </Text>
+
+                        </Stack>
+
+                    </CardBody>
+
+                    <Divider />
+
+                </Card>
+
+                <Button colorScheme='blue'
+                    onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                    Logout
+                </Button>
+
+            </div>
+
+        )
+
+    } else {
 
         return (
 
             <div>
+
+                <div>
+
+                    <FacebookLoginButton onClick={() => loginWithRedirect()}></FacebookLoginButton>
+
+                    <br></br>
+
+                    <GoogleLoginButton onClick={() => loginWithRedirect()}></GoogleLoginButton>
+
+                </div>
+
+                <br></br>
 
                 <div className="form">
 
@@ -410,66 +468,12 @@ function Login(props) {
 
                 </div>
 
-                <div className="form">
-
-                    <LoginSocialFacebook
-                        appId={appId}
-                        onResolve={(response) => {
-                            console.log(response)
-                            setProfile(response.data)
-                        }}
-                        onReject={(error) => {
-                            console.log(error)
-                        }}
-                    >
-
-                        <FacebookLoginButton />
-
-                    </LoginSocialFacebook>
-
-                </div>
-
             </div>
-
-        )
-
-    } else {
-
-        return (
-
-            <div>
-
-                <Card maxW='md' className='form' borderWidth='3px'>
-
-                    <CardBody>
-
-                        <Image
-                            src={profile.picture.data.url}
-                            alt='Green double couch with wooden legs'
-                            borderRadius='lg'
-                        />
-
-                        <Stack mt='6' spacing='3'>
-
-                            <Heading size='md'>{profile.name}</Heading>
-
-                            <Text>
-                                Welcome!!!
-                            </Text>
-
-                        </Stack>
-
-                    </CardBody>
-
-                </Card>
-
-            </div >
 
         )
 
     }
 
 };
-
 
 export default Login;

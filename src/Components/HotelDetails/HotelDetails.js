@@ -46,11 +46,10 @@ function HotelDetails(props) {
         <Stack>
           <CardBody ml="40px">
             <Heading color="teal" size="xl">
-              {dtHotel.name}
+              {dtHotel.city}
             </Heading>
-
             <Text py="12">
-              City : {dtHotel.city}
+              {dtHotel.name}
               <Text>Quality: {dtHotel.stars} stars</Text>
             </Text>
             <Text color="teal" size="4xl">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Progress,
   Box,
@@ -16,28 +16,26 @@ import {
   InputGroup,
   Textarea,
   FormHelperText,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import { useToast } from '@chakra-ui/react';
+import { useToast } from "@chakra-ui/react";
 
 const Form1 = () => {
-
   return (
     <>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
+      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
         Hotel Registration
       </Heading>
       <Flex>
         <FormControl mr="5%">
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
+          <FormLabel htmlFor="first-name" fontWeight={"normal"}>
             Name
           </FormLabel>
           <Input id="first-name" placeholder="Name" />
         </FormControl>
-
       </Flex>
       <FormControl mt="2%">
-        <FormLabel htmlFor="email" fontWeight={'normal'}>
+        <FormLabel htmlFor="email" fontWeight={"normal"}>
           Email address
         </FormLabel>
         <Input id="email" type="email" />
@@ -45,15 +43,11 @@ const Form1 = () => {
       </FormControl>
 
       <FormControl>
-        <FormLabel htmlFor="password" fontWeight={'normal'} mt="2%">
-          Start
+        <FormLabel htmlFor="password" fontWeight={"normal"} mt="2%">
+          Stars
         </FormLabel>
         <InputGroup size="md">
-          <Input
-            pr="4.5rem"
-            type='text'
-            placeholder="Enter start"
-          />
+          <Input pr="4.5rem" type="text" placeholder="Enter stars" />
         </InputGroup>
       </FormControl>
     </>
@@ -63,7 +57,7 @@ const Form1 = () => {
 const Form2 = () => {
   return (
     <>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
+      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
         Hotel Details
       </Heading>
       <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -73,8 +67,9 @@ const Form2 = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: 'gray.50',
-          }}>
+            color: "gray.50",
+          }}
+        >
           Country / Region
         </FormLabel>
         <Select
@@ -86,7 +81,8 @@ const Form2 = () => {
           shadow="sm"
           size="sm"
           w="full"
-          rounded="md">
+          rounded="md"
+        >
           <option>Argentina</option>
         </Select>
       </FormControl>
@@ -98,9 +94,10 @@ const Form2 = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: 'gray.50',
+            color: "gray.50",
           }}
-          mt="2%">
+          mt="2%"
+        >
           Street address
         </FormLabel>
         <Input
@@ -123,9 +120,10 @@ const Form2 = () => {
           fontWeight="md"
           color="gray.700"
           _dark={{
-            color: 'gray.50',
+            color: "gray.50",
           }}
-          mt="2%">
+          mt="2%"
+        >
           City
         </FormLabel>
         <Input
@@ -140,6 +138,35 @@ const Form2 = () => {
           rounded="md"
         />
       </FormControl>
+<<<<<<< HEAD
+=======
+
+      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+        <FormLabel
+          htmlFor="postal_code"
+          fontSize="sm"
+          fontWeight="md"
+          color="gray.700"
+          _dark={{
+            color: "gray.50",
+          }}
+          mt="2%"
+        >
+          ZIP / Postal
+        </FormLabel>
+        <Input
+          type="text"
+          name="postal_code"
+          id="postal_code"
+          autoComplete="postal-code"
+          focusBorderColor="brand.400"
+          shadow="sm"
+          size="sm"
+          w="full"
+          rounded="md"
+        />
+      </FormControl>
+>>>>>>> 503efbd2564e85c8677c7b2facaefaf91afdc727
     </>
   );
 };
@@ -147,7 +174,7 @@ const Form2 = () => {
 const Form3 = () => {
   return (
     <>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal">
+      <Heading w="100%" textAlign={"center"} fontWeight="normal">
         Social Handles
       </Heading>
       <SimpleGrid columns={1} spacing={6}>
@@ -157,18 +184,20 @@ const Form3 = () => {
             fontWeight="md"
             color="gray.700"
             _dark={{
-              color: 'gray.50',
-            }}>
+              color: "gray.50",
+            }}
+          >
             Image
           </FormLabel>
           <InputGroup size="sm">
             <InputLeftAddon
               bg="gray.50"
               _dark={{
-                bg: 'gray.800',
+                bg: "gray.800",
               }}
               color="gray.500"
-              rounded="md">
+              rounded="md"
+            >
               http://
             </InputLeftAddon>
             <Input
@@ -186,8 +215,9 @@ const Form3 = () => {
             fontWeight="md"
             color="gray.700"
             _dark={{
-              color: 'gray.50',
-            }}>
+              color: "gray.50",
+            }}
+          >
             Description
           </FormLabel>
           <Textarea
@@ -196,7 +226,7 @@ const Form3 = () => {
             shadow="sm"
             focusBorderColor="brand.400"
             fontSize={{
-              sm: 'sm',
+              sm: "sm",
             }}
           />
           <FormHelperText>
@@ -221,13 +251,15 @@ export default function Multistep() {
         maxWidth={800}
         p={6}
         m="10px auto"
-        as="form">
+        as="form"
+      >
         <Progress
           hasStripe
           value={progress}
           mb="5%"
           mx="5%"
-          isAnimated></Progress>
+          isAnimated
+        ></Progress>
         {step === 1 ? <Form1 /> : step === 2 ? <Form2 /> : <Form3 />}
         <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">
@@ -241,7 +273,8 @@ export default function Multistep() {
                 colorScheme="teal"
                 variant="solid"
                 w="7rem"
-                mr="5%">
+                mr="5%"
+              >
                 Back
               </Button>
               <Button
@@ -256,7 +289,8 @@ export default function Multistep() {
                   }
                 }}
                 colorScheme="teal"
-                variant="outline">
+                variant="outline"
+              >
                 Next
               </Button>
             </Flex>
@@ -267,13 +301,14 @@ export default function Multistep() {
                 variant="solid"
                 onClick={() => {
                   toast({
-                    title: 'Hotel created.',
+                    title: "Hotel created.",
                     description: "We've created your Hotel for Iberá.",
-                    status: 'success',
+                    status: "success",
                     duration: 3000,
                     isClosable: true,
                   });
-                }}>
+                }}
+              >
                 Submit
               </Button>
             ) : null}

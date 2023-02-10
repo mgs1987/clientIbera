@@ -56,13 +56,17 @@ function Header() {
               </Button>
             </a>
 
-            <Button colorScheme="teal" variant="outline">
-              Sign Up
-            </Button>
+            <a href="/sing-up">
+              <Button colorScheme="teal" variant="outline">
+                Sign Up
+              </Button>
+            </a>
+
           </HStack>
+
         </Box>
       </Flex>
-    </div>
+    </div >
   );
 }
 

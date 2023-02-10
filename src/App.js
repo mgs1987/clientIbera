@@ -9,6 +9,7 @@ import Destinations from "./Components/Destinations/Destinations";
 import Reserve from "./Components/Reserve/Reserve";
 import HotelDetails from "../src/Components/HotelDetails/HotelDetails.js";
 import Login from "./Components/Login/Login";
+import SingUp from "./Components/SingUp/SingUp";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/destinations" element={<Destinations />} />
           <Route exact path="/reserve" element={<Reserve />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/sing-up" element={<SingUp />} />
           <Route exact path="/hotels/:id" element={<HotelDetails />} />
           {/* <Route exact path="/activities" element={<Reservations/>}/> */}
         </Routes>

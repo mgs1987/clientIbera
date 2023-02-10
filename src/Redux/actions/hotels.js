@@ -27,8 +27,6 @@ export function getAllHotels(){
             payload: json.data
         })
     }
-
-
 };
 
 // export function filterHotelsByCity(city){
@@ -36,9 +34,12 @@ export function getAllHotels(){
 // }
 
 export function createHotel(hotel) {
-  return async function () {
-            const response = await axios.post(
-            "http://localhost:3000/createHotel",
+    return async function (dispatch) {
+            const newHotel = await axios.post(
+            "http://localhost:3010/createHotel",
             hotel
-            )};
+            )
+            console.log('mostrando el hotel que se crea', newHotel)
+            dispatch()
+    }
 }

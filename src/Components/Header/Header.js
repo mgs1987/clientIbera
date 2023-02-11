@@ -46,7 +46,7 @@ function Header() {
               Create Hotel{" "}
             </Link>
 
-            <Link>
+            <Link href="/shoppingcart">
               <Icon href="#" as={RiLuggageCartLine} boxSize={7} />
             </Link>
 

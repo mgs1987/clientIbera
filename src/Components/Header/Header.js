@@ -46,20 +46,31 @@ function Header() {
               Create Hotel{" "}
             </Link>
 
+
             <Link href="/shoppingcart">
+
+            <Link href="/aboutus">
+
               <Icon href="#" as={RiLuggageCartLine} boxSize={7} />
             </Link>
 
-            <Button colorScheme="teal" variant="solid">
-              Log In
-            </Button>
-            <Button colorScheme="teal" variant="outline">
-              Sign Up
-            </Button>
+            <a href="/login">
+              <Button colorScheme="teal" variant="solid">
+                Log In
+              </Button>
+            </a>
+
+            <a href="/sing-up">
+              <Button colorScheme="teal" variant="outline">
+                Sign Up
+              </Button>
+            </a>
+
           </HStack>
+
         </Box>
       </Flex>
-    </div>
+    </div >
   );
 }
 

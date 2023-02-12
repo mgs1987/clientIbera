@@ -50,3 +50,4 @@ function CardHotel({ id, name, city, img, stars }) {
 }
 
 export default CardHotel;
+

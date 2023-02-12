@@ -26,7 +26,7 @@ function HotelDetails(props) {
   }, [dispatch, id]);
 
   const dtHotel = useSelector((state) => state.hotelDetails);
-  console.log(dtHotel);
+
   return (
     <div>
       <Card
@@ -57,12 +57,12 @@ function HotelDetails(props) {
               dtHotel.rooms.map((r) => {
                 return (
                   <DetailsRoom
-                    idRooms={r.idRooms}
-                    name={r.name}
                     bed_quantity={r.bed_quantity}
                     description={r.description}
-                    price={r.price}
+                    idRooms={r.idRooms}
                     image={r.image}
+                    name={r.name}
+                    price={r.price}
                   />
                 );
               })}

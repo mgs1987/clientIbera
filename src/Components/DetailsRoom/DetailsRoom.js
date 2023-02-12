@@ -10,6 +10,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function DetailsRoom({
   idRooms,
@@ -19,9 +20,9 @@ function DetailsRoom({
   price,
   image,
 }) {
-  const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
 
-  function saveData() {
+  function handleBanana() {
     let room = {
       idRooms: idRooms,
       name: name,
@@ -30,8 +31,8 @@ function DetailsRoom({
       image: image,
     };
 
-    localStorage.setItem(idRooms, JSON.stringify(room));
-    console.log(idRooms);
+    window.localStorage.setItem("roomcart", JSON.stringify(room)); //a localSt solo le podemos enviar strings
+    return navigate("/shoppingcart");
   }
   return (
     <div>
@@ -68,7 +69,7 @@ function DetailsRoom({
               Quantity of beds: {bed_quantity}
               <Text>{description}</Text>
             </Text>
-            <Text color="teal"> ${price}</Text>
+            <Text color="teal"> Price per night: ${price}</Text>
           </CardBody>
 
           <CardFooter>
@@ -76,9 +77,9 @@ function DetailsRoom({
               ml="300px"
               variant="solid"
               colorScheme="teal"
-              onClick={() => saveData()}
+              onClick={() => handleBanana()}
             >
-              Add to cart
+              Reserve
             </Button>
           </CardFooter>
         </Stack>

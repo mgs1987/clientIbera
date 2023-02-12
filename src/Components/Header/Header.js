@@ -17,7 +17,7 @@ function Header() {
         color="white"
       >
         <Flex align="center" mr={5}>
-          <Link href="/home">
+          <Link href="/">
             <Image
               borderRadius="full"
               boxSize="80px"

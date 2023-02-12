@@ -28,10 +28,10 @@ function CardHotel({ id, name, city, img, stars }) {
 
         <Stack>
           <CardBody>
-            <Heading size="md">{name}</Heading>
+            <Heading size="md">{city}</Heading>
 
             <Text py="2">
-              {city}
+              {name}
               <Text>{stars} stars</Text>
             </Text>
           </CardBody>

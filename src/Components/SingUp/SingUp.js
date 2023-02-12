@@ -73,7 +73,7 @@ function SingUp(props) {
             && input.date_birth && selectDay.value && selectMonth.value && selectYear.value
         ) {
 
-            axios.post('/create', input)
+            axios.post('http://localhost:3000/create', input)
                 .then((response) => {
                     console.log(response);
                 })
@@ -428,3 +428,5 @@ function SingUp(props) {
 };
 
 export default SingUp;
+
+//

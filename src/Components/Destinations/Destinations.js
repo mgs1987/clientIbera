@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CardHotel from "../CardHotel/CardHotel.js";
 import allActions from "../../Redux/actions";
 import { Box, Flex, Select } from "@chakra-ui/react";
+import SearchBar from "../SearchBar/SearchBar.js";
 
 const { getAllHotels, filterHotelsByCity, filterHotelByStars } = allActions;
 
@@ -26,7 +27,11 @@ function Destinations() {
   console.log(hotels);
   return (
     <div>
-      <Flex justifyContent="flex-start" ml="50px">
+      <Box mt="30px">
+        <SearchBar />
+      </Box>
+
+      <Flex justifyContent="flex-start" ml="50px" mt="40px">
         <Box>
           <Select
             onChange={(e) => handleFilterByCity(e)}

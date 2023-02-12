@@ -24,7 +24,6 @@ function Destinations() {
     dispatch(filterHotelByStars(e.target.value));
   }
 
-  console.log(hotels);
   return (
     <div>
       <Box mt="30px">

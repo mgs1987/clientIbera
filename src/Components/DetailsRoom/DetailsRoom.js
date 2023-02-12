@@ -29,8 +29,7 @@ function DetailsRoom({
       price: price,
       image: image,
     };
-    cart = room;
-    console.log(cart);
+
     localStorage.setItem(idRooms, JSON.stringify(room));
     console.log(idRooms);
   }

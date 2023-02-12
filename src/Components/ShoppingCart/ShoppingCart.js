@@ -6,16 +6,22 @@ function ShoppingCart() {
 
   useEffect(() => {
     const cart = window.localStorage.getItem("roomcart");
-    setLocal(JSON.parse(cart));
+    if (cart) {
+      setLocal(JSON.parse(cart));
+    }
   }, []);
 
   console.log(local);
 
   return (
-    <Box>
-      <Text>{local.name}</Text>
-      <Text>{local.price}</Text>
-    </Box>
+    <div>
+      {local &&
+        local.map((e) => (
+          <div>
+            {e.name} - {e.price}
+          </div>
+        ))}
+    </div>
   );
 }
 

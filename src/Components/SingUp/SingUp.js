@@ -1,9 +1,8 @@
 import {
     FormControl, FormLabel, FormErrorMessage, FormHelperText, Input,
-    Stack, Button, Select
+    Stack, Button, Select, Box
 } from '@chakra-ui/react';
 import { useState } from "react";
-import "./SingUp.css";
 import axios from 'axios';
 
 function SingUp(props) {
@@ -187,9 +186,17 @@ function SingUp(props) {
 
         return (
 
-            <div>
+            <Box
+                borderWidth="1px"
+                rounded="lg"
+                shadow="1px 1px 3px rgba(0,0,0,0.3)"
+                maxWidth={800}
+                p={6}
+                m="10px auto"
+                as="form"
+            >
 
-                <div className="form">
+                <div>
 
                     <FormControl>
 
@@ -210,7 +217,7 @@ function SingUp(props) {
                             <FormErrorMessage></FormErrorMessage>
                         )}
                         {errorEMsuccessful ? (
-                            <FormHelperText color="red" className="letter">
+                            <FormHelperText color="red" className="letter" fontWeight='bold'>
                                 Successful
                             </FormHelperText>
                         ) : (
@@ -234,7 +241,7 @@ function SingUp(props) {
                             <FormErrorMessage></FormErrorMessage>
                         )}
                         {errorNsuccessful ? (
-                            <FormHelperText color="red" className="letter">
+                            <FormHelperText color="red" className="letter" fontWeight='bold'>
                                 Successful
                             </FormHelperText>
                         ) : (
@@ -258,7 +265,7 @@ function SingUp(props) {
                             <FormErrorMessage></FormErrorMessage>
                         )}
                         {errorLNsuccessful ? (
-                            <FormHelperText color="red" className="letter">
+                            <FormHelperText color="red" className="letter" fontWeight='bold'>
                                 Successful
                             </FormHelperText>
                         ) : (
@@ -289,7 +296,7 @@ function SingUp(props) {
                             <FormErrorMessage></FormErrorMessage>
                         )}
                         {errorPsuccessful ? (
-                            <FormHelperText color="red" className="letter">
+                            <FormHelperText color="red" className="letter" fontWeight='bold'>
                                 Successful
                             </FormHelperText>
                         ) : (
@@ -300,7 +307,7 @@ function SingUp(props) {
 
                 </div>
 
-                <div className="form">
+                <div>
 
                     <FormLabel>Birthday</FormLabel>
 
@@ -330,7 +337,7 @@ function SingUp(props) {
 
                 </div>
 
-                <div className='form'>
+                <div>
 
                     <FormControl>
 
@@ -342,7 +349,7 @@ function SingUp(props) {
                             <FormErrorMessage></FormErrorMessage>
                         )}
                         {!errorBirthday && errorBsuccessful ? (
-                            <FormHelperText color="red" className="letter">
+                            <FormHelperText color="red" className="letter" fontWeight='bold'>
                                 Successful
                             </FormHelperText>
                         ) : (
@@ -353,7 +360,7 @@ function SingUp(props) {
 
                 </div>
 
-                <div className="form">
+                <div>
 
                     <FormLabel>Nationality</FormLabel>
 
@@ -367,7 +374,7 @@ function SingUp(props) {
 
                 </div>
 
-                <div className='form'>
+                <div>
 
                     <FormControl>
 
@@ -379,7 +386,7 @@ function SingUp(props) {
                             <FormErrorMessage></FormErrorMessage>
                         )}
                         {!errorNation && errorNTsuccessful ? (
-                            <FormHelperText color="red" className="letter">
+                            <FormHelperText color="red" className="letter" fontWeight='bold'>
                                 Successful
                             </FormHelperText>
                         ) : (
@@ -390,7 +397,7 @@ function SingUp(props) {
 
                 </div>
 
-                <div className="form">
+                <div>
 
                     <Stack direction='row' spacing={4} align='center'>
                         <Button colorScheme='teal' variant='solid' onClick={handeleSubmit}>
@@ -412,7 +419,7 @@ function SingUp(props) {
 
                 </div>
 
-            </div>
+            </Box>
 
         )
 

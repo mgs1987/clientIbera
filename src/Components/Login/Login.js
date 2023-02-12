@@ -1,8 +1,8 @@
 import {
     FormControl, FormLabel, FormErrorMessage, FormHelperText, Input,
-    Stack, Button, Select
+    Stack, Button, Box, Card, Image, CardBody, CardFooter, Heading, Text,
+    Divider, ButtonGroup
 } from '@chakra-ui/react';
-import "./Login.css";
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FacebookLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
@@ -10,7 +10,6 @@ import axios from 'axios';
 
 function Login(props) {
 
-    const appId = "1644606985997067";
     const { loginWithRedirect } = useAuth0();
     const { logout } = useAuth0();
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -18,9 +17,7 @@ function Login(props) {
         email: "",
         user_password: ""
     });
-    const [dataBaseUsers, SetdataBaseUsers] = useState("");
     const [error, setError] = useState("");
-    const userArray = [{ name: "tobias", email: "tobias.blaksley@gmail.com", picture: "not found" }];
 
     const handleInputChange = (e) => {
 
@@ -36,13 +33,12 @@ function Login(props) {
     const handeleSubmit = (e) => {
 
         if (!errorEMsuccessful || !errorPsuccessful) {
-
             setError("error")
-
         } else {
-
-            SetdataBaseUsers(userArray)
-
+            setInput({
+                email: "",
+                user_password: ""
+            })
         }
 
     };
@@ -94,85 +90,46 @@ function Login(props) {
 
         return (
 
-            <div className='form'>
+            <Box
+                borderWidth="1px"
+                rounded="lg"
+                shadow="1px 1px 3px rgba(0,0,0,0.3)"
+                maxWidth={800}
+                p={6}
+                m="10px auto"
+                as="form"
+            >
 
-                <article key="" className="card">
-
-                    <div className="card-header">
-                        <img src={user.picture} alt="picture" />
-                    </div>
-
-                    <div className="card-info">
-                        <ul>
-
-                            <li>
-                                <span>
-                                    Name:
-                                </span>
-                                {user.name}
-                            </li>
-
-                            <li>
-                                <span>
-                                    Email:
-                                </span>
+                <Card maxW='sm'>
+                    <CardBody>
+                        <Image
+                            src={user.picture}
+                            alt='Green double couch with wooden legs'
+                            borderRadius='lg'
+                        />
+                        <Stack mt='6' spacing='3'>
+                            <Heading size='md'>{user.name}</Heading>
+                            <Text>
+                                On behalf of Ibera Hotels, we want to thank you immensely for the decision to purchase our services
+                                for your stay and we are delighted to be able to collaborate with its development.
+                            </Text>
+                            <Text color='blue.600' fontSize='2xl'>
                                 {user.email}
-                            </li>
+                            </Text>
+                        </Stack>
+                    </CardBody>
+                    <Divider />
+                    <CardFooter>
+                        <ButtonGroup spacing='2'>
+                            <Button variant='solid' colorScheme='blue'
+                                onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                                Log out
+                            </Button>
+                        </ButtonGroup>
+                    </CardFooter>
+                </Card>
 
-                        </ul>
-                    </div>
-
-                </article>
-
-                <Button colorScheme='blue'
-                    onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-                    Log out
-                </Button>
-
-            </div>
-
-        )
-
-    } else if (dataBaseUsers.length === 1) {
-
-        return (
-
-            <div className='form'>
-
-                <article key="" className="card">
-
-                    <div className="card-header">
-                        <img src="" alt="picture" />
-                    </div>
-
-                    <div className="card-info">
-                        <ul>
-
-                            <li>
-                                <span>
-                                    Name:
-                                </span>
-                                {dataBaseUsers.name}
-                            </li>
-
-                            <li>
-                                <span>
-                                    Email:
-                                </span>
-                                {dataBaseUsers.email}
-                            </li>
-
-                        </ul>
-                    </div>
-
-                </article>
-
-                <Button colorScheme='blue'
-                    onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-                    Log out
-                </Button>
-
-            </div>
+            </Box>
 
         )
 
@@ -180,7 +137,15 @@ function Login(props) {
 
         return (
 
-            <div>
+            <Box
+                borderWidth="1px"
+                rounded="lg"
+                shadow="1px 1px 3px rgba(0,0,0,0.3)"
+                maxWidth={800}
+                p={6}
+                m="10px auto"
+                as="form"
+            >
 
                 <div>
 
@@ -192,7 +157,7 @@ function Login(props) {
 
                 </div>
 
-                <div className="form">
+                <div>
 
                     <FormControl>
 
@@ -213,7 +178,7 @@ function Login(props) {
                             <FormErrorMessage></FormErrorMessage>
                         )}
                         {errorEMsuccessful ? (
-                            <FormHelperText color="red" className="letter">
+                            <FormHelperText color="red" className="letter" fontWeight='bold'>
                                 Successful
                             </FormHelperText>
                         ) : (
@@ -244,7 +209,7 @@ function Login(props) {
                             <FormErrorMessage></FormErrorMessage>
                         )}
                         {errorPsuccessful ? (
-                            <FormHelperText color="red" className="letter">
+                            <FormHelperText color="red" className="letter" fontWeight='bold'>
                                 Successful
                             </FormHelperText>
                         ) : (
@@ -255,9 +220,9 @@ function Login(props) {
 
                 </div>
 
-                <div className="form">
+                <div>
 
-                    <FormControl className="form">
+                    <FormControl>
 
                         {error ? (
                             <FormHelperText color="green" className="letter">
@@ -271,7 +236,7 @@ function Login(props) {
 
                 </div>
 
-                <div className="form">
+                <div>
 
                     <Stack direction='row' spacing={4} align='center'>
                         <Button colorScheme='teal' variant='solid' onClick={handeleSubmit}>
@@ -281,7 +246,7 @@ function Login(props) {
 
                 </div>
 
-            </div>
+            </Box>
 
         )
 

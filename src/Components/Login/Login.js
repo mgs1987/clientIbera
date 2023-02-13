@@ -35,6 +35,12 @@ function Login(props) {
         if (!errorEMsuccessful || !errorPsuccessful) {
             setError("error")
         } else {
+
+            axios.post("http://localhost:3010/users/sigin", input)
+                .then((data) => console.log(data))
+                .catch((err) => console.log(err))
+
+
             setInput({
                 email: "",
                 user_password: ""

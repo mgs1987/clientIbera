@@ -54,7 +54,7 @@ function SingUp(props) {
 
         setInput({
             ...input,
-            [e.target.name]: `${selectDay.value}/${selectMonth.value}/${selectYear.value}`
+            [e.target.name]: `${selectYear.value}-${selectMonth.value}-${selectDay.value}`
         });
 
         console.log(input)
@@ -73,7 +73,7 @@ function SingUp(props) {
             && input.date_birth && selectDay.value && selectMonth.value && selectYear.value
         ) {
 
-            axios.post('http://localhost:3000/create', input)
+            axios.post('http://localhost:3010/users/create', input)
                 .then((response) => {
                     console.log(response);
                 })

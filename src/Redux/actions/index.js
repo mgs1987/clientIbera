@@ -1,6 +1,6 @@
 import * as hotelsActions from "./hotels";
-import * as amenitiesActions from "./amenities";
+import * as servicesActions from "./services";
 
-const allActions = { ...hotelsActions, ...amenitiesActions };
+const allActions = { ...hotelsActions, ...servicesActions };
 
 export default allActions;

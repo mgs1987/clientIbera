@@ -46,7 +46,8 @@ function Header() {
               Create Hotel{" "}
             </Link>
 
-            <a href="/shoppingcart"></a>
+
+            <Link href="/shoppingcart"></Link>
 
             <Link href="/aboutus">
 
@@ -74,3 +75,4 @@ function Header() {
 }
 
 export default Header;
+

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import CardHotel from "../CardHotel/CardHotel.js";
+
 import allActions from "../../Redux/actions";
 import { Box, Flex, Select } from "@chakra-ui/react";
 import SearchBar from "../SearchBar/SearchBar.js";

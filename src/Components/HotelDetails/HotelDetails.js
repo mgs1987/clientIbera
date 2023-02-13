@@ -27,8 +27,6 @@ function HotelDetails(props) {
 
   const dtHotel = useSelector((state) => state.hotelDetails);
 
-  console.log("ACA ESTA DETAIL", dtHotel);
-
   return (
     <div>
       <Card
@@ -55,11 +53,19 @@ function HotelDetails(props) {
             <Text color="teal" size="4xl">
               Types of Rooms available:{" "}
             </Text>
-            {/* {dtHotel &&
-              dtHotel.rooms.length > 0 &&
+            {dtHotel.rooms &&
               dtHotel.rooms.map((r) => {
-                return <Text>{r.name}</Text>;
-              })} */}
+                return (
+                  <DetailsRoom
+                    bed_quantity={r.bed_quantity}
+                    description={r.description}
+                    idRooms={r.idRooms}
+                    image={r.image}
+                    name={r.name}
+                    price={r.price}
+                  />
+                );
+              })}
           </CardBody>
         </Stack>
       </Card>

@@ -18,8 +18,19 @@ function Login(props) {
         email: "",
         user_password: ""
     });
-    const [error, setError] = useState("");
-    const arrayUser = [{ name: "borja", email: "borja@gmail.com" }];
+    const [errorInput, setErrorInput] = useState("");
+    const [errorUser, setErrorUser] = useState("");
+    var arrayDataApi = [];
+
+    axios.get("http://localhost:3010/users")
+        .then(res => {
+            for (let i = 0; i < res.data.length; i++) {
+                arrayDataApi.push(res.data[i])
+            }
+        })
+        .catch(err => console.log(err))
+
+    console.log(arrayDataApi);
 
     const handleInputChange = (e) => {
 
@@ -35,14 +46,26 @@ function Login(props) {
     const handeleSubmit = (e) => {
 
         if (!errorEMsuccessful || !errorPsuccessful) {
-            setError("error")
+            setErrorInput("error")
         } else {
 
-            const coockie = new Cookies();
-            coockie.set("nombreUsuario", `${arrayUser[0].name}`, { path: "/" });
-            coockie.set("emailUsuario", `${arrayUser[0].email}`, { path: "/" });
+            let userApi = arrayDataApi.find(u => u.email === input.email);
 
-            window.location.reload()
+            console.log(userApi);
+
+            if (userApi) {
+
+                const coockie = new Cookies();
+                coockie.set("nombreUsuario", `${userApi.first_name}`, { path: "/" });
+                coockie.set("emailUsuario", `${userApi.email}`, { path: "/" });
+
+                window.location.reload()
+
+            } else {
+
+                setErrorUser("error")
+
+            }
 
         }
 
@@ -297,9 +320,17 @@ function Login(props) {
 
                     <FormControl>
 
-                        {error ? (
+                        {errorInput ? (
                             <FormHelperText color="green" className="letter">
                                 Error in any of the data provided.
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage></FormErrorMessage>
+                        )}
+
+                        {errorUser ? (
+                            <FormHelperText color="green" className="letter">
+                                User does not exist.
                             </FormHelperText>
                         ) : (
                             <FormErrorMessage></FormErrorMessage>

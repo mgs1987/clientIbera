@@ -11,7 +11,6 @@ function SingUp(props) {
     const DayArray = [];
     const MonthArray = [];
     const YearArray = [];
-    const appId = "1644606985997067";
 
     for (let i = 1; i < 32; i++) {
         DayArray.push(i);
@@ -73,22 +72,18 @@ function SingUp(props) {
             && input.date_birth && selectDay.value && selectMonth.value && selectYear.value
         ) {
 
-            axios.post('http://localhost:3010/users/create', input)
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            axios.post("http://localhost:3010/users/create", input)
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err))
 
-            setInput({
+            /*setInput({
                 email: "",
                 first_name: "",
                 last_name: "",
                 date_birth: "",
                 user_password: "",
                 nationality: ""
-            });
+            });*/
 
             setErrorSubmit("");
 

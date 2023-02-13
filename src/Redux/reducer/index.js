@@ -5,7 +5,7 @@ import {
   FILTER_BY_STARS,
   GET_ALL_HOTELS,
   GET_HOTEL_BY_ID,
-  GET_ALL_AMENITIES,
+  GET_ALL_SERVICES,
 } from "../actions-types/index";
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
   allHotels: [],
   cities: [],
   hotelDetails: {},
-  amenities: [],
+  services: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -60,10 +60,10 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         hotelDetails: action.payload,
       };
-    case GET_ALL_AMENITIES:
+    case GET_ALL_SERVICES:
       return {
         ...state,
-        amenities: action.payload,
+        services: action.payload,
       };
 
     default:

@@ -10,20 +10,20 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import allActions from "../../Redux/actions";
-import CardAmenities from "../CardAmenities/CardAmenities";
+import CardServices from "../CardServices/CardServices";
 
-const { getAmenities } = allActions;
+const { getServices } = allActions;
 
 function ShoppingCart() {
   const [local, setLocal] = useState("");
   const dispatch = useDispatch();
-  const amenities = useSelector((state) => state.amenities);
+  const services = useSelector((state) => state.services);
 
   useEffect(() => {
     const cart = window.localStorage.getItem("roomcart");
     setLocal(JSON.parse(cart));
-    console.log(getAmenities);
-    dispatch(getAmenities());
+
+    dispatch(getServices());
   }, [dispatch]);
 
   console.log("ACA ESTA LOCAL STATE", local);
@@ -42,12 +42,13 @@ function ShoppingCart() {
           idProduct: {local.idRooms} Product:{local.name} Price: ${local.price}{" "}
           <Button onClick={handleRemoveItem}>X</Button>
         </Text>
-        {amenities &&
-          amenities.map((am) => (
-            <CardAmenities
-              id={am.idAmenities}
-              name={am.name}
-              image={am.image}
+        {services &&
+          services.map((ser) => (
+            <CardServices
+              id={ser.id}
+              name={ser.name}
+              image={ser.image}
+              price={ser.price}
             />
           ))}
       </CardBody>

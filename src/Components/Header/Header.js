@@ -47,7 +47,7 @@ function Header() {
             </Link>
 
 
-            <Link href="/shoppingcart">
+            <Link href="/shoppingcart"></Link>
 
             <Link href="/aboutus">
 

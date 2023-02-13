@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FacebookLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
 import axios from 'axios';
+import Cookies from "universal-cookie";
 
 function Login(props) {
 
@@ -18,6 +19,7 @@ function Login(props) {
         user_password: ""
     });
     const [error, setError] = useState("");
+    const arrayUser = [{ name: "borja", email: "borja@gmail.com" }];
 
     const handleInputChange = (e) => {
 
@@ -36,16 +38,27 @@ function Login(props) {
             setError("error")
         } else {
 
-            axios.post("http://localhost:3010/users/sigin", input)
-                .then((data) => console.log(data))
-                .catch((err) => console.log(err))
+            const coockie = new Cookies();
+            coockie.set("nombreUsuario", `${arrayUser[0].name}`, { path: "/" });
+            coockie.set("emailUsuario", `${arrayUser[0].email}`, { path: "/" });
 
+            window.location.reload()
 
-            setInput({
-                email: "",
-                user_password: ""
-            })
         }
+
+    };
+
+    const handleLogout = (e) => {
+
+        console.log(document.cookie);
+
+        document.cookie.split(";").forEach((c) => {
+            document.cookie = c
+                .replace(/^ +/, "")
+                .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+
+        window.location.reload()
 
     };
 
@@ -129,6 +142,60 @@ function Login(props) {
                         <ButtonGroup spacing='2'>
                             <Button variant='solid' colorScheme='blue'
                                 onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                                Log out
+                            </Button>
+                        </ButtonGroup>
+                    </CardFooter>
+                </Card>
+
+            </Box>
+
+        )
+
+    } else if (document.cookie) {
+
+        const cookies = new Cookies();
+
+        console.log(user);
+
+        console.log(document.cookie);
+
+        return (
+
+            <Box
+                borderWidth="1px"
+                rounded="lg"
+                shadow="1px 1px 3px rgba(0,0,0,0.3)"
+                maxWidth={800}
+                p={6}
+                m="10px auto"
+                as="form"
+            >
+
+                <Card maxW='sm'>
+                    <CardBody>
+                        <Image
+                            src="https://www.shutterstock.com/image-vector/avatar-profile-icon-vector-social-260nw-1906554358.jpg"
+                            alt='Green double couch with wooden legs'
+                            borderRadius='lg'
+                        />
+                        <Stack mt='6' spacing='3'>
+                            <Heading size='md'>{cookies.get("nombreUsuario")}</Heading>
+                            <Text>
+                                On behalf of Ibera Hotels, we want to thank you immensely for the decision to purchase our services
+                                for your stay and we are delighted to be able to collaborate with its development.
+                            </Text>
+                            <Text color='blue.600' fontSize='2xl'>
+                                {cookies.get("emailUsuario")}
+                            </Text>
+                        </Stack>
+                    </CardBody>
+                    <Divider />
+                    <CardFooter>
+                        <ButtonGroup spacing='2'>
+                            <Button variant='solid' colorScheme='blue'
+                                onClick={handleLogout}
+                            >
                                 Log out
                             </Button>
                         </ButtonGroup>

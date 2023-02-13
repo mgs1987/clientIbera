@@ -8,9 +8,12 @@ import {
   CardFooter,
   Button,
   Link,
+  Icon,
+  Box,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IoBedSharp } from "react-icons/io5";
 
 function DetailsRoom({
   idRooms,
@@ -35,7 +38,7 @@ function DetailsRoom({
     return navigate("/shoppingcart");
   }
   return (
-    <div>
+    <Box mt="20px" padding="20px">
       <Card
         direction={{ base: "column", sm: "row" }}
         overflow="hidden"
@@ -43,7 +46,7 @@ function DetailsRoom({
       >
         <Image
           objectFit="cover"
-          maxW={{ base: "100%", sm: "200px" }}
+          maxW={{ base: "80%", sm: "150px" }}
           alt="hotelIbera"
           src={image[0]}
         />
@@ -61,20 +64,26 @@ function DetailsRoom({
 
         <Stack>
           <CardBody ml="40px">
-            <Heading color="teal" size="xl">
+            <Heading color="teal" size="md" mr="70%">
               {name}
             </Heading>
 
-            <Text py="12">
-              Quantity of beds: {bed_quantity}
-              <Text>{description}</Text>
+            <Text fontSize="xl" py="12" mb="50px">
+              {bed_quantity} beds
+              <Icon ml="30px" as={IoBedSharp}></Icon>
+              <Text mt="10px" fontSize="md">
+                {description}
+              </Text>
             </Text>
-            <Text color="teal"> Price per night: ${price}</Text>
+            <Text mr="70%" color="teal" mt="10px">
+              {" "}
+              Price per night: ${price}
+            </Text>
           </CardBody>
 
           <CardFooter>
             <Button
-              ml="300px"
+              ml="70%"
               variant="solid"
               colorScheme="teal"
               onClick={() => handleBanana()}
@@ -84,7 +93,7 @@ function DetailsRoom({
           </CardFooter>
         </Stack>
       </Card>
-    </div>
+    </Box>
   );
 }
 

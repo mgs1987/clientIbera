@@ -46,8 +46,7 @@ function Header() {
               Create Hotel{" "}
             </Link>
 
-
-            <Link href="/shoppingcart">
+            <a href="/shoppingcart"></a>
 
             <Link href="/aboutus">
 

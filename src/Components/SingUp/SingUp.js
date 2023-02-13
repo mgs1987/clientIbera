@@ -76,14 +76,14 @@ function SingUp(props) {
                 .then(res => console.log(res.data))
                 .catch(err => console.log(err))
 
-            /*setInput({
+            setInput({
                 email: "",
                 first_name: "",
                 last_name: "",
                 date_birth: "",
                 user_password: "",
                 nationality: ""
-            });*/
+            });
 
             setErrorSubmit("");
 

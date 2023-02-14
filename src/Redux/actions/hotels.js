@@ -20,23 +20,6 @@ export function getAllHotels() {
     } catch (error) {
       console.error(error);
     }
-<<<<<<< HEAD
-};
-
-// export function filterHotelsByCity(city){
-//   return {type: FILTER_BY_CITY, payload: city}
-// }
-
-export function createHotel(hotel) {
-    return async function (dispatch) {
-            const newHotel = await axios.post(
-            "http://localhost:3010/createHotel",
-            hotel
-            )
-            console.log('mostrando el hotel que se crea', newHotel)
-            dispatch()
-    }
-=======
   };
   // return async function(dispatch){
   //     let json = await axios('http://localhost:3010/hotels');
@@ -65,5 +48,23 @@ export function getHotelById(id) {
       console.log(err);
     }
   };
->>>>>>> 503efbd2564e85c8677c7b2facaefaf91afdc727
+}
+
+
+/* export function createHotel(hotel) {
+  return async function () {
+            const response = await axios.post(
+            REACT_APP_GET_ALL_HOTELS, 
+            hotel
+            )};
+} */
+
+export function createHotel(input) {
+  return async function () {
+      console.log('input que recibo', input)
+
+      const newHotel = await axios.post(REACT_APP_GET_ALL_HOTELS, input)
+      
+      console.log('input que muestro', newHotel.data)
+  }
 }

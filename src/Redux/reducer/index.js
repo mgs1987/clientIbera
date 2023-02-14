@@ -1,6 +1,8 @@
 import {
   //GET_HOTELS,
   CITIES,
+  CREATE_HOTEL,
+  CREATE_ROOM,
   FILTER_BY_CITY,
   FILTER_BY_STARS,
   GET_ALL_HOTELS,
@@ -58,6 +60,16 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         hotelDetails: action.payload,
       };
+
+    case CREATE_HOTEL:
+      return {
+        ...state,
+      }
+
+    case CREATE_ROOM:
+      return {
+        ...state,
+      }
 
     default:
       return state;

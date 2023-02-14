@@ -1,320 +1,393 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  Progress,
   Box,
-  ButtonGroup,
-  Button,
-  Heading,
   Flex,
-  FormControl,
-  GridItem,
-  FormLabel,
+  Stack,
+  Heading,
+  Text,
+  Container,
   Input,
-  Select,
+  Button,
   SimpleGrid,
-  InputLeftAddon,
-  InputGroup,
-  Textarea,
+  Avatar,
+  AvatarGroup,
+  useBreakpointValue,
+  Icon,
   FormHelperText,
-} from "@chakra-ui/react";
+  HStack,
 
-import { useToast } from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-const Form1 = () => {
+import { createHotel } from "../../Redux/actions/hotels";
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
+
+const avatars = [
+  {
+    name: '1',
+    url: 'https://pix10.agoda.net/hotelImages/9907221/-1/b5eabbf74a403be4a168778eb01819e9.jpg?ca=22&ce=0&s=1024x768',
+  },
+  {
+    name: '2',
+    url: 'https://pix10.agoda.net/hotelImages/124/1246280/1246280_16061017110043391703.jpg?ca=6&ce=1&s=1024x768',
+  },
+  {
+    name: '3',
+    url: 'https://pix10.agoda.net/hotelImages/9907221/-1/4882dea6640e3378cedc3724db075df4.jpg?ca=22&ce=0&s=1024x768',
+  },
+  {
+    name: 'Otemuyiwa',
+    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_np0V2k1k8gryl76TAau5zdUT3rS3QZT3pWPTAdu3-WcpHT0DbUS_Cq3y3Q7HwrdS9iA&usqp=CAU',
+  },
+  {
+    name: 'Nwamba',
+    url: 'https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg',
+  },
+];
+
+
+export default function CreateHotelIbera() {
+  const  breakpoint1 = useBreakpointValue({ base: 'md', md: 'lg' });
+  const  breakpoint2 = useBreakpointValue({ base: '44px', md: '60px' });
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [input, setInput] = useState({
+    name: '',
+    city: '',
+    description: '',
+    address: '',
+    stars: '',
+    image: '',
+    status: '',
+  })
+  const [errors, setErrors] = useState({})
+  const validateName = /^[a-zA-Z\s]+$/
+
+  const [image, setImage] = useState(null)
+
+  const uploadImage = (e) => {
+    const file = e.target.files[0];
+  };
+
+  function validate(input) {
+    const errors = {}
+    if (!input.name) {
+      errors.name = 'Debe ingresar un nombre'
+    } else if (input.name.length > 30) {
+      errors.name = 'Debe tener menos de 30 caracteres'
+    } else if (!validateName.test(input.name)) {
+      errors.name = 'Los caracteres especiales no estan permitidos'
+    }
+    if (!input.city) {
+      errors.city = 'Debes indicar la ciudad'
+    } else if (input.location.length > 20) {
+      errors.city = 'Debe tener menos de 20 caracteres'
+    } 
+    if (!input.stars) {
+      errors.stars = 'Debe ingresar la cantidad de estrellas de su hotel'
+    } else if (input.stars > 5) {
+      errors.stars = 'Las estrellas debe ser inferior a 5'
+    } else if (input.stars < 0) {
+      errors.stars = 'Las estrellas no pueden ser negativas'
+    }
+    return errors
+  }
+  
+  function handleChange(e) {
+    e.preventDefault()
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    })
+    setErrors(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value
+      })
+    )
+  }
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (!input.name || !input.city || !input.stars) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Completa los campos obligatorios',
+        confirmButtonColor: '#F27474'
+      })
+    } else {
+      if (image !== null) {
+        input.image = image.url
+      }
+      setErrors(validate(input))
+      dispatch(createHotel(input))
+      Swal.fire({
+        icon: 'success',
+        title: 'Operación exitosa!',
+        text: 'Creaste el Hotel',
+        confirmButtonColor: '#98D035'
+      })
+      setInput({
+        name: '',
+        city: '',
+        description: '',
+        address: '',
+        stars: '',
+        image: '',
+        status: '',
+      })
+    }
+  }
+      console.log(input)
   return (
-    <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        Hotel Registration
-      </Heading>
-      <Flex>
-        <FormControl mr="5%">
-          <FormLabel htmlFor="first-name" fontWeight={"normal"}>
-            Name
-          </FormLabel>
-          <Input id="first-name" placeholder="Name" />
-        </FormControl>
-      </Flex>
-      <FormControl mt="2%">
-        <FormLabel htmlFor="email" fontWeight={"normal"}>
-          Email address
-        </FormLabel>
-        <Input id="email" type="email" />
-        <FormHelperText>We'll never share the email.</FormHelperText>
-      </FormControl>
-
-      <FormControl>
-        <FormLabel htmlFor="password" fontWeight={"normal"} mt="2%">
-          Stars
-        </FormLabel>
-        <InputGroup size="md">
-          <Input pr="4.5rem" type="text" placeholder="Enter stars" />
-        </InputGroup>
-      </FormControl>
-    </>
-  );
-};
-
-const Form2 = () => {
-  return (
-    <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        Hotel Details
-      </Heading>
-      <FormControl as={GridItem} colSpan={[6, 3]}>
-        <FormLabel
-          htmlFor="country"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-        >
-          Country / Region
-        </FormLabel>
-        <Select
-          id="country"
-          name="country"
-          autoComplete="country"
-          placeholder="Select option"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        >
-          <option>Argentina</option>
-        </Select>
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={6}>
-        <FormLabel
-          htmlFor="street_address"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-          mt="2%"
-        >
-          Street address
-        </FormLabel>
-        <Input
-          type="text"
-          name="street_address"
-          id="street_address"
-          autoComplete="street-address"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-        <FormLabel
-          htmlFor="city"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-          mt="2%"
-        >
-          City
-        </FormLabel>
-        <Input
-          type="text"
-          name="city"
-          id="city"
-          autoComplete="city"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-<<<<<<< HEAD
-=======
-
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
-        <FormLabel
-          htmlFor="postal_code"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-          mt="2%"
-        >
-          ZIP / Postal
-        </FormLabel>
-        <Input
-          type="text"
-          name="postal_code"
-          id="postal_code"
-          autoComplete="postal-code"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
->>>>>>> 503efbd2564e85c8677c7b2facaefaf91afdc727
-    </>
-  );
-};
-
-const Form3 = () => {
-  return (
-    <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal">
-        Social Handles
-      </Heading>
-      <SimpleGrid columns={1} spacing={6}>
-        <FormControl as={GridItem} colSpan={[3, 2]}>
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-          >
-            Image
-          </FormLabel>
-          <InputGroup size="sm">
-            <InputLeftAddon
-              bg="gray.50"
-              _dark={{
-                bg: "gray.800",
-              }}
-              color="gray.500"
-              rounded="md"
-            >
-              http://
-            </InputLeftAddon>
-            <Input
-              type="tel"
-              placeholder="www.example.com"
-              focusBorderColor="brand.400"
-              rounded="md"
-            />
-          </InputGroup>
-        </FormControl>
-
-        <FormControl id="email" mt={1}>
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-          >
-            Description
-          </FormLabel>
-          <Textarea
-            placeholder="Add the Description"
-            rows={3}
-            shadow="sm"
-            focusBorderColor="brand.400"
-            fontSize={{
-              sm: "sm",
-            }}
-          />
-          <FormHelperText>
-            Brief description for your Hotel. URLs are hyperlinked.
-          </FormHelperText>
-        </FormControl>
-      </SimpleGrid>
-    </>
-  );
-};
-
-export default function Multistep() {
-  const toast = useToast();
-  const [step, setStep] = useState(1);
-  const [progress, setProgress] = useState(33.33);
-  return (
-    <>
-      <Box
-        borderWidth="1px"
-        rounded="lg"
-        shadow="1px 1px 3px rgba(0,0,0,0.3)"
-        maxWidth={800}
-        p={6}
-        m="10px auto"
-        as="form"
-      >
-        <Progress
-          hasStripe
-          value={progress}
-          mb="5%"
-          mx="5%"
-          isAnimated
-        ></Progress>
-        {step === 1 ? <Form1 /> : step === 2 ? <Form2 /> : <Form3 />}
-        <ButtonGroup mt="5%" w="100%">
-          <Flex w="100%" justifyContent="space-between">
-            <Flex>
-              <Button
-                onClick={() => {
-                  setStep(step - 1);
-                  setProgress(progress - 33.33);
-                }}
-                isDisabled={step === 1}
-                colorScheme="teal"
-                variant="solid"
-                w="7rem"
-                mr="5%"
-              >
-                Back
-              </Button>
-              <Button
-                w="7rem"
-                isDisabled={step === 3}
-                onClick={() => {
-                  setStep(step + 1);
-                  if (step === 3) {
-                    setProgress(100);
-                  } else {
-                    setProgress(progress + 33.33);
-                  }
-                }}
-                colorScheme="teal"
-                variant="outline"
-              >
-                Next
-              </Button>
+    <Box position={'relative'}>
+      <Container
+        as={SimpleGrid}
+        maxW={'7xl'}
+        columns={{ base: 1, md: 2 }}
+        spacing={{ base: 10, lg: 32 }}
+        py={{ base: 10, sm: 20, lg: 32 }}>
+        <Stack spacing={{ base: 10, md: 20 }}>
+          <Heading
+            lineHeight={1.1}
+            fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}>
+            Hotels Ibera{' '}
+            <Text
+              as={'span'}
+              bgGradient="linear(to-r, red.400,pink.400)"
+              bgClip="text">
+              =
+            </Text>{' '}
+            Pleasure and Comfort
+          </Heading>
+          <Stack direction={'row'} spacing={4} align={'center'}>
+            <AvatarGroup>
+              {avatars.map((avatar) => (
+                <Avatar
+                  key={avatar.name}
+                  name={avatar.name}
+                  src={avatar.url}
+                  size={breakpoint1}
+                  position={'relative'}
+                  zIndex={2}
+                  _before={{
+                    content: '""',
+                    width: 'full',
+                    height: 'full',
+                    rounded: 'full',
+                    transform: 'scale(1.125)',
+                    bgGradient: 'linear(to-bl, red.400,pink.400)',
+                    position: 'absolute',
+                    zIndex: -1,
+                    top: 0,
+                    left: 0,
+                  }}
+                />
+              ))}
+            </AvatarGroup>
+            <Text fontFamily={'heading'} fontSize={{ base: '4xl', md: '6xl' }}>
+              +
+            </Text>
+            <Flex
+              align={'center'}
+              justify={'center'}
+              fontFamily={'heading'}
+              fontSize={{ base: 'sm', md: 'lg' }}
+              bg={'gray.800'}
+              color={'white'}
+              rounded={'full'}
+              minWidth={breakpoint2}
+              minHeight={breakpoint2}
+              position={'relative'}
+              _before={{
+                content: '""',
+                width: 'full',
+                height: 'full',
+                rounded: 'full',
+                transform: 'scale(1.125)',
+                bgGradient: 'linear(to-bl, orange.400,yellow.400)',
+                position: 'absolute',
+                zIndex: -1,
+                top: 0,
+                left: 0,
+              }}>
+              Your Hotel
             </Flex>
-            {step === 3 ? (
-              <Button
-                w="7rem"
-                colorScheme="red"
-                variant="solid"
-                onClick={() => {
-                  toast({
-                    title: "Hotel created.",
-                    description: "We've created your Hotel for Iberá.",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                  });
+          </Stack>
+        </Stack>
+        <Stack
+          bg={'gray.50'}
+          rounded={'xl'}
+          p={{ base: 4, sm: 6, md: 8 }}
+          spacing={{ base: 8 }}
+          maxW={{ lg: 'lg' }}>
+          <Stack spacing={4}>
+            <Heading
+              color={'gray.800'}
+              lineHeight={1.1}
+              fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
+              Create your hotel
+              <Text
+                as={'span'}
+                bgGradient="linear(to-r, red.400,pink.400)"
+                bgClip="text">
+                !
+              </Text>
+            </Heading>
+            <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
+            We're looking for amazing hotels with fabulous destinations!
+            Add a new hotel and increase the Ibera experience!
+            </Text>
+          </Stack>
+          <Box as={'form'} mt={10}>
+            <Stack spacing={4}>
+              <Input
+                name= "name"
+                placeholder="Hotel name"
+                onChange={(e) => handleChange(e)}
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
                 }}
-              >
-                Submit
+              />
+              {errors.name && (
+                    <FormHelperText color='red.400'>{errors.name}</FormHelperText>
+              )}
+              <Input
+                name= "city"
+                placeholder="City"
+                onChange={(e) => handleChange(e)}
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+              />
+              {errors.city && (
+                  <FormHelperText color='red.400'>{errors.city}</FormHelperText>
+              )}
+              <Input
+                name= "address"
+                placeholder="Hotel Address"
+                onChange={(e) => handleChange(e)}
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+              />
+               <Input
+                name= "description"
+                placeholder="Hotel Description"
+                onChange={(e) => handleChange(e)}
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+              />
+                <Input
+                name= "start"
+                placeholder="Stars"
+                onChange={(e) => handleChange(e)}
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+              />
+              {errors.stars && (
+                    <FormHelperText color='red.400'>{errors.stars}</FormHelperText>
+              )}
+               <Input
+                name= "status"
+                onChange={(e) => handleChange(e)}
+                placeholder="Status"
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+              />
+              <Button 
+              fontFamily={'heading'} 
+              bg={'gray.200'} 
+              color={'gray.800'} 
+              name="image"
+              onChange={(e) => uploadImage(e.target.files)}
+              type= "file">
+                Upload Image
               </Button>
-            ) : null}
-          </Flex>
-        </ButtonGroup>
-      </Box>
-    </>
-  );
+            </Stack>
+            <HStack>
+            <Button
+              fontFamily={'heading'}
+              mt={8}
+              w={'full'}
+              bgGradient="linear(to-r, red.400,pink.400)"
+              color={'white'}
+              _hover={{
+                bgGradient: 'linear(to-r, red.400,pink.400)',
+                boxShadow: 'xl',
+              }}
+              _active={{
+                color: '#98D035',
+                transition: 'all .5s ease',
+                backgroundColor: '#E3FFB2'
+              }}
+              onClick={(e) => handleSubmit(e)}>
+              Submit
+            </Button>
+            <Link to='/home'>
+                <Button
+                  marginLeft='1rem'>                  
+                    Return
+                </Button>
+            </Link>
+            </HStack>
+          </Box>
+          
+        </Stack>
+      </Container>
+      <Blur
+        position={'absolute'}
+        top={-10}
+        left={-10}
+        style={{ filter: 'blur(70px)' }}
+      />
+    </Box>
+  )
 }
+
+export const Blur = (IconProps) => {
+  const  breakpoint3 = useBreakpointValue({ base: '100%', md: '40vw', lg: '30vw' });
+  const  breakpoint4 = useBreakpointValue({ base: -1, md: -1, lg: 0 });
+
+  return (
+    <Icon
+      width={breakpoint3}
+      zIndex={breakpoint4}
+      height="560px"
+      viewBox="0 0 528 560"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...IconProps}>
+      <circle cx="71" cy="61" r="111" fill="#F56565" />
+      <circle cx="244" cy="106" r="139" fill="#ED64A6" />
+      <circle cy="291" r="139" fill="#ED64A6" />
+      <circle cx="80.5" cy="189.5" r="101.5" fill="#ED8936" />
+      <circle cx="196.5" cy="317.5" r="101.5" fill="#ECC94B" />
+      <circle cx="70.5" cy="458.5" r="101.5" fill="#48BB78" />
+      <circle cx="426.5" cy="-0.5" r="101.5" fill="#4299E1" />
+    </Icon>
+  );
+};

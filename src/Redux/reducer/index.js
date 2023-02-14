@@ -7,6 +7,8 @@ import {
   GET_HOTEL_BY_ID,
   GET_ALL_SERVICES,
   GET_ALL_AMENITIES,
+  CLEAN_FILTER,
+  SORT_PRICE,
 } from "../actions-types/index";
 
 const initialState = {
@@ -32,21 +34,21 @@ export default function rootReducer(state = initialState, action) {
         cities: action.payload,
       };
     case FILTER_BY_CITY:
-      // let filtered = [];
-      // if (action.payload === "") {
-      //   filtered = state.allHotels;
-      // } else {
-      //   filtered = state.allHotels.filter((e) => {
-      //     return e.city === action.payload;
-      //   });
-      // }
-      let filterCity = state.allHotels;
-      let filtered= action.payload === ""
-      ?filterCity
-      :state.hotels.filter((e)=>{
-        return e.city === action.payload
+      let filtered = [];
+      if (action.payload === "") {
+        filtered = state.allHotels;
+      } else {
+        filtered = state.allHotels.filter((e) => {
+          return e.city === action.payload;
+        });
       }
-      )
+      // let filterCity = state.allHotels;
+      // let filtered= action.payload === ""
+      // ?filterCity
+      // :filterCity.filter((e)=>{
+      //   return e.city === action.payload
+      // }
+      // )
       return {
         ...state,
         hotels: filtered,
@@ -62,8 +64,8 @@ export default function rootReducer(state = initialState, action) {
       // }
       let filterByStar = state.allHotels;
       let filterStar = 
-      action.payload === "allhotels"
-      ?filterByStar
+      action.payload === ""
+      ?state.hotels
       :state.hotels.filter((e)=>{
         return e.stars === parseInt(action.payload)
       })
@@ -86,6 +88,13 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         amenities: action.payload,
       };
+    case CLEAN_FILTER:
+      let clean = state.allHotels;
+      return{
+        ...state,
+        hotels: clean
+      }
+
     default:
       return state;
   }

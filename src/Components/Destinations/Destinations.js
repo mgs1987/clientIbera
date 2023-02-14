@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import CardHotel from "../CardHotel/CardHotel.js";
 
 import allActions from "../../Redux/actions";
-import { Box, Flex, Select } from "@chakra-ui/react";
+import { Box, Flex, Button, Select } from "@chakra-ui/react";      
 import SearchBar from "../SearchBar/SearchBar.js";
 
-const { getAllHotels, filterHotelsByCity, filterHotelByStars } = allActions;
+const { getAllHotels, filterHotelsByCity, filterHotelByStars,cleanFilter } = allActions;
 
 function Destinations() {
   const dispatch = useDispatch();
@@ -30,6 +30,10 @@ function Destinations() {
     e.preventDefault()
     dispatch(filterHotelByStars(e.target.value));
   }
+  function handleCleanFilter(e){
+    e.preventDefault()
+    dispatch(cleanFilter(e.target.value))
+  }
 
   return (
     <div>
@@ -38,6 +42,12 @@ function Destinations() {
       </Box>
 
       <Flex justifyContent="flex-start" ml="50px" mt="40px">
+          <Box>
+        <Button onClick={(e) => handleCleanFilter(e)} variant="solid" colorScheme="teal">
+                Limpiar Filtros
+              </Button>
+
+          </Box>
         <Box>
           <Select
             onChange={(e) => handleFilterByCity(e)}
@@ -53,8 +63,9 @@ function Destinations() {
         <Box ml="20px">
           <Select
             onChange={(e) => handleFilterByStars(e)}
-            placeholder="All Stars"
+            placeholder="Filter by Stars"
           >
+            
             <option value={1}>1</option>
             <option value={2}>2</option>
             <option value={3}>3</option>

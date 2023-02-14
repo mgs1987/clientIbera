@@ -32,27 +32,41 @@ export default function rootReducer(state = initialState, action) {
         cities: action.payload,
       };
     case FILTER_BY_CITY:
-      let filtered = [];
-      if (action.payload === "") {
-        filtered = state.allHotels;
-      } else {
-        filtered = state.allHotels.filter((e) => {
-          return e.city === action.payload;
-        });
+      // let filtered = [];
+      // if (action.payload === "") {
+      //   filtered = state.allHotels;
+      // } else {
+      //   filtered = state.allHotels.filter((e) => {
+      //     return e.city === action.payload;
+      //   });
+      // }
+      let filterCity = state.allHotels;
+      let filtered= action.payload === ""
+      ?filterCity
+      :state.hotels.filter((e)=>{
+        return e.city === action.payload
       }
+      )
       return {
         ...state,
         hotels: filtered,
       };
     case FILTER_BY_STARS:
-      let filterStar = [];
-      if (action.payload === "") {
-        filterStar = state.allHotels;
-      } else {
-        filterStar = state.allHotels.filter((e) => {
-          return e.stars === parseInt(action.payload);
-        });
-      }
+      // let filterStar = [];
+      // if (action.payload === "") {
+      //   filterStar = state.allHotels;
+      // } else {
+      //   filterStar = state.allHotels.filter((e) => {
+      //     return e.stars === parseInt(action.payload);
+      //   });
+      // }
+      let filterByStar = state.allHotels;
+      let filterStar = 
+      action.payload === "allhotels"
+      ?filterByStar
+      :state.hotels.filter((e)=>{
+        return e.stars === parseInt(action.payload)
+      })
       return {
         ...state,
         hotels: filterStar,

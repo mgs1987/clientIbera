@@ -20,9 +20,11 @@ function Destinations() {
   }, [dispatch]);
 
   function handleFilterByCity(e) {
+    e.preventDefault()
     dispatch(filterHotelsByCity(e.target.value));
   }
   function handleFilterByStars(e) {
+    e.preventDefault()
     dispatch(filterHotelByStars(e.target.value));
   }
 
@@ -36,7 +38,7 @@ function Destinations() {
         <Box>
           <Select
             onChange={(e) => handleFilterByCity(e)}
-            placeholder="All Cities"
+            placeholder="All Cities" 
           >
             {cities &&
               cities.map((city) => <option value={city}>{city}</option>)}

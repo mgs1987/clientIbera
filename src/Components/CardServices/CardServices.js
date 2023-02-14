@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, Card, Text, Image, ButtonGroup, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Card,
+  Text,
+  Image,
+  ButtonGroup,
+  Button,
+  Flex,
+} from "@chakra-ui/react";
 
 function CardServices({
   id,
@@ -11,11 +19,14 @@ function CardServices({
 }) {
   return (
     <Box>
-      <Card border="solid" borderColor="teal">
-        <Text>{name}</Text>
-        <Image boxSize="50px" src={image} />
-        <Text>$ {price}</Text>
-        <ButtonGroup>
+      <Card border="solid" borderColor="teal" mt="10px">
+        <Flex display="inline-grid">
+          <Image boxSize="50px" src={image} />
+          <Text>{name}</Text>
+          <Text>$ {price}</Text>
+        </Flex>
+
+        <ButtonGroup color="teal" ml="70%">
           <Button onClick={() => handleRemoveItem(id)}>-</Button>
           <Button onClick={() => handleAddToCart(id)}>+</Button>
         </ButtonGroup>

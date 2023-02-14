@@ -18,6 +18,8 @@ const { getServices } = allActions;
 function ShoppingCart() {
   const [local, setLocal] = useState("");
   const [service, setService] = useState({});
+  const [quantity, setQuantity] = useState(0);
+
   const dispatch = useDispatch();
   const services = useSelector((state) => state.services);
 
@@ -34,22 +36,28 @@ function ShoppingCart() {
     setService({});
   }
 
-  function handleRemoveItem(id) {
-    console.log("quitar", id);
-
-    // remuevo solo 1 item - aca tener en cuenta que baja cantidad- cambia precio total si hay otras cosas sino queda en 0 -
+  function handleRemoveRoom() {
+    window.localStorage.setItem("roomcart", JSON.stringify({}));
+    setLocal({});
+    console.log("quitar");
   }
   function handleAddToCart(id) {
     const filterService = services.filter((e) => e.id === id);
-    console.log(filterService);
+    console.log("aca filter", filterService);
+    let qty = service[`${id}`]?.quantity ? (service[`${id}`].quantity += 1) : 1;
+
     service[id] = {
+      id: filterService[0].id,
       name: filterService[0].name,
       price: filterService[0].price,
+      quantity: qty,
     };
-    setService({ ...service });
 
+    setService({ ...service });
     window.localStorage.setItem("servicecart", JSON.stringify(service));
   }
+
+  function handleRemoveItem(id) {}
 
   return (
     <Card align="center">
@@ -57,21 +65,25 @@ function ShoppingCart() {
         <Heading size="md"> Your shopping cart</Heading>
       </CardHeader>
       <CardBody>
-        <Button colorScheme="blue" onClick={handleResetCart}>
-          Clear All
+        <Button ml="100%" colorScheme="teal" onClick={handleResetCart}>
+          Remove all services
         </Button>
         <Text>
-          {local.name} Price: ${local.price}{" "}
-          <Button ml="20px" onClick={handleRemoveItem}>
-            X
+          {local.name} Total ${local.price}{" "}
+          <Button ml="140px" onClick={handleRemoveRoom}>
+            Remove Room
           </Button>
           <Text>
             {service &&
               Object.keys(service).map((e) => {
                 return (
                   <Box key={"key"}>
-                    <Text>${service[e].price}</Text>
-                    <Text>Service: {service[e].name}</Text>
+                    <Text>
+                      ({service[e].quantity} item ) - {service[e].name} ${" "}
+                      {service[e].price} TOTAL: $
+                      {service[e].quantity * service[e].price}
+                    </Text>
+                    <Text> </Text>
                   </Box>
                 );
               })}

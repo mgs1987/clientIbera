@@ -14,6 +14,9 @@ function Destinations() {
 
   const hotels = useSelector((state) => state.hotels);
   const cities = useSelector((state) => state.cities);
+  const uniqueCity = cities.filter((str, index) => {
+    return cities.indexOf(str) === index;
+  });
 
   useEffect(() => {
     dispatch(getAllHotels());
@@ -40,8 +43,10 @@ function Destinations() {
             onChange={(e) => handleFilterByCity(e)}
             placeholder="All Cities" 
           >
-            {cities &&
+            {/* {cities &&
               cities.map((city) => <option value={city}>{city}</option>)}
+          */}
+          {uniqueCity && uniqueCity.sort().map((city)=> <option value={city}>{city}</option>)}
           </Select>
         </Box>
 

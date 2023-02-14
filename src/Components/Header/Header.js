@@ -60,12 +60,6 @@ function Header() {
               </Button>
             </a>
 
-            <a href="/sing-up">
-              <Button colorScheme="teal" variant="outline">
-                Sign Up
-              </Button>
-            </a>
-
           </HStack>
 
         </Box>

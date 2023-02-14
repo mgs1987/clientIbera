@@ -48,7 +48,7 @@ export default function rootReducer(state = initialState, action) {
       // :filterCity.filter((e)=>{
       //   return e.city === action.payload
       // }
-      // )
+      // );
       return {
         ...state,
         hotels: filtered,

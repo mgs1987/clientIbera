@@ -6,6 +6,7 @@ import {
   FILTER_BY_CITY,
   FILTER_BY_STARS,
   GET_HOTEL_BY_ID,
+  CLEAN_FILTER,
 } from "../actions-types/index";
 
 const { REACT_APP_GET_ALL_HOTELS } = process.env;
@@ -49,3 +50,7 @@ export function getHotelById(id) {
     }
   };
 }
+export function cleanFilter(id){
+  return { type: CLEAN_FILTER, payload:id} 
+    }
+  

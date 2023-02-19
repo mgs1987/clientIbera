@@ -19,9 +19,9 @@ function Header() {
     console.log(name);
     console.log(email);
 
-    axios.post("http://localhost:3010/users/create", { email: email })
+    /*axios.post("http://localhost:3010/users/create", { email: email })
       .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err));*/
   };
 
   return (
@@ -88,6 +88,14 @@ function Header() {
             {isAuthenticated && user.email === "pipe.blaksley@gmail.com" ?
               <Link color="red" fontSize={18} href="/createHotel">
                 Create Hotel{" "}
+              </Link>
+              :
+              <div></div>
+            }
+
+            {isAuthenticated && user.email === "pipe.blaksley@gmail.com" ?
+              <Link color="red" fontSize={18} href="/delete">
+                Delete User{" "}
               </Link>
               :
               <div></div>

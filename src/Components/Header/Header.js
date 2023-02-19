@@ -3,10 +3,31 @@ import { Box, Button, Image, Link, HStack, Flex } from "@chakra-ui/react";
 import logo from "../../images/ibera.jpeg";
 import Icon from "@chakra-ui/icon";
 import { RiLuggageCartLine } from "react-icons/ri";
-
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 function Header() {
+
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  if (isAuthenticated) {
+    var name = user.name;
+    var email = user.email;
+
+    console.log(user);
+    console.log(name);
+    console.log(email);
+
+    axios.post("http://localhost:3010/users/create", { email: email })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   return (
+
     <div>
+
       <Flex
         as="nav"
         align="center"
@@ -16,7 +37,9 @@ function Header() {
         bg="white"
         color="white"
       >
+
         <Flex align="center" mr={5}>
+
           <Link href="/">
             <Image
               borderRadius="full"
@@ -25,47 +48,80 @@ function Header() {
               alt="logo"
               ml="25px"
             />
+
           </Link>
+
         </Flex>
 
         <Box color="teal">
+
           <HStack spacing="30px">
+
             <Link fontSize={18} href="/destinations">
               Destinations
             </Link>
+
             <Link fontSize={18} ml="10px" href="/reserve">
               Reserve Now!
             </Link>
+
             <Link fontSize={18} href="/activities">
               Local Experiences
             </Link>
+
             <Link fontSize={18} href="/aboutus">
               About Us{" "}
-            </Link>
-            <Link color="red" fontSize={18} href="/createHotel">
-              Create Hotel{" "}
             </Link>
 
             <Link href="/shoppingcart">
               <Icon href="#" as={RiLuggageCartLine} boxSize={7} />
             </Link>
 
-            <Link href="/login">
-              <Button colorScheme="teal" variant="solid">
-                Log In
-              </Button>
-            </Link>
-
-            <Link href="/sing-up">
+            {isLoading ?
               <Button colorScheme="teal" variant="outline">
-                Sign Up
+                Loading...
               </Button>
-            </Link>
+              :
+              <div></div>
+            }
+
+            {isAuthenticated && user.email === "pipe.blaksley@gmail.com" ?
+              <Link color="red" fontSize={18} href="/createHotel">
+                Create Hotel{" "}
+              </Link>
+              :
+              <div></div>
+            }
+
+            {isAuthenticated ?
+              <Button colorScheme="teal" variant="solid"
+                onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                Logout
+              </Button> :
+
+              <Button colorScheme="teal" variant="solid" onClick={() => loginWithRedirect()}>
+                Login
+              </Button>
+            }
+
+            {isAuthenticated ?
+              <Button colorScheme="teal" variant="outline">
+                {name}
+              </Button>
+              :
+              <div></div>
+            }
+
           </HStack>
+
         </Box>
+
       </Flex>
+
     </div>
+
   );
+
 }
 
 export default Header;

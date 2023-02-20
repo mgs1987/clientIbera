@@ -7,7 +7,7 @@ import {
   ButtonGroup,
   Button,
   Flex,
-  Grid,
+
 } from "@chakra-ui/react";
 
 function CardServices({
@@ -19,6 +19,7 @@ function CardServices({
   handleRemoveItem,
 }) {
   return (
+
     <Box display="center">
       <Box
         display="flex"
@@ -44,6 +45,7 @@ function CardServices({
         </Grid>
 
         <ButtonGroup color="teal" ml="80px">
+
           <Button onClick={() => handleRemoveItem(id)}>-</Button>
           <Button onClick={() => handleAddToCart(id)}>+</Button>
         </ButtonGroup>

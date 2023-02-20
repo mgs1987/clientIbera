@@ -20,7 +20,10 @@ const { getServices } = allActions;
 function ShoppingCart() {
   const [local, setLocal] = useState("");
   const [service, setService] = useState({});
+
   const [totalAmount, setTotalAmount] = useState(0);
+
+ 
 
   const dispatch = useDispatch();
   const services = useSelector((state) => state.services);
@@ -71,7 +74,10 @@ function ShoppingCart() {
 
   function handlePayment() {}
 
+  function handleRemoveItem(id) {}
+
   return (
+
     <Box>
       <Box align="center" backgroundColor="teal">
         <Heading size="md" mt="30px" mb="30px" color="white">
@@ -108,6 +114,8 @@ function ShoppingCart() {
 
           <Button color="teal " onClick={handleResetCart}>
             Remove all services
+
+   
           </Button>
           {services &&
             services.map((ser) => (
@@ -133,11 +141,15 @@ function ShoppingCart() {
             {service &&
               Object.keys(service).map((e) => {
                 return (
-                  <Box>
-                    {" "}
-                    ({service[e].quantity} item) - {service[e].name} $ $
-                    {service[e].quantity * service[e].price}
-                  </Box>
+
+                  <Box key={"key"}>
+                    <Text>
+                      ({service[e].quantity} item ) - {service[e].name} ${" "}
+                      {service[e].price} TOTAL: $
+                      {service[e].quantity * service[e].price}
+                    </Text>
+                    <Text> </Text>
+      </Box>
                 );
               })}{" "}
             <Divider color="teal" border="solid" borderWidth="1px" mt="20px" />

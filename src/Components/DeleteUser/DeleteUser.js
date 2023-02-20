@@ -1,12 +1,17 @@
 import axios from "axios";
 import {
     FormLabel, Select, Input, Box, Stack, Button,
-    Alert, AlertIcon, AlertTitle
+    Alert, AlertIcon, AlertTitle, AlertDescription
 } from '@chakra-ui/react';
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 function DeleteUser() {
+
+    /*if (User.email !== "pipe.blaksley@gmail.com") {
+        window.location.href = "http://localhost:3000";
+    };*/
 
     useEffect(() => {
         console.log(users);
@@ -16,6 +21,9 @@ function DeleteUser() {
     const [state, setState] = useState([]);
     const [input, setInput] = useState("");
     const [alert, setAlert] = useState("");
+    const { user, isAuthenticated, isLoading } = useAuth0();
+
+    console.log(user);
 
     if (state.length === 0) {
 
@@ -52,6 +60,14 @@ function DeleteUser() {
 
     console.log(users);
     console.log(state);
+
+    if (user) {
+
+        if (user.email !== "pipe.blaksley@gmail.com") {
+            window.location.href = "http://localhost:3000"
+        };
+
+    };
 
     if (state.length !== 0) {
 
@@ -113,6 +129,9 @@ function DeleteUser() {
                             <AlertTitle mt={4} mb={1} fontSize='lg'>
                                 Deleted user!
                             </AlertTitle>
+                            <AlertDescription maxWidth='sm'>
+                                You can select another user to delete.
+                            </AlertDescription>
                         </Alert> :
 
                         <div></div>

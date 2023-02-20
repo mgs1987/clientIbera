@@ -1,5 +1,8 @@
 import axios from "axios";
-import { FormLabel, Select, Input, Box, Stack, Button } from '@chakra-ui/react';
+import {
+    FormLabel, Select, Input, Box, Stack, Button,
+    Alert, AlertIcon, AlertTitle
+} from '@chakra-ui/react';
 import { useEffect, useState } from "react";
 
 
@@ -12,6 +15,7 @@ function DeleteUser() {
     const users = [];
     const [state, setState] = useState([]);
     const [input, setInput] = useState("");
+    const [alert, setAlert] = useState("");
 
     if (state.length === 0) {
 
@@ -37,10 +41,13 @@ function DeleteUser() {
         setInput(e.target.value);
 
         select.value = "";
+
+        setAlert("");
     };
 
     const handeleSubmit = (e) => {
         setInput("");
+        setAlert("submit");
     };
 
     console.log(users);
@@ -87,6 +94,30 @@ function DeleteUser() {
                             Delete
                         </Button>
                     </Stack>
+
+                    <br></br>
+                    <br></br>
+
+                    {alert ?
+
+                        <Alert
+                            status='success'
+                            variant='subtle'
+                            flexDirection='column'
+                            alignItems='center'
+                            justifyContent='center'
+                            textAlign='center'
+                            height='200px'
+                        >
+                            <AlertIcon boxSize='40px' mr={0} />
+                            <AlertTitle mt={4} mb={1} fontSize='lg'>
+                                Deleted user!
+                            </AlertTitle>
+                        </Alert> :
+
+                        <div></div>
+
+                    }
 
                 </Box>
 

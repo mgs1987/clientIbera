@@ -14,13 +14,14 @@ import allActions from "../../Redux/actions";
 import CardServices from "../CardServices/CardServices";
 import { FaBed } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
+import axios from "axios";
 
 const { getServices } = allActions;
 
 function ShoppingCart() {
   const [local, setLocal] = useState("");
   const [service, setService] = useState({});
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const dispatch = useDispatch();
   const services = useSelector((state) => state.services);
@@ -30,22 +31,47 @@ function ShoppingCart() {
     setLocal(cart ? JSON.parse(cart) : {});
     const serv = window.localStorage.getItem("servicecart");
     setService(serv ? JSON.parse(serv) : {});
-    const amount = window.localStorage.getItem("amount");
-    setTotalAmount(amount ? JSON.parse(amount) : 0);
+    const priceTotal = window.localStorage.getItem("totalprice");
+    setTotalPrice(priceTotal ? parseInt(JSON.parse(priceTotal)) : 0);
+
     dispatch(getServices());
   }, [dispatch]);
 
   function handleResetCart() {
     window.localStorage.setItem("servicecart", JSON.stringify({}));
+    ///VER ACA ==> un localstorage para los precios de services
     setService({});
-  }
-
-  function handleRemoveRoom() {
     window.localStorage.setItem("roomcart", JSON.stringify({}));
     setLocal({});
-    console.log("quitar");
+    window.localStorage.setItem("totalprice", JSON.stringify(0));
+    setTotalPrice(0);
   }
 
+  function handleRemoveItem(id) {
+    if (service[id].quantity > 1) {
+      const filterService = services.filter((e) => e.id === id);
+      let serv = service[`${id}`]?.quantity
+        ? (service[`${id}`].quantity -= 1)
+        : 1;
+      service[id] = {
+        id: filterService[0].id,
+        name: filterService[0].name,
+        price: filterService[0].price,
+        quantity: serv,
+      };
+
+      setService({ ...service });
+      window.localStorage.setItem("servicecart", JSON.stringify(service));
+      setTotalPrice((total) => (total -= parseInt(filterService[0].price)));
+      console.log(serv);
+    } else {
+      const filterService = services.filter((e) => e.id === id);
+      setTotalPrice((total) => (total -= parseInt(filterService[0].price)));
+      delete service[id];
+    }
+
+    //window.localStorage.setItem("totalprice"); //precio room y servicios
+  }
   function handleAddToCart(id) {
     const filterService = services.filter((e) => e.id === id);
 
@@ -60,16 +86,31 @@ function ShoppingCart() {
 
     setService({ ...service });
     window.localStorage.setItem("servicecart", JSON.stringify(service));
-    setTotalAmount({ ...service[id].price });
-    window.localStorage.setItem("amount", JSON.stringify(totalAmount));
+    setTotalPrice((total) => (total += parseInt(filterService[0].price)));
   }
-  const total = Object.values(service).reduce((accumulator, currentValue) => {
-    const price = parseInt(currentValue.price);
-    const quantity = currentValue.quantity;
-    return accumulator + local.price + price * quantity;
-  }, 0);
 
-  function handlePayment() {}
+  async function handlePayment() {
+    //  setToggle(true); //hace aparecer el boton
+    //const paymentBasic = await axios.post("http://localhost:3010/payment", sendPayment)//esta parte seria lo q viene por props);
+    //despues le hace un .then((resp)y lo lleva al init point)
+    // if (paymentBasic.status === 400) {
+    //   window.alert(
+    //     "One of more of the seats you selected are already taken, please select new seats"
+    //   );
+    //   const redirect = `/schedule/${sendPayment.scheduleId.schedule_id}`;
+    //   window.localStorage.removeItem("movieCart");
+    //   return <Navigate to={redirect} />;
+    // }
+    let paymentBasic = {};
+    const script = document.createElement("script"); // crea un nuevo elemento de script <script>
+    const attr_data_preference = document.createAttribute("data-preference-id"); // crea un nuevo atributo y establece su valor en un id de datos almacenados
+    // en una variable  paymentbasicdataid ==> <script data-preference-id="paymentbasic.data.id"></script>
+    attr_data_preference.value = paymentBasic.data.id;
+    script.src =
+      "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"; //establece su fuente en un valor almacenado en REAC APP MERC PAG CHECKOUT
+    script.setAttributeNode(attr_data_preference);
+    document.getElementById("pay").appendChild(script);
+  }
 
   return (
     <Box>
@@ -96,18 +137,19 @@ function ShoppingCart() {
           </Text>
           <Text ml="45%" as="i" fontSize="xl" color="black">
             {" "}
-            Room amount ${local.price}{" "}
+            {local.quantity} days - Room amount per day ${local.price}
+            <Text>
+              Total price for {local.quantity} days - ${" "}
+              {local.price * local.quantity}
+            </Text>
           </Text>
           <Divider color="teal" border="solid" borderWidth="1px" mt="10px" />
-          <Button mt="40px" color="teal" onClick={handleRemoveRoom}>
-            Remove Room
-          </Button>
         </Box>
         <Box>
           <Text> Add Special Services </Text>
 
           <Button color="teal " onClick={handleResetCart}>
-            Remove all services
+            Remove all
           </Button>
           {services &&
             services.map((ser) => (
@@ -117,6 +159,7 @@ function ShoppingCart() {
                 image={ser.image}
                 price={ser.price}
                 handleAddToCart={handleAddToCart}
+                handleRemoveItem={handleRemoveItem}
               />
             ))}
         </Box>
@@ -124,9 +167,9 @@ function ShoppingCart() {
           <Box mr="60px">
             <Heading>Your order details</Heading>
             <Flex display="initial">
-              <Text mt="30px">Room</Text>
+              <Text mt="30px">Room for {local.quantity} days </Text>
 
-              <Text ml="150px">$ {local.price}</Text>
+              <Text ml="150px">$ {local.price * local.quantity}</Text>
 
               <Text mt="20px"></Text>
             </Flex>
@@ -135,13 +178,13 @@ function ShoppingCart() {
                 return (
                   <Box>
                     {" "}
-                    ({service[e].quantity} item) - {service[e].name} $ $
+                    ({service[e].quantity} item) - {service[e].name} $
                     {service[e].quantity * service[e].price}
                   </Box>
                 );
               })}{" "}
             <Divider color="teal" border="solid" borderWidth="1px" mt="20px" />
-            <Text mt="20px">Total amount ${total}</Text>
+            <Text mt="20px">Total amount ${totalPrice}</Text>
             <Button mt="40px" color="teal" onClick={handlePayment}>
               Continue to payment <Icon ml="10px" as={FiArrowRight}></Icon>
             </Button>

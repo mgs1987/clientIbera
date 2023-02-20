@@ -14,7 +14,6 @@ import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 import Login from "./Components/Login/Login";
 import SingUp from "./Components/SingUp/SingUp";
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -24,7 +23,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/createHotel" element={<CreateHotel />} />
           <Route exact path="/destinations" element={<Destinations />} />
-          <Route exact path="/reserve" element={<Reserve />} />
+
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/sing-up" element={<SingUp />} />
           <Route exact path="/hotels/:id" element={<HotelDetails />} />

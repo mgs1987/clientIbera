@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Card,
-  Text,
-  Image,
-  ButtonGroup,
-  Button,
-  Flex,
-  Grid,
-} from "@chakra-ui/react";
+import { Box, Text, Image, ButtonGroup, Button, Grid } from "@chakra-ui/react";
 
 function CardServices({
   id,

@@ -8,3 +8,4 @@ export const CREATE_HOTEL = "CREATE_HOTEL";
 export const CREATE_ROOM = "CREATE_ROOM";
 export const GET_ALL_SERVICES = "GET_ALL_SERVICES";
 export const GET_ALL_AMENITIES = "GET_ALL_AMENITIES";
+export const CLEAN_FILTER = "CLEAN_FILTER";

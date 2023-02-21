@@ -77,6 +77,19 @@ function DeleteUser() {
 
     };
 
+    state.sort((a, b) => {
+
+        if (a.email > b.email) {
+            return 1;
+        }
+        if (b.email > a.email) {
+            return -1;
+        }
+        return 0;
+    });
+
+    console.log("state", state);
+
 
     if (state.length !== 0) {
 

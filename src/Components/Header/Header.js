@@ -26,11 +26,11 @@ import axios from "axios";
 function Header() {
 
   useEffect(() => {
-    /* if (isAuthenticated) {
-       axios.post("http://localhost:3010/users/create", { email: email })
-         .then((res) => console.log("post axios", res))
-         .catch((err) => console.log(err));
-     }*/
+    if (isAuthenticated) {
+      axios.post("http://localhost:3010/users/create", { email: email })
+        .then((res) => console.log("post axios", res))
+        .catch((err) => console.log(err));
+    }
   });
 
   const { loginWithRedirect } = useAuth0();

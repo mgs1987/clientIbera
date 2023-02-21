@@ -6,7 +6,7 @@ import CreateHotel from "./Components/Create/CreateHotel";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import Destinations from "./Components/Destinations/Destinations";
-import Reserve from "./Components/Reserve/Reserve";
+
 import HotelDetails from "../src/Components/HotelDetails/HotelDetails.js";
 
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";

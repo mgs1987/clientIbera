@@ -15,7 +15,8 @@ import CardServices from "../CardServices/CardServices";
 import { FaBed } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
 import axios from "axios";
-
+const { REACT_APP_PAYMENT_CREATE, REACT_APP_MERCADOPAGO_CHECKOUT } =
+  process.env;
 const { getServices } = allActions;
 
 function ShoppingCart() {
@@ -37,6 +38,7 @@ function ShoppingCart() {
     dispatch(getServices());
   }, [dispatch]);
 
+  console.log("aca esta el estado price", totalPrice);
   function handleResetCart() {
     window.localStorage.setItem("servicecart", JSON.stringify({}));
     ///VER ACA ==> un localstorage para los precios de services
@@ -74,43 +76,78 @@ function ShoppingCart() {
   }
   function handleAddToCart(id) {
     const filterService = services.filter((e) => e.id === id);
+    setTotalPrice((total) => (total += parseInt(filterService[0].price)));
 
     let qty = service[`${id}`]?.quantity ? (service[`${id}`].quantity += 1) : 1;
 
     service[id] = {
       id: filterService[0].id,
-      name: filterService[0].name,
+      item: filterService[0].name,
       price: filterService[0].price,
       quantity: qty,
     };
+    window.localStorage.setItem("totalprice", JSON.stringify(totalPrice));
+    window.localStorage.setItem("servicecart", JSON.stringify(service));
 
     setService({ ...service });
-    window.localStorage.setItem("servicecart", JSON.stringify(service));
-    setTotalPrice((total) => (total += parseInt(filterService[0].price)));
   }
+  console.log("aca esta service", service);
+
+  // function adapt() {
+  //   var storeLocal = [];
+  //   Object.keys(
+  //     service.forEach((key) => {
+  //       let id = service[key].id;
+  //       let item = service[key].name;
+  //       let quantity = service[id].quantity;
+  //       let unit_price = service[id].price;
+  //       storeLocal.push({
+  //         id: id,
+  //         item: item,
+  //         quantity: quantity,
+  //         price: unit_price,
+  //       });
+  //     })
+  //   );
+  //   return storeLocal;
+  // }
+
+  const sendPayment = {
+    //token: authUser?.accessToken, ACA VA LO DE LOG IN
+    id: 1,
+    item: "monto total",
+    quantity: 1,
+    price: 500,
+  };
+
+  console.log("payment aqui", sendPayment);
 
   async function handlePayment() {
-    //  setToggle(true); //hace aparecer el boton
-    //const paymentBasic = await axios.post("http://localhost:3010/payment", sendPayment)//esta parte seria lo q viene por props);
-    //despues le hace un .then((resp)y lo lleva al init point)
-    // if (paymentBasic.status === 400) {
-    //   window.alert(
-    //     "One of more of the seats you selected are already taken, please select new seats"
-    //   );
-    //   const redirect = `/schedule/${sendPayment.scheduleId.schedule_id}`;
-    //   window.localStorage.removeItem("movieCart");
-    //   return <Navigate to={redirect} />;
-    // }
-    let paymentBasic = {};
-    const script = document.createElement("script"); // crea un nuevo elemento de script <script>
-    const attr_data_preference = document.createAttribute("data-preference-id"); // crea un nuevo atributo y establece su valor en un id de datos almacenados
-    // en una variable  paymentbasicdataid ==> <script data-preference-id="paymentbasic.data.id"></script>
+    //   //  setToggle(true); //hace aparecer el boton
+
+    const paymentBasic = await axios.post(
+      REACT_APP_PAYMENT_CREATE,
+      sendPayment
+    );
+    console.log(paymentBasic);
+    const script = document.createElement("script");
+    const attr_data_preference = document.createAttribute("data-preference-id");
     attr_data_preference.value = paymentBasic.data.id;
-    script.src =
-      "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"; //establece su fuente en un valor almacenado en REAC APP MERC PAG CHECKOUT
+    script.src = REACT_APP_MERCADOPAGO_CHECKOUT;
     script.setAttributeNode(attr_data_preference);
     document.getElementById("pay").appendChild(script);
   }
+  //   //window.localStorage.removeItem("roomcart");
+  // }
+  //esta parte seria lo q viene por props);
+  //despues le hace un .then((resp)y lo lleva al init point)
+  // if (paymentBasic.status === 400) {
+  //   window.alert(
+  //     "One of more of the seats you selected are already taken, please select new seats"
+  //   );
+  //   const redirect = `/schedule/${sendPayment.scheduleId.schedule_id}`;
+  //   return <Navigate to={redirect} />;
+  // }
 
   return (
     <Box>

@@ -24,6 +24,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 const avatars = [
   {
@@ -156,13 +157,21 @@ export default function CreateHotelIbera() {
     }
   }
 
-  if (user) {
+  axios.get("http://localhost:3010/users")
+    .then((res) => {
+      console.log("get axios", res.data)
 
-    if (user.email !== "pipe.blaksley@gmail.com") {
-      window.location.href = "http://localhost:3000"
-    };
+      const logUser = res.data.find((u) => {
+        return u.email === user.email
+      })
 
-  };
+      if (res.data) {
+        if (logUser.privilige !== true) {
+          window.location.href = "http://localhost:3000"
+        };
+      };
+    })
+    .catch((err) => console.log(err));
 
   return (
     <Box position={'relative'}>

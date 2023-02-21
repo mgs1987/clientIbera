@@ -36,6 +36,7 @@ function Header() {
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [admin, setAdmin] = useState("");
 
   if (isAuthenticated) {
 
@@ -55,6 +56,10 @@ function Header() {
           return u.email === user.email
         })
         console.log("status", status);
+
+        if (status.privilige === true) {
+          setAdmin("admin");
+        };
 
         if (status.status === "disabled") {
           logout();
@@ -123,7 +128,7 @@ function Header() {
               <div></div>
             }
 
-            {isAuthenticated && user.email === "pipe.blaksley@gmail.com" ?
+            {isAuthenticated && admin ?
               <Link color="red" fontSize={18} href="/createHotel">
                 Create Hotel{" "}
               </Link>
@@ -131,7 +136,7 @@ function Header() {
               <div></div>
             }
 
-            {isAuthenticated && user.email === "pipe.blaksley@gmail.com" ?
+            {isAuthenticated && admin ?
               <Link color="red" fontSize={18} href="/delete">
                 Delete User{" "}
               </Link>

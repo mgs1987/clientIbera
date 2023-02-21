@@ -14,6 +14,8 @@ import {
   PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
+  Alert, AlertIcon, AlertTitle, AlertDescription,
+  Stack
 } from "@chakra-ui/react";
 import logo from "../../images/ibera.jpeg";
 import Icon from "@chakra-ui/icon";
@@ -26,7 +28,7 @@ function Header() {
   useEffect(() => {
     if (isAuthenticated) {
       axios.post("http://localhost:3010/users/create", { email: email })
-        .then((res) => console.log(res))
+        .then((res) => console.log("post axios", res))
         .catch((err) => console.log(err));
     }
   });
@@ -34,14 +36,22 @@ function Header() {
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [alert, setAlert] = useState("");
 
   if (isAuthenticated) {
+
+    var status;
     var name = user.name;
     var email = user.email;
 
     console.log("user", user);
     console.log("name", name);
     console.log("email", email);
+
+    if (status === "disabled") {
+      logout();
+      setAlert("alert");
+    }
 
   };
 
@@ -58,6 +68,39 @@ function Header() {
         bg="white"
         color="white"
       >
+
+        {alert ?
+
+          <Stack direction='row' spacing={4} align='center'>
+
+            <Alert
+              status='success'
+              variant='subtle'
+              flexDirection='column'
+              alignItems='center'
+              justifyContent='center'
+              textAlign='center'
+              height='200px'
+            >
+              <AlertIcon boxSize='40px' mr={0} />
+              <AlertTitle mt={4} mb={1} fontSize='lg'>
+                User Disable
+              </AlertTitle>
+            </Alert>
+
+            <Button colorScheme='teal' variant='solid'>
+              X
+            </Button>
+
+          </Stack>
+
+          :
+
+          <div></div>
+
+        }
+
+
 
         <Flex align="center" mr={5}>
 

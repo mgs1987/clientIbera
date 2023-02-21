@@ -22,9 +22,7 @@ function DeleteUser() {
     const [input, setInput] = useState("");
     const [alert, setAlert] = useState("");
     const { user, isAuthenticated, isLoading } = useAuth0();
-    const [newUser, setNewUser] = useState({ status: "disabled" });
-
-    console.log(user);
+    const [newUser, setNewUser] = useState({});
 
     if (state.length === 0) {
 
@@ -35,7 +33,6 @@ function DeleteUser() {
 
                 }
                 if (users.length) {
-                    console.log(users)
                     setState(users);
                 };
             })
@@ -47,30 +44,30 @@ function DeleteUser() {
 
         const select = document.getElementById('select');
 
-        setInput(e.target.value);
-
-        select.value = "";
-
-        const StateUser = state.find((u) => state.email === e.target.value);
+        const StateUser = state.find((u) => {
+            return (u.email === e.target.value)
+        });
 
         setNewUser(StateUser);
         setAlert("");
+        setInput(e.target.value);
+
+        select.value = "";
     };
 
-    const handeleSubmit = (e) => {
-        setInput("");
-        setAlert("submit");
-    };
 
     const handeleEnableDisable = (e) => {
         axios.put("http://localhost:3010/users/disable", { email: input })
             .then((res) => console.log(res))
             .catch((err) => console.log(err))
+
+        setInput("");
+        setAlert("submit");
     };
 
-    console.log(users);
-    console.log(state);
-
+    const handleRefresh = (e) => {
+        window.location.reload();
+    };
 
     if (user) {
 
@@ -97,6 +94,33 @@ function DeleteUser() {
                     as="form"
                 >
 
+                    {alert ?
+
+                        <Alert
+                            status='success'
+                            variant='subtle'
+                            flexDirection='column'
+                            alignItems='center'
+                            justifyContent='center'
+                            textAlign='center'
+                            height='200px'
+                        >
+                            <AlertIcon boxSize='40px' mr={0} />
+                            <AlertTitle mt={4} mb={1} fontSize='lg'>
+                                User modified!
+                            </AlertTitle>
+                            <AlertDescription maxWidth='sm'>
+                                Refresh to enable or disable again.
+                            </AlertDescription>
+                        </Alert> :
+
+                        <div></div>
+
+                    }
+
+                    <br></br>
+                    <br></br>
+
                     <FormLabel>Select User:</FormLabel>
 
                     <Select id="select" placeholder='Select-User' borderWidth='3px' maxW='sm' onChange={handleInputChange}>
@@ -118,8 +142,8 @@ function DeleteUser() {
                     <br></br>
 
                     <Stack>
-                        <Button colorScheme='teal' variant='solid' onClick={handeleSubmit}>
-                            Show user details
+                        <Button colorScheme='teal' variant='solid' onClick={handleRefresh}>
+                            Refresh
                         </Button>
                     </Stack>
 
@@ -127,41 +151,28 @@ function DeleteUser() {
                     <br></br>
 
                     <Stack direction='row' spacing={4} align='center'>
-                        <Button colorScheme='teal' variant='solid' onClick={handeleEnableDisable}>
-                            Disable
-                        </Button>
 
-                        <Button colorScheme='teal' variant='solid' onClick={handeleEnableDisable}>
-                            Enable
-                        </Button>
+                        {newUser.status === "active" ?
+
+                            <Button colorScheme='teal' variant='solid' onClick={handeleEnableDisable}>
+                                Disable
+                            </Button> :
+
+                            <div></div>
+
+                        }
+
+                        {newUser.status === "disabled" ?
+
+                            <Button colorScheme='teal' variant='solid' onClick={handeleEnableDisable}>
+                                Enable
+                            </Button> :
+
+                            <div></div>
+
+                        }
+
                     </Stack>
-
-                    <br></br>
-                    <br></br>
-
-                    {alert ?
-
-                        <Alert
-                            status='success'
-                            variant='subtle'
-                            flexDirection='column'
-                            alignItems='center'
-                            justifyContent='center'
-                            textAlign='center'
-                            height='200px'
-                        >
-                            <AlertIcon boxSize='40px' mr={0} />
-                            <AlertTitle mt={4} mb={1} fontSize='lg'>
-                                Deleted user!
-                            </AlertTitle>
-                            <AlertDescription maxWidth='sm'>
-                                You can select another user to delete.
-                            </AlertDescription>
-                        </Alert> :
-
-                        <div></div>
-
-                    }
 
                 </Box>
 
@@ -187,3 +198,6 @@ function DeleteUser() {
 };
 
 export default DeleteUser;
+
+
+

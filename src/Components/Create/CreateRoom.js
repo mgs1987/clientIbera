@@ -53,21 +53,28 @@ const avatars = [
 
 
 export default function CreateHotelIbera() {
-  const  breakpoint1 = useBreakpointValue({ base: 'md', md: 'lg' });
-  const  breakpoint2 = useBreakpointValue({ base: '44px', md: '60px' });
+
+  if (!document.cookie) {
+    window.location.href = "http://localhost:3000"
+  };
+
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const breakpoint1 = useBreakpointValue({ base: 'md', md: 'lg' });
+  const breakpoint2 = useBreakpointValue({ base: '44px', md: '60px' });
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [input, setInput] = useState({
-    idHotels:"",
+    idHotels: "",
     name: "",
     city: "",
     description: "",
     address: "",
     stars: "",
     image: [],
-    
+
   })
   const [errors, setErrors] = useState({})
   const validateName = /^[a-zA-Z\s]+$/
@@ -91,7 +98,7 @@ export default function CreateHotelIbera() {
       errors.city = 'Debes indicar la ciudad'
     } else if (input.city.length > 20) {
       errors.city = 'Debe tener menos de 20 caracteres'
-    } 
+    }
     if (!input.stars) {
       errors.stars = 'Debe ingresar la cantidad de estrellas de su hotel'
     } else if (input.stars > 5) {
@@ -101,9 +108,9 @@ export default function CreateHotelIbera() {
     }
     return errors
   }
-  
+
   function handleChange(e) {
-    
+
     setInput({
       ...input,
       [e.target.name]: e.target.value
@@ -118,7 +125,7 @@ export default function CreateHotelIbera() {
   function handleSubmit(e) {
     e.preventDefault()
     if (!input.name || !input.city || !input.stars) {
-      
+
       return Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -137,20 +144,29 @@ export default function CreateHotelIbera() {
         title: 'Operación exitosa!',
         text: 'Creaste el Hotel',
         confirmButtonColor: '#98D035'
-     })
+      })
       setInput({
-        idHotels:"",
+        idHotels: "",
         name: "",
         city: "",
         description: "",
         address: "",
         stars: "",
         image: [],
-        
+
       })
-      console.log("SALCHICHA" , input)
+      console.log("SALCHICHA", input)
     }
   }
+
+  if (user) {
+
+    if (user.email !== "pipe.blaksley@gmail.com") {
+      window.location.href = "http://localhost:3000"
+    };
+
+  };
+
   return (
     <Box position={'relative'}>
       <Container
@@ -247,147 +263,147 @@ export default function CreateHotelIbera() {
               </Text>
             </Heading>
             <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-            We're looking for amazing hotels with fabulous destinations!
-            Add a new hotel and increase the Ibera experience!
+              We're looking for amazing hotels with fabulous destinations!
+              Add a new hotel and increase the Ibera experience!
             </Text>
           </Stack>
           <FormControl>
-          <Box as={'form'} mt={10}>
-            <Stack spacing={4}>
-            <Input
-                name= "idHotels"
-                placeholder="idHotels"
-                onChange={(e) => handleChange(e)}
-                value={input.idHotels}
-                bg={'gray.100'}
-                border={0}
-                color={'gray.500'}
-                _placeholder={{
-                  color: 'gray.500',
-                }}
-              />
-              <Input
-                name= "name"
-                placeholder="Hotel name"
-                onChange={(e) => handleChange(e)}
-                value={input.name}
-                bg={'gray.100'}
-                border={0}
-                color={'gray.500'}
-                _placeholder={{
-                  color: 'gray.500',
-                }}
-              />
-              {errors.name && (
-                    <FormHelperText color='red.400'>{errors.name}</FormHelperText>
-              )}
-              <Input
-                name= "city"
-                placeholder="City"
-                onChange={(e) => handleChange(e)}
-                value={input.city}
-                bg={'gray.100'}
-                border={0}
-                color={'gray.500'}
-                _placeholder={{
-                  color: 'gray.500',
-                }}
-              />
-              {errors.city && (
+            <Box as={'form'} mt={10}>
+              <Stack spacing={4}>
+                <Input
+                  name="idHotels"
+                  placeholder="idHotels"
+                  onChange={(e) => handleChange(e)}
+                  value={input.idHotels}
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                />
+                <Input
+                  name="name"
+                  placeholder="Hotel name"
+                  onChange={(e) => handleChange(e)}
+                  value={input.name}
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                />
+                {errors.name && (
+                  <FormHelperText color='red.400'>{errors.name}</FormHelperText>
+                )}
+                <Input
+                  name="city"
+                  placeholder="City"
+                  onChange={(e) => handleChange(e)}
+                  value={input.city}
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                />
+                {errors.city && (
                   <FormHelperText color='red.400'>{errors.city}</FormHelperText>
-              )}
-              <Input
-                name= "address"
-                placeholder="Hotel Address"
-                onChange={(e) => handleChange(e)}
-                value={input.address}
-                bg={'gray.100'}
-                border={0}
-                color={'gray.500'}
-                _placeholder={{
-                  color: 'gray.500',
-                }}
-              />
-               <Input
-                name= "description"
-                placeholder="Hotel Description"
-                onChange={(e) => handleChange(e)}
-                value={input.description}
-                bg={'gray.100'}
-                border={0}
-                color={'gray.500'}
-                _placeholder={{
-                  color: 'gray.500',
-                }}
-              />
+                )}
                 <Input
-                name= "stars"
-                placeholder="Stars"
-                onChange={(e) => handleChange(e)}
-                value={input.stars}
-                bg={'gray.100'}
-                border={0}
-                color={'gray.500'}
-                _placeholder={{
-                  color: 'gray.500',
-                }}
-              />
-              {errors.stars && (
-                    <FormHelperText color='red.400'>{errors.stars}</FormHelperText>
-              )}
-               <Input
-                name= "status"
-                onChange={(e) => handleChange(e)}
-                value={input.status}
-                placeholder="Status"
-                bg={'gray.100'}
-                border={0}
-                color={'gray.500'}
-                _placeholder={{
-                  color: 'gray.500',
-                }}
-              />
+                  name="address"
+                  placeholder="Hotel Address"
+                  onChange={(e) => handleChange(e)}
+                  value={input.address}
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                />
                 <Input
-                name= "image"
-                onChange={(e) => handleChange(e)}
-                value={input.image}
-                placeholder="Upload Image"
-                bg={'gray.100'}
-                border={0}
-                color={'gray.500'}
-                _placeholder={{
-                  color: 'gray.500',
-                }}
-              />
-             
-            </Stack>
-            <HStack>
-            <Button
-              fontFamily={'heading'}
-              mt={8}
-              w={'full'}
-              bgGradient="linear(to-r, red.400,pink.400)"
-              color={'white'}
-              _hover={{
-                bgGradient: 'linear(to-r, red.400,pink.400)',
-                boxShadow: 'xl',
-              }}
-              _active={{
-                color: '#98D035',
-                transition: 'all .5s ease',
-                backgroundColor: '#E3FFB2'
-              }}
-              onClick={(e) => handleSubmit(e)}>
-              Submit
-            </Button>
-            <Link to='/home'>
+                  name="description"
+                  placeholder="Hotel Description"
+                  onChange={(e) => handleChange(e)}
+                  value={input.description}
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                />
+                <Input
+                  name="stars"
+                  placeholder="Stars"
+                  onChange={(e) => handleChange(e)}
+                  value={input.stars}
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                />
+                {errors.stars && (
+                  <FormHelperText color='red.400'>{errors.stars}</FormHelperText>
+                )}
+                <Input
+                  name="status"
+                  onChange={(e) => handleChange(e)}
+                  value={input.status}
+                  placeholder="Status"
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                />
+                <Input
+                  name="image"
+                  onChange={(e) => handleChange(e)}
+                  value={input.image}
+                  placeholder="Upload Image"
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                />
+
+              </Stack>
+              <HStack>
                 <Button
-                  marginLeft='1rem'>                  
-                    Return
+                  fontFamily={'heading'}
+                  mt={8}
+                  w={'full'}
+                  bgGradient="linear(to-r, red.400,pink.400)"
+                  color={'white'}
+                  _hover={{
+                    bgGradient: 'linear(to-r, red.400,pink.400)',
+                    boxShadow: 'xl',
+                  }}
+                  _active={{
+                    color: '#98D035',
+                    transition: 'all .5s ease',
+                    backgroundColor: '#E3FFB2'
+                  }}
+                  onClick={(e) => handleSubmit(e)}>
+                  Submit
                 </Button>
-            </Link>
-            </HStack>
-          </Box>
+                <Link to='/home'>
+                  <Button
+                    marginLeft='1rem'>
+                    Return
+                  </Button>
+                </Link>
+              </HStack>
+            </Box>
           </FormControl>
         </Stack>
       </Container>
@@ -402,8 +418,8 @@ export default function CreateHotelIbera() {
 }
 
 export const Blur = (IconProps) => {
-  const  breakpoint3 = useBreakpointValue({ base: '100%', md: '40vw', lg: '30vw' });
-  const  breakpoint4 = useBreakpointValue({ base: -1, md: -1, lg: 0 });
+  const breakpoint3 = useBreakpointValue({ base: '100%', md: '40vw', lg: '30vw' });
+  const breakpoint4 = useBreakpointValue({ base: -1, md: -1, lg: 0 });
 
   return (
     <Icon

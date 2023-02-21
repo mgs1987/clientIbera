@@ -64,12 +64,12 @@ export default function rootReducer(state = initialState, action) {
       //   });
       // }
       let filterByStar = state.allHotels;
-      let filterStar = 
-      action.payload === ""
-      ?state.hotels
-      :state.hotels.filter((e)=>{
-        return e.stars === parseInt(action.payload)
-      })
+      let filterStar =
+        action.payload === ""
+          ? state.hotels
+          : state.hotels.filter((e) => {
+            return e.stars === parseInt(action.payload)
+          })
       return {
         ...state,
         hotels: filterStar,
@@ -91,16 +91,16 @@ export default function rootReducer(state = initialState, action) {
       };
     case CLEAN_FILTER:
       let clean = state.allHotels;
-      return{
+      return {
         ...state,
         hotels: clean
       }
-      case CREATE_HOTEL:
-        return {
-          ...state,
-          hotels: [...state.hotels, action.payload],
-          allHotels: [...state.allHotels, action.payload]
-        };
+    case CREATE_HOTEL:
+      return {
+        ...state,
+        hotels: [...state.hotels, action.payload],
+        allHotels: [...state.allHotels, action.payload]
+      };
 
     default:
       return state;

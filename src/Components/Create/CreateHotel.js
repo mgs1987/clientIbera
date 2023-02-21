@@ -50,6 +50,11 @@ const avatars = [
 
 
 export default function CreateHotelIbera() {
+
+  if (!document.cookie) {
+    window.location.href = "http://localhost:3000"
+  };
+
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const breakpoint1 = useBreakpointValue({ base: 'md', md: 'lg' });

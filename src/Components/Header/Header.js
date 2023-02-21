@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -23,6 +23,14 @@ import axios from "axios";
 
 function Header() {
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      axios.post("http://localhost:3010/users/create", { email: email })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+  });
+
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -31,13 +39,10 @@ function Header() {
     var name = user.name;
     var email = user.email;
 
-    console.log(user);
-    console.log(name);
-    console.log(email);
+    console.log("user", user);
+    console.log("name", name);
+    console.log("email", email);
 
-    /*axios.post("http://localhost:3010/users/create", { email: email })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));*/
   };
 
   return (

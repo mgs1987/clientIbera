@@ -9,19 +9,20 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function DeleteUser() {
 
-    /*if (User.email !== "pipe.blaksley@gmail.com") {
-        window.location.href = "http://localhost:3000";
-    };*/
-
     useEffect(() => {
         console.log(users);
     }, []);
+
+    if (!document.cookie) {
+        window.location.href = "http://localhost:3000"
+    };
 
     const users = [];
     const [state, setState] = useState([]);
     const [input, setInput] = useState("");
     const [alert, setAlert] = useState("");
     const { user, isAuthenticated, isLoading } = useAuth0();
+    const [newUser, setNewUser] = useState({ status: "disabled" });
 
     console.log(user);
 
@@ -30,7 +31,7 @@ function DeleteUser() {
         axios.get("http://localhost:3010/users")
             .then((res) => {
                 for (let i = 0; i < res.data.length; i++) {
-                    users.push(res.data[i].email)
+                    users.push(res.data[i])
 
                 }
                 if (users.length) {
@@ -50,6 +51,9 @@ function DeleteUser() {
 
         select.value = "";
 
+        const StateUser = state.find((u) => state.email === e.target.value);
+
+        setNewUser(StateUser);
         setAlert("");
     };
 
@@ -58,8 +62,15 @@ function DeleteUser() {
         setAlert("submit");
     };
 
+    const handeleEnableDisable = (e) => {
+        axios.put("http://localhost:3010/users/disable", { email: input })
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err))
+    };
+
     console.log(users);
     console.log(state);
+
 
     if (user) {
 
@@ -68,6 +79,7 @@ function DeleteUser() {
         };
 
     };
+
 
     if (state.length !== 0) {
 
@@ -90,7 +102,7 @@ function DeleteUser() {
                     <Select id="select" placeholder='Select-User' borderWidth='3px' maxW='sm' onChange={handleInputChange}>
                         {state && state.map((u) => {
                             return (
-                                <option>{u}</option>
+                                <option>{u.email}</option>
                             )
                         })}
                     </Select>
@@ -105,9 +117,22 @@ function DeleteUser() {
                     <br></br>
                     <br></br>
 
-                    <Stack direction='row' spacing={4} align='center'>
+                    <Stack>
                         <Button colorScheme='teal' variant='solid' onClick={handeleSubmit}>
-                            Delete
+                            Show user details
+                        </Button>
+                    </Stack>
+
+                    <br></br>
+                    <br></br>
+
+                    <Stack direction='row' spacing={4} align='center'>
+                        <Button colorScheme='teal' variant='solid' onClick={handeleEnableDisable}>
+                            Disable
+                        </Button>
+
+                        <Button colorScheme='teal' variant='solid' onClick={handeleEnableDisable}>
+                            Enable
                         </Button>
                     </Stack>
 

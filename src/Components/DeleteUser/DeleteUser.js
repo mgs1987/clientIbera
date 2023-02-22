@@ -87,17 +87,29 @@ function DeleteUser() {
 
     const handleFilter = (e) => {
 
-        setState2([...state].filter((u) => {
-            return u.email.toLowerCase().includes(e.target.value.toLowerCase())
-        }))
+        e.preventDefault();
+
+        const inputFilter = document.getElementById("input-filter");
 
         const StateFilter = state.filter((u) => {
-            return u.email.toLowerCase().includes(e.target.value.toLowerCase())
+            return u.email.toLowerCase().includes(inputFilter.value.toLowerCase())
         });
 
         if (StateFilter.length) {
             setNewUser(StateFilter);
         };
+
+        setAlert("");
+
+    };
+
+    const handleFilter2 = (e) => {
+
+        const inputFilter = document.getElementById("input-filter");
+
+        setState2([...state].filter((u) => {
+            return u.email.toLowerCase().includes(inputFilter.value.toLowerCase())
+        }))
 
         setAlert("");
 
@@ -162,7 +174,7 @@ function DeleteUser() {
 
                     <FormLabel>Find User:</FormLabel>
 
-                    <Input onChange={handleFilter} />
+                    <Input id="input-filter" onChange={handleFilter2} />
 
                     <br></br>
                     <br></br>
@@ -171,7 +183,9 @@ function DeleteUser() {
 
                         {state2 && state2.map((u) => {
                             return (
-                                <FormLabel>{u.email}</FormLabel>
+                                <button id="button-filter" onClick={handleFilter}>
+                                    {u.email}
+                                </button>
                             )
                         })}
 
@@ -293,6 +307,21 @@ function DeleteUser() {
 };
 
 export default DeleteUser;
+
+/*                    <br></br>
+                    <br></br>
+
+                    <Stack>
+
+                        {state2 && state2.map((u) => {
+                            return (
+                                <button id="button-filter" onClick={handleFilter}>
+                                    {u.email}
+                                </button>
+                            )
+                        })}
+
+                    </Stack>*/
 
 
 

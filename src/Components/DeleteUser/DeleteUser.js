@@ -21,12 +21,14 @@ function DeleteUser() {
 
     const users = [];
     const [state, setState] = useState([]);
+    const [stateValue, setStateValue] = useState("");
     const [input, setInput] = useState("");
     const [alert, setAlert] = useState("");
+    const [alert2, setAlert2] = useState("");
     const { user, isAuthenticated, isLoading } = useAuth0();
     const [newUser, setNewUser] = useState("");
 
-    if (state.length === 0) {
+    if (state.length === 0 || alert === "submit") {
 
         axios.get("http://localhost:3010/users")
             .then((res) => {
@@ -47,6 +49,8 @@ function DeleteUser() {
                 if (users.length) {
                     setState(users);
                 };
+
+                setAlert2("");
             })
             .catch((err) => console.log(err));
 
@@ -67,28 +71,21 @@ function DeleteUser() {
         select.value = "";
     };
 
-    const handleInputChange2 = (e) => {
-        const value = document.getElementById('input-search');
-
-        const StateUser2 = state.filter((u) => {
-            return (u.email === value.value)
-        });
-
-        setNewUser(StateUser2);
-        setAlert("");
-        setInput(value.value);
-
-        value.value = "";
-    };
-
-
     const handeleEnableDisable = (e) => {
+
         axios.put("http://localhost:3010/users/disable", { email: input })
             .then((res) => console.log(res))
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err));
 
+        let putUser = "putUser";
+        console.log(putUser);
+
+        setState(users);
         setInput("");
+        setNewUser("");
         setAlert("submit");
+        setAlert2("submit");
+
     };
 
     const handleRefresh = (e) => {
@@ -126,16 +123,26 @@ function DeleteUser() {
                     as="form"
                 >
 
-                    <FormLabel>Find User:</FormLabel>
+                    {alert ?
 
-                    <Input id="input-search" type='text' borderWidth='3px' />
+                        <Alert
+                            status='success'
+                            variant='subtle'
+                            flexDirection='column'
+                            alignItems='center'
+                            justifyContent='center'
+                            textAlign='center'
+                            height='200px'
+                        >
+                            <AlertIcon boxSize='40px' mr={0} />
+                            <AlertTitle mt={4} mb={1} fontSize='lg'>
+                                User modified!
+                            </AlertTitle>
+                        </Alert> :
 
-                    <br></br>
-                    <br></br>
+                        <div></div>
 
-                    <Button colorScheme='teal' variant='solid' onClick={handleInputChange2}>
-                        Submit
-                    </Button>
+                    }
 
                     <br></br>
                     <br></br>
@@ -205,15 +212,6 @@ function DeleteUser() {
                     <br></br>
                     <br></br>
 
-                    <Stack>
-                        <Button colorScheme='teal' variant='solid' onClick={handleRefresh}>
-                            Refresh
-                        </Button>
-                    </Stack>
-
-                    <br></br>
-                    <br></br>
-
                     <Stack direction='row' spacing={4} align='center'>
 
                         {newUser.length > 0 && newUser[0].status === "active" ?
@@ -237,33 +235,6 @@ function DeleteUser() {
                         }
 
                     </Stack>
-
-                    <br></br>
-                    <br></br>
-
-                    {alert ?
-
-                        <Alert
-                            status='success'
-                            variant='subtle'
-                            flexDirection='column'
-                            alignItems='center'
-                            justifyContent='center'
-                            textAlign='center'
-                            height='200px'
-                        >
-                            <AlertIcon boxSize='40px' mr={0} />
-                            <AlertTitle mt={4} mb={1} fontSize='lg'>
-                                User modified!
-                            </AlertTitle>
-                            <AlertDescription maxWidth='sm'>
-                                Refresh to enable or disable again.
-                            </AlertDescription>
-                        </Alert> :
-
-                        <div></div>
-
-                    }
 
                 </Box>
 

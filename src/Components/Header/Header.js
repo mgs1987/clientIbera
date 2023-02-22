@@ -22,13 +22,12 @@ import Icon from "@chakra-ui/icon";
 import { RiLuggageCartLine } from "react-icons/ri";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-const { REACT_APP_BACK} = process.env;
 
 function Header() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      axios.post(`${REACT_APP_BACK}/users/create`, { email: email })
+      axios.post("http://localhost:3010/users/create", { email: email })
         .then((res) => console.log("post axios", res))
         .catch((err) => console.log(err));
     }
@@ -50,7 +49,7 @@ function Header() {
     console.log("name", name);
     console.log("email", email);
 
-    axios.get(`${REACT_APP_BACK}/users`)
+    axios.get("http://localhost:3010/users")
       .then((res) => {
         console.log("get axios", res.data)
         status = res.data.find((u) => {
@@ -177,4 +176,3 @@ function Header() {
 }
 
 export default Header;
-

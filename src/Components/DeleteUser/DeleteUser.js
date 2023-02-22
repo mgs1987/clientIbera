@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import {
     FormLabel, Select, Input, Box, Stack, Button,
@@ -8,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
+const { REACT_APP_FRONT, REACT_APP_BACK} = process.env;
 
 function DeleteUser() {
 
@@ -16,7 +18,7 @@ function DeleteUser() {
     }, []);
 
     if (!document.cookie) {
-        window.location.href = "http://localhost:3000"
+        window.location.href = REACT_APP_FRONT
     };
 
     const users = [];
@@ -30,7 +32,7 @@ function DeleteUser() {
 
     if (state.length === 0 || alert === "submit") {
 
-        axios.get("http://localhost:3010/users")
+        axios.get(`${REACT_APP_BACK}/users`)
             .then((res) => {
                 const logUser = res.data.find((u) => {
                     return u.email === user.email
@@ -38,7 +40,7 @@ function DeleteUser() {
 
                 if (res.data) {
                     if (logUser.privilige !== true) {
-                        window.location.href = "http://localhost:3000"
+                        window.location.href = REACT_APP_FRONT
                     };
                 };
 
@@ -73,7 +75,7 @@ function DeleteUser() {
 
     const handeleEnableDisable = (e) => {
 
-        axios.put("http://localhost:3010/users/disable", { email: input })
+        axios.put(`${REACT_APP_BACK}/users/disable`, { email: input })
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
 

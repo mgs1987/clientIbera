@@ -21,7 +21,7 @@ function DeleteUser() {
 
     const users = [];
     const [state, setState] = useState([]);
-    const [stateValue, setStateValue] = useState("");
+    const [state2, setState2] = useState([]);
     const [input, setInput] = useState("");
     const [alert, setAlert] = useState("");
     const [alert2, setAlert2] = useState("");
@@ -77,9 +77,6 @@ function DeleteUser() {
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
 
-        let putUser = "putUser";
-        console.log(putUser);
-
         setState(users);
         setInput("");
         setNewUser("");
@@ -88,8 +85,22 @@ function DeleteUser() {
 
     };
 
-    const handleRefresh = (e) => {
-        window.location.reload();
+    const handleFilter = (e) => {
+
+        setState2([...state].filter((u) => {
+            return u.email.toLowerCase().includes(e.target.value.toLowerCase())
+        }))
+
+        const StateFilter = state.filter((u) => {
+            return u.email.toLowerCase().includes(e.target.value.toLowerCase())
+        });
+
+        if (StateFilter.length) {
+            setNewUser(StateFilter);
+        };
+
+        setAlert("");
+
     };
 
     state.sort((a, b) => {
@@ -105,6 +116,7 @@ function DeleteUser() {
 
     console.log("state", state);
     console.log("newUser", newUser);
+    console.log("input", input);
 
 
     if (state.length !== 0) {
@@ -143,6 +155,27 @@ function DeleteUser() {
                         <div></div>
 
                     }
+
+
+                    <br></br>
+                    <br></br>
+
+                    <FormLabel>Find User:</FormLabel>
+
+                    <Input onChange={handleFilter} />
+
+                    <br></br>
+                    <br></br>
+
+                    <Stack>
+
+                        {state2 && state2.map((u) => {
+                            return (
+                                <FormLabel>{u.email}</FormLabel>
+                            )
+                        })}
+
+                    </Stack>
 
                     <br></br>
                     <br></br>

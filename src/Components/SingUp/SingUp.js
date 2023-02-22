@@ -11,7 +11,7 @@ function SingUp(props) {
     const DayArray = [];
     const MonthArray = [];
     const YearArray = [];
-    const appId = "1644606985997067";
+    // const appId = "1644606985997067";
 
     for (let i = 1; i < 32; i++) {
         DayArray.push(i);
@@ -102,22 +102,22 @@ function SingUp(props) {
 
     };
 
-    var errorBirthday = "error";
-    var errorBsuccessful = "";
+    // var errorBirthday = "error";
+    // var errorBsuccessful = "";
 
-    if (input.date_birth.length >= 8) {
-        var errorBirthday = "";
-        var errorBsuccessful = "error";
-    };
+    // if (input.date_birth.length >= 8) {
+    //     var errorBirthday = "";
+    //     var errorBsuccessful = "error";
+    // };
 
 
-    var errorNTsuccessful = "";
-    var errorNation = "error";
+    // var errorNTsuccessful = "";
+    // var errorNation = "error";
 
-    if (input.nationality) {
-        var errorNTsuccessful = "error";
-        var errorNation = "";
-    };
+    // if (input.nationality) {
+    //     var errorNTsuccessful = "error";
+    //     var errorNation = "";
+    // };
 
 
     var errorEmail = "";
@@ -339,7 +339,7 @@ function SingUp(props) {
 
                 <div>
 
-                    <FormControl>
+                    {/* <FormControl>
 
                         {errorBirthday && !errorBsuccessful ? (
                             <FormHelperText>
@@ -356,7 +356,7 @@ function SingUp(props) {
                             <FormErrorMessage></FormErrorMessage>
                         )}
 
-                    </FormControl>
+                    </FormControl> */}
 
                 </div>
 

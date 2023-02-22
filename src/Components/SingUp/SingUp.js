@@ -376,25 +376,7 @@ function SingUp(props) {
 
                 <div>
 
-                    <FormControl>
-
-                        {errorNation && !errorNTsuccessful ? (
-                            <FormHelperText>
-                                Complete Nationality.
-                            </FormHelperText>
-                        ) : (
-                            <FormErrorMessage></FormErrorMessage>
-                        )}
-                        {!errorNation && errorNTsuccessful ? (
-                            <FormHelperText color="red" className="letter" fontWeight='bold'>
-                                Successful
-                            </FormHelperText>
-                        ) : (
-                            <FormErrorMessage></FormErrorMessage>
-                        )}
-
-                    </FormControl>
-
+                    
                 </div>
 
                 <div>
@@ -430,3 +412,22 @@ function SingUp(props) {
 export default SingUp;
 
 //
+
+// {/* <FormControl>
+
+//                         {errorNation && !errorNTsuccessful ? (
+//                             <FormHelperText>
+//                                 Complete Nationality.
+//                             </FormHelperText>
+//                         ) : (
+//                             <FormErrorMessage></FormErrorMessage>
+//                         )}
+//                         {!errorNation && errorNTsuccessful ? (
+//                             <FormHelperText color="red" className="letter" fontWeight='bold'>
+//                                 Successful
+//                             </FormHelperText>
+//                         ) : (
+//                             <FormErrorMessage></FormErrorMessage>
+//                         )}
+
+//                     </FormControl> */}

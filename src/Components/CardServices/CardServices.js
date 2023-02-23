@@ -15,8 +15,6 @@ import {
   Image,
   ButtonGroup,
   Button,
-  Flex,
-  Grid,
 } from "@chakra-ui/react";
 
 

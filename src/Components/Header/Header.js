@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -10,18 +10,15 @@ import {
   PopoverTrigger,
   PopoverContent,
   PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  Alert, AlertIcon, AlertTitle, AlertDescription,
-  Stack
 } from "@chakra-ui/react";
 import logo from "../../images/ibera.jpeg";
 import Icon from "@chakra-ui/icon";
 import { RiLuggageCartLine } from "react-icons/ri";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 function Header() {
 

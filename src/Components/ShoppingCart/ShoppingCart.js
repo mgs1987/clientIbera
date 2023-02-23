@@ -23,7 +23,7 @@ function ShoppingCart() {
 
   const [totalAmount, setTotalAmount] = useState(0);
 
- 
+
 
   const dispatch = useDispatch();
   const services = useSelector((state) => state.services);
@@ -72,9 +72,9 @@ function ShoppingCart() {
     return accumulator + local.price + price * quantity;
   }, 0);
 
-  function handlePayment() {}
+  function handlePayment() { }
 
-  function handleRemoveItem(id) {}
+  function handleRemoveItem(id) { }
 
   return (
 
@@ -115,7 +115,7 @@ function ShoppingCart() {
           <Button color="teal " onClick={handleResetCart}>
             Remove all services
 
-   
+
           </Button>
           {services &&
             services.map((ser) => (
@@ -149,7 +149,7 @@ function ShoppingCart() {
                       {service[e].quantity * service[e].price}
                     </Text>
                     <Text> </Text>
-      </Box>
+                  </Box>
                 );
               })}{" "}
             <Divider color="teal" border="solid" borderWidth="1px" mt="20px" />

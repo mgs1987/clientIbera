@@ -1,15 +1,24 @@
 import React from "react";
+
+// import {
+//   Box,
+//   Card,
+//   Text,
+//   Image,
+//   ButtonGroup,
+//   Button,
+//   Flex,
+// } from "@chakra-ui/react";
 import {
   Box,
-  Card,
   Text,
   Image,
   ButtonGroup,
   Button,
   Flex,
-  Grid
-
+  Grid,
 } from "@chakra-ui/react";
+
 
 function CardServices({
   id,
@@ -33,17 +42,15 @@ function CardServices({
         borderWidth="1px"
         p="4"
       >
-        <Grid templateColumns="1fr 1fr 1fr">
-          <Box>
-            <Image boxSize="50px" src={image} />
-          </Box>
-          <Box>
-            <Text>{name}</Text>
-          </Box>
-          <Box>
-            <Text>$ {price}</Text>
-          </Box>
-        </Grid>
+        <Box>
+          <Image boxSize="50px" src={image} />
+        </Box>
+        <Box>
+          <Text>{name}</Text>
+        </Box>
+        <Box>
+          <Text>$ {price}</Text>
+        </Box>
 
         <ButtonGroup color="teal" ml="80px">
 

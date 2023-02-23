@@ -12,11 +12,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <Auth0Provider
-      domain="dev-fm6k7h0d4wkymqri.us.auth0.com"
-      clientId="B5d5cWpVL4Ajg0WNck10m8xlEf60QASa"
-      authorizationParams={{
-        redirect_uri: window.location.origin
-      }}
+     domain="dev-elskv0bc6witw5r1.us.auth0.com"
+     clientId="LIsxhiAwSGUFCeFtzSnoEBUVb9yVvGkh"
+     authorizationParams={{
+       redirect_uri: window.location.origin
+     }}
     >
       <ChakraProvider>
         <React.StrictMode>

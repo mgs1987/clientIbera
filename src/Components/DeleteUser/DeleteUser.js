@@ -349,7 +349,7 @@ function DeleteUser() {
                     p={6}
                     m="10px auto"
                     as="form"
-                    backgroundColor="#DAA520"
+                    backgroundColor="#F0F8FF"
                 >
 
                     {alert ?
@@ -501,7 +501,7 @@ function DeleteUser() {
                     p={6}
                     m="10px auto"
                     as="form"
-                    backgroundColor="#00BFFF"
+                    backgroundColor="#F0F8FF"
                 >
 
                     {alertHotel ?
@@ -637,7 +637,7 @@ function DeleteUser() {
                     p={6}
                     m="10px auto"
                     as="form"
-                    backgroundColor="yellow"
+                    backgroundColor="#F0F8FF"
                 >
 
                     {alertRoom ?

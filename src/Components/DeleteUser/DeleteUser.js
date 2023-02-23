@@ -3,7 +3,7 @@ import {
     FormLabel, Select, Input, Box, Stack, Button,
     Alert, AlertIcon, AlertTitle, AlertDescription,
     Card, CardBody, Image,
-    Heading, Text, Divider
+    Heading, Text, Divider, ButtonGroup
 } from '@chakra-ui/react';
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -179,13 +179,13 @@ function DeleteUser() {
                     <br></br>
                     <br></br>
 
-                    <Stack>
+                    <Stack id="stack-Button">
 
                         {state2 && state2.map((u) => {
                             return (
-                                <button id="button-filter" onClick={handleFilter}>
+                                <Button id="button-filter" colorScheme='blue' variant='ghost' onClick={handleFilter}>
                                     {u.email}
-                                </button>
+                                </Button>
                             )
                         })}
 

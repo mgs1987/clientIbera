@@ -41,9 +41,9 @@ function HotelDetails(props) {
   }, [dispatch, id]);
 
   const dtHotel = useSelector((state) => state.hotelDetails);
-  const amenity = useSelector((state) => state.amenities);
+  //const amenity = useSelector((state) => state.amenities);
 
-  console.log("aca esta amenities", amenity);
+  console.log("aca esta dtHotel", dtHotel);
   return (
     <div>
       <Card

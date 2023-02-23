@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+
 import { useDispatch ,useSelector} from "react-redux";
+
 import {
   Input,
   Button,
@@ -12,17 +14,19 @@ import {
   FormErrorMessage,
   Stack,
 } from "@chakra-ui/react";
-import {
-  AutoComplete,
-  AutoCompleteInput,
-  AutoCompleteItem,
-  AutoCompleteList,
-} from "@choc-ui/chakra-autocomplete";
+
+// import {
+//   AutoComplete,
+//   AutoCompleteInput,
+//   AutoCompleteItem,
+//   AutoCompleteList,
+// } from "@choc-ui/chakra-autocomplete";
 
 import "./searchbar.css";
 import { FiArrowDown } from "react-icons/fi";
 import allActions from "../../Redux/actions";
 const { getAllHotels,getCity } = allActions;
+
 
 
 function SearchBar() {
@@ -31,7 +35,9 @@ function SearchBar() {
     dispatch(getAllHotels());
   }, [dispatch]);
 
-  const hotels = useSelector((state) => state.hotels)
+
+  const hotels = useSelector((state) => state.hotels);
+
   const [destination, setDestination] = useState("");
   const [inDate, setInDate] = useState("");
   const [outDate, setOutDate] = useState("");
@@ -39,7 +45,9 @@ function SearchBar() {
   const [city, setCity] = useState("");
   const [newUser, setNewUser] = useState("");
   const [alert, setAlert] = useState("");
+
   const [state2, setState2] = useState([])
+
 
 
   function handleImputChange(e) {
@@ -50,14 +58,14 @@ function SearchBar() {
   function buttonSubmit(e) {
     e.preventDefault();
     dispatch(getCity(city));
-    console.log(hotels, "TUVIEJA")
+
     setCity("");
   }
 
   // function getSuggestions(value) {
   //   const inputValue = value.trim().toLowerCase();
   //   const inputLength = inputValue.length;
-  
+
   //   return inputLength === 0
   //     ? []
   //     : hotels.filter(
@@ -70,6 +78,7 @@ function SearchBar() {
   //   setCity(value);
   //   setState2(getSuggestions(value));
   // }
+
   
   //!!!!!!
 //   const handleFilter = (e) => {
@@ -86,6 +95,7 @@ function SearchBar() {
 
 // };
 //!!!!!
+
 
 
   const today = new Date().toISOString().split("T")[0];
@@ -127,8 +137,6 @@ function SearchBar() {
       <Box display="flex" mx="auto" ml="17%">
         <FormControl onSubmit={(e) => handleSubmit(e)}>
 
-
-          
           {/* <AutoCompleteInput
   value={city}
   onChange={(value) => handleInputChange(value)}
@@ -172,9 +180,11 @@ function SearchBar() {
             value={city}
             id="input-filter"
             onChange={handleImputChange}
+
             /> 
 
              {/* <Stack>
+
 {  
   state2 && state2.map((u) => {
       return (
@@ -185,9 +195,7 @@ function SearchBar() {
   })}
   
   </Stack> */}
-           
-  
- 
+
           {isError ? (
             <FormHelperText mr="600px" mt="2px" color="black">
               Select a destination, please
@@ -244,7 +252,9 @@ function SearchBar() {
                 colorScheme="teal"
                 variant="outline"
                 type="submit"
-                onClick={(e)=>buttonSubmit(e)}
+
+                onClick={(e) => buttonSubmit(e)}
+
               >
                 Check Availability
               </Button>

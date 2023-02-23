@@ -72,6 +72,7 @@ export function createHotel(payload) {
     }
   };
 }
+
 export function getCity(payload){
   return async function (dispatch) {
     try{
@@ -84,3 +85,4 @@ export function getCity(payload){
   }catch (err) {
     console.log(err)
 }}}
+

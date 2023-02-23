@@ -138,7 +138,7 @@ function Header() {
 
             {isAuthenticated && admin ?
               <Link color="red" fontSize={18} href="/delete">
-                Delete User{" "}
+                Delete{" "}
               </Link>
               :
               <div></div>

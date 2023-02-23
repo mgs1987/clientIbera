@@ -96,8 +96,8 @@ function DeleteUser() {
         });
 
         if (StateFilter.length) {
-          console.log(StateFilter,"STATE FILTER")
-          console.log(inputFilter.value, "ACAAAAAAAAAAAAAAAAAA")
+          // console.log(StateFilter,"STATE FILTER")
+          // console.log(inputFilter.value, "ACAAAAAAAAAAAAAAAAAA")
             setNewUser(StateFilter);
         };
 
@@ -109,7 +109,7 @@ function DeleteUser() {
 
         const inputFilter = document.getElementById("input-filter");
         
-        setState2([...state].filter((u) => {
+        setState2([...state2].filter((u) => {
             return u.email.toLowerCase().includes(inputFilter.value.toLowerCase())
         }))
 

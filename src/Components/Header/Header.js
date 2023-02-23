@@ -43,7 +43,7 @@ function Header() {
     var status;
     var name = user.name;
     var email = user.email;
-    var status;
+    
 
     console.log("user", user);
     console.log("name", name);

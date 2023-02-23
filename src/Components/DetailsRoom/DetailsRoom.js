@@ -1,3 +1,17 @@
+// import {
+//   Card,
+//   CardBody,
+//   Image,
+//   Stack,
+//   Text,
+//   Heading,
+//   CardFooter,
+//   Button,
+//   Link,
+//   Icon,
+//   Box,
+//   Select,
+// } from "@chakra-ui/react";
 import {
   Card,
   CardBody,
@@ -7,9 +21,9 @@ import {
   Heading,
   CardFooter,
   Button,
-  Link,
   Icon,
   Box,
+  Select,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -24,18 +38,29 @@ function DetailsRoom({
   image,
 }) {
   const navigate = useNavigate();
+  const [dayqty, setDayqty] = useState("");
 
   function handleBanana() {
     let room = {
-      idRooms: idRooms,
-      name: name,
+      idRooms: idRooms, //en mp es id
+      name: name, // aca es title en mp
       bed_quantity: bed_quantity,
-      price: price,
-      image: image,
+      price: price, //aca es unit_price
+      image: image, //picture_url
+      quantity: dayqty,
+
+      //
     };
 
     window.localStorage.setItem("roomcart", JSON.stringify(room)); //a localSt solo le podemos enviar strings
+    window.localStorage.setItem(
+      "totalprice",
+      JSON.stringify(room.price * room.quantity)
+    );
     return navigate("/shoppingcart");
+  }
+  function handleSelect(e) {
+    setDayqty(e.target.value);
   }
   return (
     <Box mt="20px" padding="20px">
@@ -90,6 +115,11 @@ function DetailsRoom({
             >
               Reserve
             </Button>
+            <Select onChange={(e) => handleSelect(e)}>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+            </Select>
           </CardFooter>
         </Stack>
       </Card>

@@ -2,9 +2,19 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import allActions from "../../Redux/actions";
+// import {
+//   Card,
+//   Image,
+//   CardBody,
+//   Heading,
+//   Stack,
+//   Text,
+//   Icon,
+//   Flex,
+//   Box,
+// } from "@chakra-ui/react";
 import {
   Card,
-  Image,
   CardBody,
   Heading,
   Stack,
@@ -31,9 +41,9 @@ function HotelDetails(props) {
   }, [dispatch, id]);
 
   const dtHotel = useSelector((state) => state.hotelDetails);
-  const amenity = useSelector((state) => state.amenities);
+  //const amenity = useSelector((state) => state.amenities);
 
-  console.log("aca esta amenities", amenity);
+  console.log("aca esta dtHotel", dtHotel);
   return (
     <div>
       <Card

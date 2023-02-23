@@ -1,13 +1,26 @@
 import React from "react";
+
+// import {
+//   Box,
+//   Card,
+//   Text,
+//   Image,
+//   ButtonGroup,
+//   Button,
+//   Flex,
+// } from "@chakra-ui/react";
 import {
   Box,
-  Card,
   Text,
   Image,
   ButtonGroup,
   Button,
+<<<<<<< Updated upstream
+=======
   Flex,
+>>>>>>> Stashed changes
 } from "@chakra-ui/react";
+
 
 function CardServices({
   id,

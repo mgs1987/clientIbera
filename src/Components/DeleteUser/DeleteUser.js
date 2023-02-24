@@ -154,7 +154,6 @@ function DeleteUser() {
 
                 setAlert2Hotel("");
 
-                console.log(stateHotel)
             })
             .catch((err) => console.log(err));
 
@@ -230,6 +229,7 @@ function DeleteUser() {
         return 0;
     });
 
+    console.log("stateHotel", stateHotel);
 
     //------------------Delete Room--------------------------------------------------
 
@@ -240,10 +240,11 @@ function DeleteUser() {
     const [alertRoom, setAlertRoom] = useState("");
     const [alert2Room, setAlert2Room] = useState("");
     const [newRoom, setNewRoom] = useState("");
+    const [newRoom2, setNewRoom2] = useState("");
 
     if (stateRoom.length === 0 || alert2Room === "submit") {
 
-        axios.get("http://localhost:3010/rooms")
+        axios.get("http://localhost:3010/hotels")
             .then((res) => {
 
                 for (let i = 0; i < res.data.length; i++) {
@@ -275,6 +276,19 @@ function DeleteUser() {
         setInputRoom(e.target.value);
 
         selectRoom.value = "";
+    };
+
+    const handleSelectChangeRoom2 = (e) => {
+
+        const selectRoom2 = document.getElementById('selec-room-2');
+
+        const StateRoom2 = newRoom[0].rooms.filter((r) => {
+            return (r.name === e.target.value)
+        });
+
+        setNewRoom2(StateRoom2);
+
+        selectRoom2.value = "";
     };
 
     const handleFilterRoom = (e) => {
@@ -309,13 +323,14 @@ function DeleteUser() {
 
     const DeleteRoom = (e) => {
 
-        axios.delete(`http://localhost:3010/rooms/${newRoom[0].idRooms}`)
+        axios.delete(`http://localhost:3010/rooms/${newRoom2[0].idRooms}`)
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
 
 
         setInputRoom("");
         setNewRoom("");
+        setNewRoom2("");
         setAlertRoom("submit");
         setAlert2Room("submit");
 
@@ -331,6 +346,15 @@ function DeleteUser() {
         }
         return 0;
     });
+
+    if (newRoom) {
+        console.log("newRoom", newRoom)
+        console.log("newRoom", newRoom[0].rooms)
+    };
+
+    if (newRoom2) {
+        console.log("newRoom2", newRoom2)
+    };
 
 
     //--------HTML----------------------------------------------------------
@@ -666,7 +690,7 @@ function DeleteUser() {
                     <br></br>
                     <br></br>
 
-                    <FormLabel>Find Room:</FormLabel>
+                    <FormLabel>Find Hotel:</FormLabel>
 
                     <Input id="input-filter-room" onChange={handleFilterRoom2} />
 
@@ -688,7 +712,7 @@ function DeleteUser() {
                     <br></br>
                     <br></br>
 
-                    <FormLabel>Select Room:</FormLabel>
+                    <FormLabel>Select Hotel:</FormLabel>
 
                     <Select id="selec-room" placeholder='Select-Room' borderWidth='3px' maxW='sm' onChange={handleSelectChangeRoom}>
                         {stateRoom && stateRoom.map((r) => {
@@ -701,7 +725,7 @@ function DeleteUser() {
                     <br></br>
                     <br></br>
 
-                    <FormLabel>Room:</FormLabel>
+                    <FormLabel>Hotel:</FormLabel>
 
                     <Input type='text' value={inputRoom} borderWidth='3px' />
 
@@ -709,6 +733,7 @@ function DeleteUser() {
                     <br></br>
 
                     {newRoom ?
+
                         <Box
                             borderWidth="1px"
                             rounded="lg"
@@ -722,7 +747,7 @@ function DeleteUser() {
                             <Card maxW='sm'>
                                 <CardBody>
                                     <Image
-                                        src={newRoom[0].image[0]}
+                                        src={newRoom[0].image}
                                         alt='Hotel Image'
                                         borderRadius='lg'
                                         maxWidth={200}
@@ -733,13 +758,70 @@ function DeleteUser() {
                                             Name: {newRoom[0].name}
                                         </Text>
                                         <Text>
-                                            Price: {newRoom[0].price}
+                                            City: {newRoom[0].city}
                                         </Text>
                                         <Text>
                                             Description: {newRoom[0].description}
                                         </Text>
                                         <Text>
-                                            Bed_quantity: {newRoom[0].bed_quantity}
+                                            Stars: {newRoom[0].stars}
+                                        </Text>
+                                    </Stack>
+                                </CardBody>
+                                <Divider />
+                            </Card>
+
+                            <br></br>
+
+                            <Select id="selec-room-2" placeholder='Select-Room' borderWidth='3px' maxW='sm'
+                                onChange={handleSelectChangeRoom2}
+                            >
+                                {newRoom && newRoom[0].rooms.map((r) => {
+                                    return (
+                                        <option>{r.name}</option>
+                                    )
+                                })}
+                            </Select>
+
+                        </Box>
+                        :
+                        <div></div>}
+
+                    <br></br>
+
+                    {newRoom2 ?
+
+                        <Box
+                            borderWidth="1px"
+                            rounded="lg"
+                            shadow="1px 1px 3px rgba(0,0,0,0.3)"
+                            maxWidth={400}
+                            p={6}
+                            m="10px auto"
+                            as="form"
+                        >
+
+                            <Card maxW='sm'>
+                                <CardBody>
+                                    <Image
+                                        src={newRoom2[0].image[0]}
+                                        alt='Hotel Image'
+                                        borderRadius='lg'
+                                        maxWidth={200}
+                                    />
+                                    <Stack mt='6' spacing='3'>
+                                        <Heading size='md'>Hotle Information</Heading>
+                                        <Text>
+                                            Name: {newRoom2[0].name}
+                                        </Text>
+                                        <Text>
+                                            Price: {newRoom2[0].price}
+                                        </Text>
+                                        <Text>
+                                            Description: {newRoom2[0].description}
+                                        </Text>
+                                        <Text>
+                                            Bed_quantity: {newRoom2[0].bed_quantity}
                                         </Text>
                                     </Stack>
                                 </CardBody>
@@ -756,9 +838,11 @@ function DeleteUser() {
 
                             </Stack>
 
-                        </Box>
-                        :
-                        <div></div>}
+                        </Box> :
+
+                        <div></div>
+
+                    }
 
                 </Box>
 
@@ -784,3 +868,5 @@ function DeleteUser() {
 };
 
 export default DeleteUser;
+
+

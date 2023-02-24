@@ -1,5 +1,5 @@
 import React from "react";
-
+import { v4 } from "uuid";
 // import {
 //   Box,
 //   Card,
@@ -20,7 +20,7 @@ function CardServices({
   handleRemoveItem,
 }) {
   return (
-    <Box display="center">
+    <Box display="center" key={v4()}>
       <Box
         display="flex"
         flexDirection="column"
@@ -28,17 +28,15 @@ function CardServices({
         borderColor="teal"
         mt="10px"
         maxW="100%"
-        padding="20px"
+        padding="15px"
         borderWidth="1px"
         p="4"
+        borderRadius="9px"
+        ml="25%"
       >
         <Box>
           <Image boxSize="50px" src={image} />
-        </Box>
-        <Box>
           <Text>{name}</Text>
-        </Box>
-        <Box>
           <Text>$ {price}</Text>
         </Box>
 

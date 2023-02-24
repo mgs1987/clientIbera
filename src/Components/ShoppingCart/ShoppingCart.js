@@ -188,11 +188,21 @@ function ShoppingCart() {
           </Text>
           <Divider color="teal" border="solid" borderWidth="1px" mt="10px" />
         </Box>
-        <Box>
-          <Text> Add Special Services </Text>
+        <Box mt="20px">
+          <Text as="i" fontSize="3xl">
+            {" "}
+            Add Special Services{" "}
+          </Text>
 
-          <Button color="teal " onClick={handleResetCart}>
-            Remove all
+          <Button
+            color="teal "
+            ml="250px"
+            onClick={handleResetCart}
+            size="sm"
+            mt="20px"
+            mb="20px"
+          >
+            Delete All Items
           </Button>
           {services &&
             services.map((ser) => (

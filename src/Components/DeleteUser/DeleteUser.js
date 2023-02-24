@@ -291,6 +291,17 @@ function DeleteUser() {
         selectRoom2.value = "";
     };
 
+    const onClickSelect = (e) => {
+
+        if (setNewRoom2) {
+            setNewRoom2("")
+        } else {
+
+            console.log("hola")
+        }
+
+    };
+
     const handleFilterRoom = (e) => {
 
         e.preventDefault();
@@ -355,6 +366,32 @@ function DeleteUser() {
     if (newRoom2) {
         console.log("newRoom2", newRoom2)
     };
+
+    stateRoom.sort((a, b) => {
+
+        if (a.name > b.name) {
+            return 1;
+        }
+        if (b.name > a.name) {
+            return -1;
+        }
+        return 0;
+    });
+
+    if (newRoom) {
+
+        newRoom[0].rooms.sort((a, b) => {
+
+            if (a.name > b.name) {
+                return 1;
+            }
+            if (b.name > a.name) {
+                return -1;
+            }
+            return 0;
+        });
+
+    }
 
 
     //--------HTML----------------------------------------------------------
@@ -714,7 +751,7 @@ function DeleteUser() {
 
                     <FormLabel>Select Hotel:</FormLabel>
 
-                    <Select id="selec-room" placeholder='Select-Room' borderWidth='3px' maxW='sm' onChange={handleSelectChangeRoom}>
+                    <Select id="selec-room" placeholder='Select-Room' borderWidth='3px' maxW='sm' onClick={onClickSelect} onChange={handleSelectChangeRoom}>
                         {stateRoom && stateRoom.map((r) => {
                             return (
                                 <option>{r.name}</option>

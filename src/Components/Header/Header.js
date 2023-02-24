@@ -164,6 +164,13 @@ function Header() {
             ) : (
               <div></div>
             )}
+            {isAuthenticated && admin ? (
+              <Link color="red" fontSize={18} href="/createAmenities">
+                Create Amenities{" "}
+              </Link>
+            ) : (
+              <div></div>
+            )}
 
             {isAuthenticated && admin ? (
               <Link color="red" fontSize={18} href="/delete">

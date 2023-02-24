@@ -16,15 +16,20 @@ import {
   Text,
   Divider,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+// src/Components/DeleteUser/DeleteUser.js
+//   Line 19:10:  'useEffect' is defined but never used  no-unused-vars
+// import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const { REACT_APP_FRONT, REACT_APP_BACK } = process.env;
 
 function DeleteUser() {
-  useEffect(() => {
-    console.log(users);
-  }, []);
+  // src/Components/DeleteUser/DeleteUser.js
+  // Line 27:6:   React Hook useEffect has a missing dependency: 'users'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  // // useEffect(() => {
+  //   console.log(users);
+  // }, []);
 
   if (!document.cookie) {
     window.location.href = REACT_APP_FRONT;
@@ -35,8 +40,12 @@ function DeleteUser() {
   const [state2, setState2] = useState([]);
   const [input, setInput] = useState("");
   const [alert, setAlert] = useState("");
-  const [alert2, setAlert2] = useState("");
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  // src/Components/DeleteUser/DeleteUser.js
+  // Line 38:10:  'alert2' is assigned a value but never used                                                               no-unused-vars
+  // Line 39:17:  'isAuthenticated' is assigned a value but never used                                                      no-unused-vars
+  // // const [alert2, setAlert2] = useState("");
+  // const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user } = useAuth0();
   const [newUser, setNewUser] = useState("");
 
   if (state.length === 0 || alert === "submit") {
@@ -59,8 +68,8 @@ function DeleteUser() {
         if (users.length) {
           setState(users);
         }
-
-        setAlert2("");
+        // src/Components/DeleteUser/DeleteUser.js
+        // setAlert2("");
       })
       .catch((err) => console.log(err));
   }
@@ -89,7 +98,8 @@ function DeleteUser() {
     setInput("");
     setNewUser("");
     setAlert("submit");
-    setAlert2("submit");
+    // src/Components/DeleteUser/DeleteUser.js
+    // setAlert2("submit");
   };
 
   const handleFilter = (e) => {

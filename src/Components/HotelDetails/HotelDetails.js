@@ -26,6 +26,7 @@ import {
 import { FiWifi } from "react-icons/fi";
 import { GiTowel, GiDesk } from "react-icons/gi";
 import { MdShower, MdChair } from "react-icons/md";
+import { RiStarFill } from "react-icons/ri";
 
 import DetailsRoom from "../DetailsRoom/DetailsRoom";
 
@@ -42,8 +43,10 @@ function HotelDetails(props) {
 
   const dtHotel = useSelector((state) => state.hotelDetails);
   //const amenity = useSelector((state) => state.amenities);
-
-  console.log("aca esta dtHotel", dtHotel);
+  const stars = [];
+  for (let i = 0; i < dtHotel.stars; i++) {
+    stars.push(<Icon key={i} as={RiStarFill} />);
+  }
   return (
     <div>
       <Card
@@ -59,7 +62,7 @@ function HotelDetails(props) {
             </Heading>
             <Text py="12">
               {dtHotel.name}
-              <Text> {dtHotel.stars} Stars Quality </Text>
+              <Text> {stars} Stars Quality </Text>
             </Text>
             <Flex display="inline-flex">
               <Text as="b" fontSize="xl" mb="30px" mr="30px">

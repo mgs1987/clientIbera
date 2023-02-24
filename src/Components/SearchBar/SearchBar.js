@@ -39,15 +39,29 @@ function SearchBar() {
   const hotels = useSelector((state) => state.hotels);
 
   const [destination, setDestination] = useState("");
+
   const [inDate, setInDate] = useState("");
   const [outDate, setOutDate] = useState("");
   const [beds, setBeds] = useState("");
   const [city, setCity] = useState("");
+
   const [newUser, setNewUser] = useState("");
   const [alert, setAlert] = useState("");
 
   const [state2, setState2] = useState([])
 
+
+
+  // src/Components/SearchBar/SearchBar.js
+  // Line 38:10:  'newUser' is assigned a value but never used        no-unused-vars
+  // Line 38:19:  'setNewUser' is assigned a value but never used     no-unused-vars
+  // Line 39:10:  'alert' is assigned a value but never used          no-unused-vars
+  // Line 39:17:  'setAlert' is assigned a value but never used       no-unused-vars
+  // Line 40:10:  'state2' is assigned a value but never used         no-unused-vars
+  // Line 40:18:  'setState2' is assigned a value but never used      no-unused-vars
+  // const [newUser, setNewUser] = useState("");
+  // const [alert, setAlert] = useState("");
+  // const [state2, setState2] = useState([]);
 
 
   function handleImputChange(e) {
@@ -104,9 +118,11 @@ function SearchBar() {
   const onlyLettersCheck = (input) => {
     return onlyLetters.test(input);
   };
-  function handleInputDestination(e) {
-    setDestination(e.target.value);
-  }
+  // src/Components/SearchBar/SearchBar.js
+  // Line 93:12:  'handleInputDestination' is defined but never used  no-unused-vars
+  // function handleInputDestination(e) {
+  //   setDestination(e.target.value);
+  // }
 
   function handleInputCheckIn(e) {
     setInDate(e.target.value);

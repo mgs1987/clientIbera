@@ -10,15 +10,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
   PopoverArrow,
-  PopoverCloseButton,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Stack,
 } from "@chakra-ui/react";
 import logo from "../../images/ibera.jpeg";
 import Icon from "@chakra-ui/icon";

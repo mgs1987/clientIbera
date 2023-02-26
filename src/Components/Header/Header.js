@@ -160,7 +160,7 @@ function Header() {
 
             {isAuthenticated && admin ? (
               <Link color="red" fontSize={18} href="/createHotel">
-                Create Hotel{" "}
+                Create{" "}
               </Link>
             ) : (
               <div></div>
@@ -168,7 +168,7 @@ function Header() {
 
             {isAuthenticated && admin ? (
               <Link color="red" fontSize={18} href="/delete">
-                Delete User{" "}
+                Administracion{" "}
               </Link>
             ) : (
               <div></div>

@@ -15,9 +15,11 @@ import {
     Heading, Text, Divider
 } from '@chakra-ui/react';
 
-import { useEffect, useState } from "react";
+// src/Components/DeleteUser/DeleteUser.js
+//   Line 18:10:  'useEffect' is defined but never used  no-unused-vars
+// import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-
 
 function DeleteUser() {
 

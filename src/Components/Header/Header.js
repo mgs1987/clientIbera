@@ -159,17 +159,33 @@ function Header() {
             )}
 
             {isAuthenticated && admin ? (
-              <Link color="red" fontSize={18} href="/createHotel">
-                Create{" "}
-              </Link>
-            ) : (
-              <div></div>
-            )}
 
-            {isAuthenticated && admin ? (
-              <Link color="red" fontSize={18} href="/delete">
-                Administracion{" "}
-              </Link>
+              <Popover trigger="hover">
+
+                <PopoverTrigger>
+                  <Link color="red" fontSize={18}>
+                    Admin{" "}
+                  </Link>
+                </PopoverTrigger>
+
+                <PopoverContent>
+
+                  <PopoverHeader>
+                    <Link color="red" fontSize={18} href="/delete">
+                      Administracion{" "}
+                    </Link>
+                  </PopoverHeader>
+
+                  <PopoverHeader>
+                    <Link color="red" fontSize={18} href="/createHotel">
+                      Create{" "}
+                    </Link>
+                  </PopoverHeader>
+
+                </PopoverContent>
+
+              </Popover>
+
             ) : (
               <div></div>
             )}

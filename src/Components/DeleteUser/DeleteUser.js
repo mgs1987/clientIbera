@@ -1,19 +1,31 @@
 import axios from "axios";
+// src/Components/DeleteUser/DeleteUser.js
+//   Line 4:35:   'AlertDescription' is defined but never used                                                              no-unused-vars
+//   Line 6:29:   'ButtonGroup' is defined but never used                                                                   no-unused-vars
+// import {
+//     FormLabel, Select, Input, Box, Stack, Button,
+//     Alert, AlertIcon, AlertTitle, AlertDescription,
+//     Card, CardBody, Image,
+//     Heading, Text, Divider, ButtonGroup
+// } from '@chakra-ui/react';
 import {
     FormLabel, Select, Input, Box, Stack, Button,
-    Alert, AlertIcon, AlertTitle, AlertDescription,
+    Alert, AlertIcon, AlertTitle,
     Card, CardBody, Image,
-    Heading, Text, Divider, ButtonGroup
+    Heading, Text, Divider
 } from '@chakra-ui/react';
+
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
 function DeleteUser() {
 
-    useEffect(() => {
-        console.log(users);
-    }, []);
+    // src/Components/DeleteUser/DeleteUser.js
+    // Line 16:8:   React Hook useEffect has a missing dependency: 'users'. Either include it or remove the dependency array  react-hooks/exhaustive-deps  
+    // useEffect(() => {
+    //     console.log(users);
+    // }, []);
 
     if (!document.cookie) {
         window.location.href = "http://localhost:3000"
@@ -28,7 +40,11 @@ function DeleteUser() {
     const [input, setInput] = useState("");
     const [alert, setAlert] = useState("");
     const [alert2, setAlert2] = useState("");
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    // src/Components/DeleteUser/DeleteUser.js
+    //     Line 31:19:  'isAuthenticated' is assigned a value but never used                                                      no-unused-vars
+    //     Line 31:36:  'isLoading' is assigned a value but never used                                                            no-unused-vars
+    // const { user, isAuthenticated, isLoading } = useAuth0();
+    const { user } = useAuth0();
     const [newUser, setNewUser] = useState("");
 
     if (state.length === 0 || alert2 === "submit") {

@@ -10,7 +10,7 @@ import DeleteUser from "./Components/DeleteUser/DeleteUser";
 import HotelDetails from "../src/Components/HotelDetails/HotelDetails.js";
 import AboutUs from "./Components/AboutUs/AboutUs";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
-import Profile from "./Components/Profile/Profile";
+import Profile from "./Components/Profile";
 
 function App() {
   return (

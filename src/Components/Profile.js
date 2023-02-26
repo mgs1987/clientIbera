@@ -81,7 +81,7 @@ function Profile() {
                                     Email: {newUser.email}
                                 </Text>
                                 <Text>
-                                    Privilage: {newUser.privilige}
+                                    Nationality: {newUser.nationality}
                                 </Text>
                                 <Text>
                                     Status: {newUser.status}

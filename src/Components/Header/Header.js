@@ -189,17 +189,7 @@ function Header() {
               <div></div>
             )}
 
-            {isAuthenticated ? (
-              <Button
-                colorScheme="teal"
-                variant="solid"
-                onClick={() =>
-                  logout({ logoutParams: { returnTo: window.location.origin } })
-                }
-              >
-                Logout
-              </Button>
-            ) : (
+            {!isAuthenticated ? (
               <Button
                 colorScheme="teal"
                 variant="solid"
@@ -207,15 +197,51 @@ function Header() {
               >
                 Login
               </Button>
-            )}
-
-            {isAuthenticated ? (
-              <Button colorScheme="teal" variant="outline" onClick={buttonProfile}>
-                {name}
-              </Button>
             ) : (
               <div></div>
             )}
+
+
+            {isAuthenticated ? (
+
+              <Popover trigger="hover">
+
+                <PopoverTrigger>
+
+                  <Button colorScheme="teal" variant="outline">
+                    {name}
+                  </Button>
+
+                </PopoverTrigger>
+
+                <PopoverContent>
+
+                  <PopoverHeader>
+                    <Link color="teal" fontSize={18} href="/profile">
+                      My profile{" "}
+                    </Link>
+                  </PopoverHeader>
+
+                  <PopoverHeader>
+                    <Button
+                      colorScheme="teal"
+                      variant="solid"
+                      onClick={() =>
+                        logout({ logoutParams: { returnTo: window.location.origin } })
+                      }>
+                      Logout
+                    </Button>
+                  </PopoverHeader>
+
+                </PopoverContent>
+
+              </Popover>
+
+
+            ) : (
+              <div></div>
+            )}
+
           </HStack>
         </Box>
       </Flex>

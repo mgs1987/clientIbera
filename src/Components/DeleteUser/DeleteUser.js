@@ -358,7 +358,7 @@ function DeleteUser() {
                             <div></div>}
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
-                            Refresh
+                            Return
                         </Button>
 
                     </Box>
@@ -636,7 +636,7 @@ function DeleteUser() {
                             <div></div>}
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
-                            Refresh
+                            Return
                         </Button>
 
                     </Box>
@@ -1034,7 +1034,7 @@ function DeleteUser() {
                         }
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
-                            Refresh
+                            Return
                         </Button>
 
                     </Box>

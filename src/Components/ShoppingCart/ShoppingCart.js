@@ -133,15 +133,15 @@ function ShoppingCart() {
         quantity: 1,
         price: totalPrice,
       })
-      .then((res) => (window.location.href = res.data));
+      .then((res) => (window.location.href = res.data.init_point));
     console.log(paymentBasic);
 
-    const script = document.createElement("script");
+    /*const script = document.createElement("script");
     const attr_data_preference = document.createAttribute("data-preference-id");
     attr_data_preference.value = paymentBasic.data.id;
     script.src = REACT_APP_MERCADOPAGO_CHECKOUT;
     script.setAttributeNode(attr_data_preference);
-    document.getElementById("pay").appendChild(script);
+    document.getElementById("pay").appendChild(script);*/
   }
   //   //window.localStorage.removeItem("roomcart");
   // }

@@ -1,4 +1,4 @@
-// import React, { useEffect,useState } from "react";
+
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -28,9 +28,9 @@ function Destinations() {
 
   const currentHotels = hotels.slice(indexOfFirstHotel, indexOfLastHotel);
 
-  const page = (number) => {
+  const page = (number) => 
     setCurrentPage(number);
-  };
+  
 
   useEffect(() => {
     dispatch(getAllHotels());
@@ -39,14 +39,17 @@ function Destinations() {
   function handleFilterByCity(e) {
     e.preventDefault();
     dispatch(filterHotelsByCity(e.target.value));
+    setCurrentPage(1)  //* se pone setCurrentPage(1) para que en los filtros en una pagina que no se ala 1 resete el paginado en la pag 1
   }
   function handleFilterByStars(e) {
     e.preventDefault();
     dispatch(filterHotelByStars(e.target.value));
+    setCurrentPage(1)//* se pone setCurrentPage(1) para que en los filtros en una pagina que no se ala 1 resete el paginado en la pag 1
   }
   function handleCleanFilter(e) {
     e.preventDefault();
     dispatch(cleanFilter(e.target.value));
+    setCurrentPage(1)//* se pone setCurrentPage(1) para que en los filtros en una pagina que no se ala 1 resete el paginado en la pag 1
   }
 
   return (
@@ -70,9 +73,7 @@ function Destinations() {
             onChange={(e) => handleFilterByCity(e)}
             placeholder="All Cities"
           >
-            {/* {cities &&
-              cities.map((city) => <option value={city}>{city}</option>)}
-          */}
+            
             {uniqueCity &&
               uniqueCity
                 .sort()

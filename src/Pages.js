@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button } from "@chakra-ui/react";
-
+import { useSelector } from "react-redux";
 function Pages({
   currentHotels,
   page,
@@ -8,56 +8,71 @@ function Pages({
   hotelsPerPage,
   currentPage,
   setCurrentPage,
+  
 }) {
+  const hotels = useSelector((state) => state.hotels);
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(currentHotels / hotelsPerPage) && i < 6; i++) {
+  for (let i = 1; i <= Math.ceil(hotels.length / hotelsPerPage); i++) {
     pageNumbers.push(i);
   }
 
   function handleNext() {
-    setCurrentPage((x) => x + 1);
+    if(pageNumbers[pageNumbers.length -1] !== currentPage){
+      
+      page(prevPage => prevPage +1)
+    }
+
+    // setCurrentPage((x) => x + 1);
+    
   }
   function handlePrev() {
-    setCurrentPage((x) => x - 1);
-    if (currentPage === 1) {
-      setHotelsPerPage(10);
-      setCurrentPage(1);
-      return;
-    }
+    if (currentPage !== 1) {
+              page(currentPage - 1);
+           }
+    //setCurrentPage((x) => x - 1);
+    // if (currentPage === 1) {
+    //   setHotelsPerPage(10);
+    //   setCurrentPage(1);
+    //   return;
+    // }
   }
   return (
     <Box mt="20px">
       <Button
+       
         mr="5px"
         colorScheme="teal"
         backgroundColor="teal"
         size="md"
-        onClick={() => handleNext()}
-      >
+        onClick={() => handlePrev()}
+        >
         {" "}
         Prev
       </Button>
-      {pageNumbers.map((number) => {
+      {pageNumbers && pageNumbers.map((number) => {
         return (
-          <Button
-            color="teal"
-            border="solid"
-            borderColor="teal"
-            backgroundColor="white"
-            size="md"
-            onClick={() => page(number)}
+          
+          <Button  
+          color={number === currentPage ? "white" : "teal"}        
+          border="solid"
+          borderColor="teal"
+          backgroundColor={number === currentPage ? "teal" : "white"}
+          size="md"
+          onClick={() => page(number)}
           >
-            {number}
+           {number}
           </Button>
+            
         );
       })}
       <Button
+        
         ml="5px"
         colorScheme="teal"
         backgroundColor="teal"
         size="md"
-        onClick={() => handlePrev()}
+        onClick={() => handleNext()}
       >
         {" "}
         Next

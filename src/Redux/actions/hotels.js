@@ -9,9 +9,10 @@ import {
   CLEAN_FILTER,
   CREATE_HOTEL,
   GET_NAME_CITIES,
+  GET_UNLOCODE,
 } from "../actions-types/index";
 
-const { REACT_APP_GET_ALL_HOTELS, REACT_APP_POST_HOTELS } = process.env;
+const { REACT_APP_GET_ALL_HOTELS, REACT_APP_POST_HOTELS,REACT_APP_BACK } = process.env;
 
 export function getAllHotels() {
   return async function (dispatch) {
@@ -61,18 +62,32 @@ export function createHotel(payload) {
     console.log("input que recibo", payload); //!!!!!!!!!!!!!!!!
     try {
       console.log("ENTRE EN TRY");
-      const newHotel = await axios.post(REACT_APP_POST_HOTELS, payload);
+      const newHotel = await axios.post("http://localhost:3010/hotels/create", payload);
       console.log("input que muestro", newHotel.data); //!!!!!!!!!!!!!!
       return dispatch({
         type: CREATE_HOTEL,
         payload: newHotel.data,
       });
     } catch (err) {
-      console.log("ROMPIO", err);
+      console.log(err);
     }
   };
 }
 
+
+//!!!
+export function getUnlocode(){
+  return async function (dispatch){
+    try{
+      let json = await axios.get("http://localhost:3010/cities");
+      dispatch({
+        type: GET_UNLOCODE,
+        payload: json.data
+      })
+    }catch(err){
+      console.log("ROMPIMO" , err)
+}}};
+//!!!
 export function getCity(payload){
   return async function (dispatch) {
     try{
@@ -84,5 +99,4 @@ export function getCity(payload){
       })
   }catch (err) {
     console.log(err)
-}}}
-
+}}};

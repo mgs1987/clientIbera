@@ -150,15 +150,16 @@ function Header() {
               <Icon href="#" as={RiLuggageCartLine} boxSize={7} />
             </Link>
 
-            {isLoading ? (
+            {/* {isLoading ? (
               <Button colorScheme="teal" variant="outline">
                 Loading...
               </Button>
             ) : (
               <div></div>
-            )}
+            )} */}
+ {/* //!!--------------BOTONES DE ADMIN-------------------- */}            
 
-            {isAuthenticated && admin ? (
+            {/* {isAuthenticated && admin ? (
               <Link color="red" fontSize={18} href="/createHotel">
                 Create Hotel{" "}
               </Link>
@@ -172,9 +173,44 @@ function Header() {
               </Link>
             ) : (
               <div></div>
-            )}
+            )} */}
+{/* //!!---------------------------------- */}
+<Popover trigger="hover">
+              <PopoverTrigger>
+              {isAuthenticated && admin 
+              ? (<Button colorScheme="red" variant="outline">
+                  Admin Controllers
+                </Button>) 
+              : (<div></div>)}
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
 
-            {isAuthenticated ? (
+                <PopoverHeader>
+                {isAuthenticated && admin ? (
+              <Link color="red" fontSize={18} href="/createHotel">
+                Create Hotel{" "}
+              </Link>
+            ) : (
+              <div></div>
+            )}
+            </PopoverHeader>
+            <PopoverHeader>
+            {isAuthenticated && admin ? (
+              <Link color="red" fontSize={18} href="/delete">
+                Delete User{" "}
+              </Link>
+            ) : (
+              <div></div>
+            )}
+                </PopoverHeader>
+              </PopoverContent>
+            </Popover>
+{/* //!!--------------BOTONES DE ADMIN-------------------- */}
+
+            
+{/* //!!--------------BOTONES DE USERS / LOGOUT-------------------- */}
+            {/* {isAuthenticated ? (
               <Button
                 colorScheme="teal"
                 variant="solid"
@@ -204,8 +240,62 @@ function Header() {
           </HStack>
         </Box>
       </Flex>
+    </div> */}
+{/* //!!---------------------------------- */}
+
+     {!isAuthenticated ? (
+              <Button
+                colorScheme="teal"
+                variant="solid"
+                onClick={() => loginWithRedirect()}
+              >
+                Login
+              </Button>
+            ) : (
+              <div></div>
+            )}
+
+
+            {isAuthenticated ? (
+              
+            <Popover trigger="hover">
+              <PopoverTrigger>
+                <Button colorScheme="teal" variant="outline">
+                  {name}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverHeader>
+                  <Link color="teal" fontSize={18} href="/myprofile">
+                  My profile{" "}
+                  </Link>
+                </PopoverHeader>
+                <PopoverHeader>
+                  <Button
+                    colorScheme="teal"
+                    variant="solid"
+                    onClick={() =>
+                    logout({ logoutParams: { returnTo: window.location.origin } })
+                          }>
+                      Logout
+                  </Button>
+                </PopoverHeader>
+              </PopoverContent>
+            </Popover>
+
+              
+            ) : (
+              <div></div>
+            )}
+          </HStack>
+        </Box>
+      </Flex>
     </div>
+  //!!--------------BOTONES DE USERS / LOGOUT-------------------- 
   );
 }
+
+
 
 export default Header;

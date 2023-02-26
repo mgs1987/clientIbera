@@ -23,6 +23,7 @@ import {
   CLEAN_FILTER,
   CREATE_HOTEL,
   GET_NAME_CITIES,
+  GET_UNLOCODE,
 } from "../actions-types/index";
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   hotelDetails: {},
   services: [],
   amenities: [],
+  unlocode:[],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -120,7 +122,14 @@ export default function rootReducer(state = initialState, action) {
             ...state,
           hotels: action.payload
           }
-      
+        case GET_UNLOCODE:
+          // let unlocodeCity = state.unlocode;
+          // let filterUnlocode= unlocodeCity.filter((e)=>e.NameWoDiacritics)
+
+          return{
+            ...state,
+            unlocode : action.payload
+          }
 
     default:
       return state;

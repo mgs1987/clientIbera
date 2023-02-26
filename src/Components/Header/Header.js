@@ -70,10 +70,6 @@ function Header() {
     var name = user.name;
     var email = user.email;
 
-    console.log("user", user);
-    console.log("name", name);
-    console.log("email", email);
-
     axios
       .get("http://localhost:3010/users")
       .then((res) => {
@@ -81,7 +77,6 @@ function Header() {
         status = res.data.find((u) => {
           return u.email === user.email;
         });
-        console.log("status", status);
 
         if (status.privilige === true) {
           setAdmin("admin");
@@ -94,6 +89,10 @@ function Header() {
       })
       .catch((err) => console.log(err));
   }
+
+  const buttonProfile = (e) => {
+    window.location.href = "http://localhost:3000/profile";
+  };
 
   return (
     <div>
@@ -211,7 +210,7 @@ function Header() {
             )}
 
             {isAuthenticated ? (
-              <Button colorScheme="teal" variant="outline">
+              <Button colorScheme="teal" variant="outline" onClick={buttonProfile}>
                 {name}
               </Button>
             ) : (

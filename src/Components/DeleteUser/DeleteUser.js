@@ -1,9 +1,9 @@
 import axios from "axios";
 import {
     FormLabel, Select, Input, Box, Stack, Button,
-    Alert, AlertIcon, AlertTitle, AlertDescription,
+    Alert, AlertIcon, AlertTitle,
     Card, CardBody, Image,
-    Heading, Text, Divider, ButtonGroup
+    Heading, Text, Divider
 } from '@chakra-ui/react';
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -20,6 +20,7 @@ function DeleteUser() {
     };
 
     const [render, setRender] = useState("");
+    const { user, isAuthenticated, isLoading } = useAuth0();
 
     const users = [];
     const [state, setState] = useState([]);
@@ -27,7 +28,6 @@ function DeleteUser() {
     const [input, setInput] = useState("");
     const [alert, setAlert] = useState("");
     const [alert2, setAlert2] = useState("");
-    const { user, isAuthenticated, isLoading } = useAuth0();
     const [newUser, setNewUser] = useState("");
 
     const hotels = [];

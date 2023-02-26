@@ -44,7 +44,7 @@ export function filterHotelByStars(stars) {
 export function getHotelById(id) {
   return async function (dispatch) {
     try {
-      let response = await axios.get(REACT_APP_GET_ALL_HOTELS + id);
+      let response = await axios.get(REACT_APP_GET_ALL_HOTELS + `/${id}`);
       return dispatch({ type: GET_HOTEL_BY_ID, payload: response.data });
     } catch (err) {
       console.log(err);

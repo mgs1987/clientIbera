@@ -202,7 +202,6 @@ function ShoppingCart() {
               <CardServices
                 id={ser.id}
                 name={ser.name}
-                image={ser.image}
                 price={ser.price}
                 handleAddToCart={handleAddToCart}
                 handleRemoveItem={handleRemoveItem}

@@ -6,14 +6,12 @@ import CreateHotel from "./Components/Create/CreateHotel";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import Destinations from "./Components/Destinations/Destinations";
-import Reserve from "./Components/Reserve/Reserve";
+import DeleteUser from "./Components/DeleteUser/DeleteUser";
 import HotelDetails from "../src/Components/HotelDetails/HotelDetails.js";
-
+import AboutUs from "./Components/AboutUs/AboutUs";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
-
-import Login from "./Components/Login/Login";
-import SingUp from "./Components/SingUp/SingUp";
-
+import Profile from "./Components/Profile";
+import Modify from "./Components/ModifyAdmin";
 
 function App() {
   return (
@@ -24,12 +22,13 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/createHotel" element={<CreateHotel />} />
           <Route exact path="/destinations" element={<Destinations />} />
-          <Route exact path="/reserve" element={<Reserve />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/sing-up" element={<SingUp />} />
+          <Route exact path="/delete" element={<DeleteUser />} />
           <Route exact path="/hotels/:id" element={<HotelDetails />} />
+          <Route exact path="/aboutus" element={<AboutUs />} />
+          <Route exact path="/profile" element={<Profile />} />
           {/* <Route exact path="/activities" element={<Reservations/>}/> */}
           <Route exact path="/shoppingcart" element={<ShoppingCart />} />
+          <Route exact path="/modify" element={<Modify />} />
         </Routes>
         <Footer />
       </div>

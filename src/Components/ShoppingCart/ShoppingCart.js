@@ -31,6 +31,7 @@ function ShoppingCart() {
   const services = useSelector((state) => state.services);
 
   useEffect(() => {
+ 
     const cart = window.localStorage.getItem("roomcart");
     setLocal(cart ? JSON.parse(cart) : {});
     const serv = window.localStorage.getItem("servicecart");

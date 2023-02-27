@@ -8,7 +8,9 @@ export function getServices() {
     try {
       const services = await axios.get(REACT_APP_GET_ALL_SERVICES);
 
-      return dispatch({ type: GET_ALL_SERVICES, payload: services.data });
+      return dispatch({ 
+        type: GET_ALL_SERVICES, 
+        payload: services.data });
     } catch (err) {
       console.error(err);
     }

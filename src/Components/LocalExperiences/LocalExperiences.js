@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import CardActivities from "../CardActivities/CardActivities.js";
-import Pages from "../../Pages";
 import { Box } from "@chakra-ui/react";
 import SearchBar from "../SearchBar/SearchBar.js";
-import { getActivities } from "../../Redux/actions/activities.js";
+import { getServices } from "../../Redux/actions/services";
 
 function LocalExperiences() {
   const dispatch = useDispatch();
 
-  const activities = useSelector((state) => state.activities);
+  const activities = useSelector((state) => state.services);
 
   useEffect(() => {
-    dispatch(getActivities());
-  }, [dispatch]);
-
+    dispatch(getServices());},
+  [dispatch]
+  );
+  
+  
   return (
     <div>
       <Box mt="30px">
@@ -32,6 +33,8 @@ function LocalExperiences() {
           />
       );
       })}
+      
+
     </div>
   );
 }

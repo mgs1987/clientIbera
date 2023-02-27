@@ -249,16 +249,6 @@ function Profile() {
 
                     <Stack>
 
-                        <Button
-                            colorScheme="teal"
-                            variant="solid"
-                            onClick={() =>
-                                logout({ logoutParams: { returnTo: window.location.origin } })
-                            }
-                        >
-                            Logout
-                        </Button>
-
                         <Button onClick={HandleModify}>Modify</Button>
 
                     </Stack>

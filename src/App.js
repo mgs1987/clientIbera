@@ -11,8 +11,7 @@ import HotelDetails from "../src/Components/HotelDetails/HotelDetails.js";
 import AboutUs from "./Components/AboutUs/AboutUs";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 import Profile from "./Components/Profile";
-
-import Login from "./Components/Login/Login";
+import Modify from "./Components/ModifyAdmin";
 
 function App() {
   return (
@@ -24,12 +23,12 @@ function App() {
           <Route exact path="/createHotel" element={<CreateHotel />} />
           <Route exact path="/destinations" element={<Destinations />} />
           <Route exact path="/delete" element={<DeleteUser />} />
-          <Route exact path="/login" element={<Login />} />
           <Route exact path="/hotels/:id" element={<HotelDetails />} />
           <Route exact path="/aboutus" element={<AboutUs />} />
+          <Route exact path="/profile" element={<Profile />} />
           {/* <Route exact path="/activities" element={<Reservations/>}/> */}
           <Route exact path="/shoppingcart" element={<ShoppingCart />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/modify" element={<Modify />} />
         </Routes>
         <Footer />
       </div>

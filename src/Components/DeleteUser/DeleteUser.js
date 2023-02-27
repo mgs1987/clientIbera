@@ -1,9 +1,9 @@
 import axios from "axios";
 import {
     FormLabel, Select, Input, Box, Stack, Button,
-    Alert, AlertIcon, AlertTitle, AlertDescription,
+    Alert, AlertIcon, AlertTitle,
     Card, CardBody, Image,
-    Heading, Text, Divider, ButtonGroup
+    Heading, Text, Divider
 } from '@chakra-ui/react';
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -20,6 +20,7 @@ function DeleteUser() {
     };
 
     const [render, setRender] = useState("");
+    const { user, isAuthenticated, isLoading } = useAuth0();
 
     const users = [];
     const [state, setState] = useState([]);
@@ -27,8 +28,8 @@ function DeleteUser() {
     const [input, setInput] = useState("");
     const [alert, setAlert] = useState("");
     const [alert2, setAlert2] = useState("");
-    const { user, isAuthenticated, isLoading } = useAuth0();
     const [newUser, setNewUser] = useState("");
+    const [cleanUser, setCleanUser] = useState("");
 
     const hotels = [];
     const [stateHotel, setStateHotel] = useState([]);
@@ -37,6 +38,7 @@ function DeleteUser() {
     const [alertHotel, setAlertHotel] = useState("");
     const [alert2Hotel, setAlert2Hotel] = useState("");
     const [newHotel, setNewHotel] = useState("");
+    const [cleanHotel, setCleanHotel] = useState("");
 
     const rooms = [];
     const [stateRoom, setStateRoom] = useState([]);
@@ -46,6 +48,7 @@ function DeleteUser() {
     const [alert2Room, setAlert2Room] = useState("");
     const [newRoom, setNewRoom] = useState("");
     const [newRoom2, setNewRoom2] = useState("");
+    const [cleanRoom, setCleanRoom] = useState("");
 
     const onClickUser = (e) => {
         setRender("user")
@@ -64,6 +67,26 @@ function DeleteUser() {
         setRender("")
     };
 
+    if (isAuthenticated) {
+
+        axios.get("http://localhost:3010/users")
+            .then((res) => {
+
+                const logUser = res.data.find((u) => {
+                    return u.email === user.email
+                })
+
+                if (res.data) {
+                    if (logUser.privilige !== true) {
+                        window.location.href = "http://localhost:3000"
+                    };
+                };
+
+            })
+            .catch((err) => console.log(err));
+
+    };
+
     if (render === "") {
 
         return (
@@ -74,7 +97,7 @@ function DeleteUser() {
                     borderWidth="1px"
                     rounded="lg"
                     shadow="1px 1px 3px rgba(0,0,0,0.3)"
-                    maxWidth={400}
+                    maxWidth={800}
                     p={6}
                     m="10px auto"
                     as="form"
@@ -83,15 +106,15 @@ function DeleteUser() {
                     <Stack direction='row' spacing={4} align='center'>
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickUser}>
-                            User
+                            Enable / Disable , User
                         </Button>
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickHotel}>
-                            Hotlel
+                            Delete && Enable / Disable , Hotlel
                         </Button>
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickRoom}>
-                            Room
+                            Delete && Enable / Disable , Room
                         </Button>
 
                     </Stack>
@@ -110,15 +133,6 @@ function DeleteUser() {
 
             axios.get("http://localhost:3010/users")
                 .then((res) => {
-                    const logUser = res.data.find((u) => {
-                        return u.email === user.email
-                    })
-
-                    if (res.data) {
-                        if (logUser.privilige !== true) {
-                            window.location.href = "http://localhost:3000"
-                        };
-                    };
 
                     for (let i = 0; i < res.data.length; i++) {
                         users.push(res.data[i])
@@ -190,7 +204,11 @@ function DeleteUser() {
             }))
 
             setAlert("");
+            setCleanUser("user")
+        };
 
+        const HandleCleanUser = (e) => {
+            setCleanUser("")
         };
 
         state.sort((a, b) => {
@@ -254,17 +272,28 @@ function DeleteUser() {
                         <br></br>
                         <br></br>
 
-                        <Stack id="stack-Button">
+                        {cleanUser ?
+                            <div>
+                                <Button colorScheme='teal' variant='solid' onClick={HandleCleanUser}>
+                                    Clean
+                                </Button>
+                                <Stack id="stack-Button">
 
-                            {state2 && state2.map((u) => {
-                                return (
-                                    <Button id="button-filter" colorScheme='blue' variant='ghost' onClick={handleFilter}>
-                                        {u.email}
-                                    </Button>
-                                )
-                            })}
+                                    {state2 && state2.map((u) => {
+                                        return (
+                                            <Button id="button-filter" colorScheme='blue' variant='ghost' onClick={handleFilter}>
+                                                {u.email}
+                                            </Button>
+                                        )
+                                    })}
 
-                        </Stack>
+                                </Stack>
+                            </div>
+                            :
+                            <div></div>
+                        }
+
+
 
                         <br></br>
                         <br></br>
@@ -358,7 +387,7 @@ function DeleteUser() {
                             <div></div>}
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
-                            Refresh
+                            Return
                         </Button>
 
                     </Box>
@@ -434,7 +463,12 @@ function DeleteUser() {
             }))
 
             setAlertHotel("");
+            setCleanHotel("hotel")
 
+        };
+
+        const HandleCleanHotel = (e) => {
+            setCleanHotel("")
         };
 
         const DeleteHotel = (e) => {
@@ -528,17 +562,28 @@ function DeleteUser() {
                         <br></br>
                         <br></br>
 
-                        <Stack id="stack-Button-hotel">
+                        {cleanHotel ?
+                            <div>
+                                <Button colorScheme='teal' variant='solid' onClick={HandleCleanHotel}>
+                                    Clean
+                                </Button>
+                                <Stack id="stack-Button-hotel">
 
-                            {state2Hotel && state2Hotel.map((h) => {
-                                return (
-                                    <Button id="button-filter-hotel" colorScheme='blue' variant='ghost' onClick={handleFilterHotel}>
-                                        {h.name}
-                                    </Button>
-                                )
-                            })}
+                                    {state2Hotel && state2Hotel.map((h) => {
+                                        return (
+                                            <Button id="button-filter-hotel" colorScheme='blue' variant='ghost' onClick={handleFilterHotel}>
+                                                {h.name}
+                                            </Button>
+                                        )
+                                    })}
 
-                        </Stack>
+                                </Stack>
+                            </div>
+                            :
+                            <div></div>
+                        }
+
+
 
                         <br></br>
                         <br></br>
@@ -591,6 +636,9 @@ function DeleteUser() {
                                                 City: {newHotel[0].city}
                                             </Text>
                                             <Text>
+                                                Address: {newHotel[0].address}
+                                            </Text>
+                                            <Text>
                                                 Description: {newHotel[0].description}
                                             </Text>
                                             <Text>
@@ -636,7 +684,7 @@ function DeleteUser() {
                             <div></div>}
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
-                            Refresh
+                            Return
                         </Button>
 
                     </Box>
@@ -737,7 +785,12 @@ function DeleteUser() {
             }))
 
             setAlertRoom("");
+            setCleanRoom("hotel");
 
+        };
+
+        const HandleCleanRoom = (e) => {
+            setCleanRoom("")
         };
 
         const DeleteRoom = (e) => {
@@ -866,17 +919,26 @@ function DeleteUser() {
                         <br></br>
                         <br></br>
 
-                        <Stack id="stack-Button-room">
+                        {cleanRoom ?
+                            <div>
+                                <Button colorScheme='teal' variant='solid' onClick={HandleCleanRoom}>
+                                    Clean
+                                </Button>
+                                <Stack id="stack-Button-room">
 
-                            {state2Room && state2Room.map((r) => {
-                                return (
-                                    <Button id="button-filter-room" colorScheme='blue' variant='ghost' onClick={handleFilterRoom}>
-                                        {r.name}
-                                    </Button>
-                                )
-                            })}
+                                    {state2Room && state2Room.map((r) => {
+                                        return (
+                                            <Button id="button-filter-room" colorScheme='blue' variant='ghost' onClick={handleFilterRoom}>
+                                                {r.name}
+                                            </Button>
+                                        )
+                                    })}
 
-                        </Stack>
+                                </Stack></div>
+                            :
+                            <div></div>}
+
+
 
                         <br></br>
                         <br></br>
@@ -928,6 +990,9 @@ function DeleteUser() {
                                             </Text>
                                             <Text>
                                                 City: {newRoom[0].city}
+                                            </Text>
+                                            <Text>
+                                                Address: {newRoom[0].address}
                                             </Text>
                                             <Text>
                                                 Description: {newRoom[0].description}
@@ -1034,7 +1099,7 @@ function DeleteUser() {
                         }
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
-                            Refresh
+                            Return
                         </Button>
 
                     </Box>

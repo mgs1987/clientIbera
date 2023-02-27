@@ -41,7 +41,7 @@ function LocalExperiences() {
 
         return (
 
-            <div>hola</div>
+            <div>Loading...</div>
 
         )
 

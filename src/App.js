@@ -11,6 +11,7 @@ import HotelDetails from "../src/Components/HotelDetails/HotelDetails.js";
 import AboutUs from "./Components/AboutUs/AboutUs";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 import Profile from "./Components/Profile";
+import Modify from "./Components/ModifyAdmin";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/profile" element={<Profile />} />
           {/* <Route exact path="/activities" element={<Reservations/>}/> */}
           <Route exact path="/shoppingcart" element={<ShoppingCart />} />
+          <Route exact path="/modify" element={<Modify />} />
         </Routes>
         <Footer />
       </div>

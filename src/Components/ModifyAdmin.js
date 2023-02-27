@@ -1,19 +1,15 @@
 import axios from "axios";
+import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
     FormLabel, Select, Input, Box, Stack, Button,
-    Alert, AlertIcon, AlertTitle,
-    Card, CardBody, Image,
-    Heading, Text, Divider
+    Alert, AlertIcon, AlertTitle, FormErrorMessage,
+    Card, CardBody, Image, FormHelperText,
+    Heading, Text, Divider, FormControl
 } from '@chakra-ui/react';
-import { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 
 
-function DeleteUser() {
-
-    useEffect(() => {
-        console.log(users);
-    }, []);
+function Modify() {
 
     if (!document.cookie) {
         window.location.href = "http://localhost:3000"
@@ -22,15 +18,6 @@ function DeleteUser() {
     const [render, setRender] = useState("");
     const { user, isAuthenticated, isLoading } = useAuth0();
 
-    const users = [];
-    const [state, setState] = useState([]);
-    const [state2, setState2] = useState([]);
-    const [input, setInput] = useState("");
-    const [alert, setAlert] = useState("");
-    const [alert2, setAlert2] = useState("");
-    const [newUser, setNewUser] = useState("");
-    const [cleanUser, setCleanUser] = useState("");
-
     const hotels = [];
     const [stateHotel, setStateHotel] = useState([]);
     const [state2Hotel, setState2Hotel] = useState([]);
@@ -38,7 +25,15 @@ function DeleteUser() {
     const [alertHotel, setAlertHotel] = useState("");
     const [alert2Hotel, setAlert2Hotel] = useState("");
     const [newHotel, setNewHotel] = useState("");
+    const [modifyHotel, setModifyHotel] = useState("");
     const [cleanHotel, setCleanHotel] = useState("");
+    const [inputHotelForm, setInputHotelForm] = useState({
+        name: "",
+        address: "",
+        city: "",
+        description: "",
+        stars: ""
+    });
 
     const rooms = [];
     const [stateRoom, setStateRoom] = useState([]);
@@ -48,11 +43,14 @@ function DeleteUser() {
     const [alert2Room, setAlert2Room] = useState("");
     const [newRoom, setNewRoom] = useState("");
     const [newRoom2, setNewRoom2] = useState("");
+    const [modifyRoom, setModifyRoom] = useState("");
     const [cleanRoom, setCleanRoom] = useState("");
-
-    const onClickUser = (e) => {
-        setRender("user")
-    };
+    const [inputRoomForm, setInputRoomForm] = useState({
+        name: "",
+        bed_quantity: "",
+        price: "",
+        description: ""
+    });
 
     const onClickHotel = (e) => {
         setRender("hotel")
@@ -65,6 +63,13 @@ function DeleteUser() {
 
     const onClickRefresh = (e) => {
         setRender("")
+        setInputRoom("");
+        setNewRoom("");
+        setNewRoom2("");
+        setModifyRoom("");
+        setInputHotel("");
+        setNewHotel("");
+        setModifyHotel("");
     };
 
     if (isAuthenticated) {
@@ -97,7 +102,7 @@ function DeleteUser() {
                     borderWidth="1px"
                     rounded="lg"
                     shadow="1px 1px 3px rgba(0,0,0,0.3)"
-                    maxWidth={800}
+                    maxWidth={400}
                     p={6}
                     m="10px auto"
                     as="form"
@@ -105,16 +110,12 @@ function DeleteUser() {
 
                     <Stack direction='row' spacing={4} align='center'>
 
-                        <Button colorScheme='teal' variant='solid' onClick={onClickUser}>
-                            Enable / Disable , User
-                        </Button>
-
                         <Button colorScheme='teal' variant='solid' onClick={onClickHotel}>
-                            Delete && Enable / Disable , Hotlel
+                            Modify Hotlel
                         </Button>
 
                         <Button colorScheme='teal' variant='solid' onClick={onClickRoom}>
-                            Delete && Enable / Disable , Room
+                            Modify Room
                         </Button>
 
                     </Stack>
@@ -125,281 +126,9 @@ function DeleteUser() {
 
         )
 
-    } else if (render === "user") {
-
-        //------------------Delete User--------------------------------------------------
-
-        if (state.length === 0 || alert2 === "submit") {
-
-            axios.get("http://localhost:3010/users")
-                .then((res) => {
-
-                    for (let i = 0; i < res.data.length; i++) {
-                        users.push(res.data[i])
-
-                    }
-                    if (users.length) {
-                        setState(users);
-                    };
-
-                    setAlert2("");
-                })
-                .catch((err) => console.log(err));
-
-        };
-
-        const handleSelectChange = (e) => {
-
-            const select = document.getElementById('select');
-
-            const StateUser = state.filter((u) => {
-                return (u.email === e.target.value)
-            });
-
-            setNewUser(StateUser);
-            setAlert("");
-            setInput(e.target.value);
-
-            select.value = "";
-        };
-
-        const handeleEnableDisable = (e) => {
-
-            axios.put("http://localhost:3010/users/disable", { email: newUser[0].email })
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
-
-
-            setInput("");
-            setNewUser("");
-            setAlert("submit");
-            setAlert2("submit");
-
-        };
-
-        const handleFilter = (e) => {
-
-            e.preventDefault();
-
-            const inputFilter = document.getElementById("input-filter");
-
-            const StateFilter = state.filter((u) => {
-                return u.email.toLowerCase().includes(inputFilter.value.toLowerCase())
-            });
-
-            if (StateFilter.length) {
-                setNewUser(StateFilter);
-            };
-
-            setAlert("");
-
-        };
-
-        const handleFilter2 = (e) => {
-
-            const inputFilter = document.getElementById("input-filter");
-
-            setState2([...state].filter((u) => {
-                return u.email.toLowerCase().includes(inputFilter.value.toLowerCase())
-            }))
-
-            setAlert("");
-            setCleanUser("user")
-        };
-
-        const HandleCleanUser = (e) => {
-            setCleanUser("")
-        };
-
-        state.sort((a, b) => {
-
-            if (a.email > b.email) {
-                return 1;
-            }
-            if (b.email > a.email) {
-                return -1;
-            }
-            return 0;
-        });
-
-        if (state.length !== 0) {
-
-            return (
-
-                <div>
-
-                    <Box
-                        borderWidth="1px"
-                        rounded="lg"
-                        shadow="1px 1px 3px rgba(0,0,0,0.3)"
-                        maxWidth={800}
-                        p={6}
-                        m="10px auto"
-                        as="form"
-                        backgroundColor="#F0F8FF"
-                    >
-
-                        {alert ?
-
-                            <Alert
-                                status='success'
-                                variant='subtle'
-                                flexDirection='column'
-                                alignItems='center'
-                                justifyContent='center'
-                                textAlign='center'
-                                height='200px'
-                            >
-                                <AlertIcon boxSize='40px' mr={0} />
-                                <AlertTitle mt={4} mb={1} fontSize='lg'>
-                                    User modified!
-                                </AlertTitle>
-                            </Alert> :
-
-                            <div></div>
-
-                        }
-
-                        <FormLabel>Delete User</FormLabel>
-
-                        <br></br>
-                        <br></br>
-
-                        <FormLabel>Find User:</FormLabel>
-
-                        <Input id="input-filter" onChange={handleFilter2} />
-
-                        <br></br>
-                        <br></br>
-
-                        {cleanUser ?
-                            <div>
-                                <Button colorScheme='teal' variant='solid' onClick={HandleCleanUser}>
-                                    Clean
-                                </Button>
-                                <Stack id="stack-Button">
-
-                                    {state2 && state2.map((u) => {
-                                        return (
-                                            <Button id="button-filter" colorScheme='blue' variant='ghost' onClick={handleFilter}>
-                                                {u.email}
-                                            </Button>
-                                        )
-                                    })}
-
-                                </Stack>
-                            </div>
-                            :
-                            <div></div>
-                        }
-
-
-
-                        <br></br>
-                        <br></br>
-
-                        <FormLabel>Select User:</FormLabel>
-
-                        <Select id="select" placeholder='Select-User' borderWidth='3px' maxW='sm' onChange={handleSelectChange}>
-                            {state && state.map((u) => {
-                                return (
-                                    <option>{u.email}</option>
-                                )
-                            })}
-                        </Select>
-
-                        <br></br>
-                        <br></br>
-
-                        <FormLabel>User:</FormLabel>
-
-                        <Input type='text' value={input} borderWidth='3px' />
-
-                        <br></br>
-                        <br></br>
-
-                        {newUser ?
-                            <Box
-                                borderWidth="1px"
-                                rounded="lg"
-                                shadow="1px 1px 3px rgba(0,0,0,0.3)"
-                                maxWidth={400}
-                                p={6}
-                                m="10px auto"
-                                as="form"
-                            >
-
-                                <Card maxW='sm'>
-                                    <CardBody>
-                                        <Image
-                                            src={newUser[0].image}
-                                            alt='User Image'
-                                            borderRadius='lg'
-                                            maxWidth={200}
-                                        />
-                                        <Stack mt='6' spacing='3'>
-                                            <Heading size='md'>User Information</Heading>
-                                            <Text>
-                                                Name: {newUser[0].first_name} {newUser[0].last_name}
-                                            </Text>
-                                            <Text>
-                                                Email: {newUser[0].email}
-                                            </Text>
-                                            <Text>
-                                                Privilage: {newUser[0].privilige === true ? "This user is admin" : "Nomal user"}
-                                            </Text>
-                                            <Text>
-                                                Status: {newUser[0].status}
-                                            </Text>
-                                        </Stack>
-                                    </CardBody>
-                                    <Divider />
-                                </Card>
-
-                                <br></br>
-
-                                <Stack direction='row' spacing={4} align='center'>
-
-                                    {newUser.length > 0 && newUser[0].status === "active" ?
-
-                                        <Button colorScheme='teal' variant='solid' onClick={handeleEnableDisable}>
-                                            Disable
-                                        </Button> :
-
-                                        <div></div>
-
-                                    }
-
-                                    {newUser.length > 0 && newUser[0].status === "disabled" ?
-
-                                        <Button colorScheme='teal' variant='solid' onClick={handeleEnableDisable}>
-                                            Enable
-                                        </Button> :
-
-                                        <div></div>
-
-                                    }
-
-                                </Stack>
-
-                            </Box>
-                            :
-                            <div></div>}
-
-                        <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
-                            Return
-                        </Button>
-
-                    </Box>
-
-                </div>
-
-            )
-        }
-
     } else if (render === "hotel") {
 
-        //------------------Delete Hotel--------------------------------------------------
+        //------------------Modify Hotel--------------------------------------------------
 
         if (stateHotel.length === 0 || alert2Hotel === "submit") {
 
@@ -432,6 +161,14 @@ function DeleteUser() {
             setNewHotel(StateHotel);
             setAlertHotel("");
             setInputHotel(e.target.value);
+            setModifyHotel("");
+            setInputHotelForm({
+                name: "",
+                address: "",
+                city: "",
+                description: "",
+                stars: ""
+            });
 
             selectHotel.value = "";
         };
@@ -462,41 +199,58 @@ function DeleteUser() {
                 return u.name.toLowerCase().includes(inputFilterHotel.value.toLowerCase())
             }))
 
-            setAlertHotel("");
             setCleanHotel("hotel")
+            setAlertHotel("");
+            setModifyHotel("");
+            setInputHotelForm({
+                name: "",
+                address: "",
+                city: "",
+                description: "",
+                stars: ""
+            });
 
+        };
+
+        const handleFormChangeHotel = (e) => {
+
+            setInputHotelForm({
+                ...inputHotelForm,
+                [e.target.name]: e.target.value
+            });
+
+            console.log(inputHotelForm)
+
+        };
+
+        const SubmitModifyHotel = (e) => {
+
+            axios.put(`http://localhost:3010/hotels/modify/${newHotel[0].idHotels}`, inputHotelForm)
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err));
+
+
+            setInputHotel("");
+            setNewHotel("");
+            setModifyHotel("");
+            setInputHotelForm({
+                name: "",
+                address: "",
+                city: "",
+                description: "",
+                stars: ""
+            });
+            setAlertHotel("submit");
+            setAlert2Hotel("submit");
+
+        };
+
+        const ButtonModifyHotel = (e) => {
+            setModifyHotel("modify");
         };
 
         const HandleCleanHotel = (e) => {
             setCleanHotel("")
-        };
-
-        const DeleteHotel = (e) => {
-
-            axios.delete(`http://localhost:3010/hotels/delete/${newHotel[0].idHotels}`)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
-
-
-            setInputHotel("");
-            setNewHotel("");
-            setAlertHotel("submit");
-            setAlert2Hotel("submit");
-
-        };
-
-        const DisableHotel = (e) => {
-
-            axios.put(`http://localhost:3010/hotels/disable/${newHotel[0].idHotels}`)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
-
-
-            setInputHotel("");
-            setNewHotel("");
-            setAlertHotel("submit");
-            setAlert2Hotel("submit");
-
         };
 
         stateHotel.sort((a, b) => {
@@ -509,8 +263,6 @@ function DeleteUser() {
             }
             return 0;
         });
-
-        console.log("stateHotel", stateHotel);
 
         if (stateHotel.length !== 0) {
 
@@ -542,7 +294,7 @@ function DeleteUser() {
                             >
                                 <AlertIcon boxSize='40px' mr={0} />
                                 <AlertTitle mt={4} mb={1} fontSize='lg'>
-                                    Hotel Delete!
+                                    Hotel Modify!
                                 </AlertTitle>
                             </Alert> :
 
@@ -550,7 +302,7 @@ function DeleteUser() {
 
                         }
 
-                        <FormLabel>Delete Hotel</FormLabel>
+                        <FormLabel>Modify Hotel</FormLabel>
 
                         <br></br>
                         <br></br>
@@ -563,10 +315,13 @@ function DeleteUser() {
                         <br></br>
 
                         {cleanHotel ?
+
                             <div>
+
                                 <Button colorScheme='teal' variant='solid' onClick={HandleCleanHotel}>
                                     Clean
                                 </Button>
+
                                 <Stack id="stack-Button-hotel">
 
                                     {state2Hotel && state2Hotel.map((h) => {
@@ -578,12 +333,14 @@ function DeleteUser() {
                                     })}
 
                                 </Stack>
+
                             </div>
+
                             :
+
                             <div></div>
+
                         }
-
-
 
                         <br></br>
                         <br></br>
@@ -651,41 +408,101 @@ function DeleteUser() {
 
                                 <br></br>
 
-                                <Stack direction='row' spacing={4} align='center'>
-
-                                    {newHotel.length > 0 && newHotel[0].status === true ?
-
-                                        <Button colorScheme='teal' variant='solid' onClick={DisableHotel}>
-                                            Disable
-                                        </Button> :
-
-                                        <div></div>
-
-                                    }
-
-                                    {newHotel.length > 0 && newHotel[0].status === false ?
-
-                                        <Button colorScheme='teal' variant='solid' onClick={DisableHotel}>
-                                            Enable
-                                        </Button> :
-
-                                        <div></div>
-
-                                    }
-
-                                    <Button colorScheme='teal' variant='solid' onClick={DeleteHotel}>
-                                        Delete Hotlel
-                                    </Button>
-
-                                </Stack>
-
                             </Box>
                             :
                             <div></div>}
 
-                        <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
-                            Return
-                        </Button>
+                        <br></br>
+
+                        <Stack direction='row' spacing={4} align='center'>
+
+                            <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
+                                Return
+                            </Button>
+
+                            <Button colorScheme='teal' variant='solid' onClick={ButtonModifyHotel}>
+                                Modify
+                            </Button>
+
+                        </Stack>
+
+                        <br></br>
+                        <br></br>
+
+                        {modifyHotel ?
+
+                            <div>
+
+                                <FormControl>
+
+                                    <FormLabel>Name</FormLabel>
+                                    <Input type='text' name="name" borderWidth='3px' value={inputHotelForm.name}
+                                        onChange={handleFormChangeHotel} />
+                                    {true ? (
+                                        <FormHelperText>
+                                            Complete Name.
+                                        </FormHelperText>
+                                    ) : (
+                                        <FormErrorMessage></FormErrorMessage>
+                                    )}
+
+                                    <FormLabel>Address</FormLabel>
+                                    <Input type='text' name="address" borderWidth='3px' value={inputHotelForm.address}
+                                        onChange={handleFormChangeHotel} />
+                                    {true ? (
+                                        <FormHelperText>
+                                            Complete Address.
+                                        </FormHelperText>
+                                    ) : (
+                                        <FormErrorMessage></FormErrorMessage>
+                                    )}
+
+                                    <FormLabel>City</FormLabel>
+                                    <Input type='text' name="city" borderWidth='3px' value={inputHotelForm.city}
+                                        onChange={handleFormChangeHotel} />
+                                    {true ? (
+                                        <FormHelperText>
+                                            Complete City.
+                                        </FormHelperText>
+                                    ) : (
+                                        <FormErrorMessage></FormErrorMessage>
+                                    )}
+
+                                    <FormLabel>Description</FormLabel>
+                                    <Input type='text' name="description" borderWidth='3px' value={inputHotelForm.description}
+                                        onChange={handleFormChangeHotel} />
+                                    {true ? (
+                                        <FormHelperText>
+                                            Complete Description.
+                                        </FormHelperText>
+                                    ) : (
+                                        <FormErrorMessage></FormErrorMessage>
+                                    )}
+
+                                    <FormLabel>Stars</FormLabel>
+                                    <Input type='text' name="stars" borderWidth='3px' value={inputHotelForm.stars}
+                                        onChange={handleFormChangeHotel} />
+                                    {true ? (
+                                        <FormHelperText>
+                                            Complete Stars.
+                                        </FormHelperText>
+                                    ) : (
+                                        <FormErrorMessage></FormErrorMessage>
+                                    )}
+
+                                </FormControl>
+
+                                <br></br>
+
+                                <Button colorScheme='teal' variant='solid' onClick={SubmitModifyHotel}>
+                                    Submit
+                                </Button>
+
+                            </div> :
+
+                            <div></div>
+
+                        }
 
                     </Box>
 
@@ -696,7 +513,7 @@ function DeleteUser() {
 
     } else if (render === "room") {
 
-        //------------------Delete Room--------------------------------------------------
+        //------------------Modify Room--------------------------------------------------
 
         if (stateRoom.length === 0 || alert2Room === "submit") {
 
@@ -730,6 +547,13 @@ function DeleteUser() {
             setNewRoom(StateRoom);
             setAlertRoom("");
             setInputRoom(e.target.value);
+            setModifyRoom("");
+            setInputRoomForm({
+                name: "",
+                bed_quantity: "",
+                price: "",
+                description: ""
+            });
 
             selectRoom.value = "";
         };
@@ -784,8 +608,48 @@ function DeleteUser() {
                 return u.name.toLowerCase().includes(inputFilterRoom.value.toLowerCase())
             }))
 
+            setCleanRoom("room")
             setAlertRoom("");
-            setCleanRoom("hotel");
+            setModifyRoom("");
+            setInputRoomForm({
+                name: "",
+                bed_quantity: "",
+                price: "",
+                description: ""
+            });
+
+        };
+
+        const handleFormChangeRoom = (e) => {
+
+            setInputRoomForm({
+                ...inputRoomForm,
+                [e.target.name]: e.target.value
+            });
+
+            console.log(inputRoomForm)
+
+        };
+
+        const SubmitModifyRoom = (e) => {
+
+            axios.put(`http://localhost:3010/rooms/modify/${newRoom2[0].idRooms}`, inputRoomForm)
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err));
+
+
+            setInputRoom("");
+            setNewRoom("");
+            setNewRoom2("");
+            setModifyRoom("");
+            setInputRoomForm({
+                name: "",
+                bed_quantity: "",
+                price: "",
+                description: ""
+            });
+            setAlertRoom("submit");
+            setAlert2Room("submit");
 
         };
 
@@ -793,33 +657,8 @@ function DeleteUser() {
             setCleanRoom("")
         };
 
-        const DeleteRoom = (e) => {
-
-            axios.delete(`http://localhost:3010/rooms/delete/${newRoom2[0].idRooms}`)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
-
-
-            setInputRoom("");
-            setNewRoom("");
-            setNewRoom2("");
-            setAlertRoom("submit");
-            setAlert2Room("submit");
-
-        };
-
-        const DisableRoom = (e) => {
-
-            axios.put(`http://localhost:3010/rooms/disable/${newRoom2[0].idRooms}`)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
-
-            setInputRoom("");
-            setNewRoom("");
-            setNewRoom2("");
-            setAlertRoom("submit");
-            setAlert2Room("submit");
-
+        const ButtonModifyRoom = (e) => {
+            setModifyRoom("modify");
         };
 
         state2Room.sort((a, b) => {
@@ -832,15 +671,6 @@ function DeleteUser() {
             }
             return 0;
         });
-
-        if (newRoom) {
-            console.log("newRoom", newRoom)
-            console.log("newRoom", newRoom[0].rooms)
-        };
-
-        if (newRoom2) {
-            console.log("newRoom2", newRoom2)
-        };
 
         stateRoom.sort((a, b) => {
 
@@ -899,7 +729,7 @@ function DeleteUser() {
                             >
                                 <AlertIcon boxSize='40px' mr={0} />
                                 <AlertTitle mt={4} mb={1} fontSize='lg'>
-                                    Room Delete!
+                                    Room Modify!
                                 </AlertTitle>
                             </Alert> :
 
@@ -907,7 +737,7 @@ function DeleteUser() {
 
                         }
 
-                        <FormLabel>Delete Room</FormLabel>
+                        <FormLabel>Modify Room</FormLabel>
 
                         <br></br>
                         <br></br>
@@ -920,13 +750,16 @@ function DeleteUser() {
                         <br></br>
 
                         {cleanRoom ?
+
                             <div>
+
                                 <Button colorScheme='teal' variant='solid' onClick={HandleCleanRoom}>
                                     Clean
                                 </Button>
+
                                 <Stack id="stack-Button-room">
 
-                                    {state2Room && state2Room.map((r) => {
+                                    {state2Room && state2Room?.map((r) => {
                                         return (
                                             <Button id="button-filter-room" colorScheme='blue' variant='ghost' onClick={handleFilterRoom}>
                                                 {r.name}
@@ -934,11 +767,15 @@ function DeleteUser() {
                                         )
                                     })}
 
-                                </Stack></div>
+                                </Stack>
+
+                            </div>
+
                             :
-                            <div></div>}
 
+                            <div></div>
 
+                        }
 
                         <br></br>
                         <br></br>
@@ -1064,43 +901,92 @@ function DeleteUser() {
 
                                 <br></br>
 
-                                <Stack direction='row' spacing={4} align='center'>
-
-                                    <Button colorScheme='teal' variant='solid' onClick={DeleteRoom}>
-                                        Delete Room
-                                    </Button>
-
-                                    {newRoom2.length > 0 && newRoom2[0].status === true ?
-
-                                        <Button colorScheme='teal' variant='solid' onClick={DisableRoom}>
-                                            Disable
-                                        </Button> :
-
-                                        <div></div>
-
-                                    }
-
-                                    {newRoom2.length > 0 && newRoom2[0].status === false ?
-
-                                        <Button colorScheme='teal' variant='solid' onClick={DisableRoom}>
-                                            Enable
-                                        </Button> :
-
-                                        <div></div>
-
-                                    }
-
-                                </Stack>
-
                             </Box> :
 
                             <div></div>
 
                         }
 
-                        <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
-                            Return
-                        </Button>
+                        <br></br>
+
+                        <Stack direction='row' spacing={4} align='center'>
+
+                            <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
+                                Return
+                            </Button>
+
+                            <Button colorScheme='teal' variant='solid' onClick={ButtonModifyRoom}>
+                                Modify
+                            </Button>
+
+                        </Stack>
+
+                        <br></br>
+                        <br></br>
+
+                        {modifyRoom ?
+
+                            <div>
+
+                                <FormControl>
+
+                                    <FormLabel>Name</FormLabel>
+                                    <Input type='text' name="name" borderWidth='3px' value={inputRoomForm.name}
+                                        onChange={handleFormChangeRoom} />
+                                    {true ? (
+                                        <FormHelperText>
+                                            Complete Name.
+                                        </FormHelperText>
+                                    ) : (
+                                        <FormErrorMessage></FormErrorMessage>
+                                    )}
+
+                                    <FormLabel>Bed_quantity</FormLabel>
+                                    <Input type='text' name="bed_quantity" borderWidth='3px' value={inputRoomForm.bed_quantity}
+                                        onChange={handleFormChangeRoom} />
+                                    {true ? (
+                                        <FormHelperText>
+                                            Complete Bed_quantity.
+                                        </FormHelperText>
+                                    ) : (
+                                        <FormErrorMessage></FormErrorMessage>
+                                    )}
+
+                                    <FormLabel>Price</FormLabel>
+                                    <Input type='text' name="price" borderWidth='3px' value={inputRoomForm.price}
+                                        onChange={handleFormChangeRoom} />
+                                    {true ? (
+                                        <FormHelperText>
+                                            Complete Price.
+                                        </FormHelperText>
+                                    ) : (
+                                        <FormErrorMessage></FormErrorMessage>
+                                    )}
+
+                                    <FormLabel>Description</FormLabel>
+                                    <Input type='text' name="description" borderWidth='3px' value={inputRoomForm.description}
+                                        onChange={handleFormChangeRoom} />
+                                    {true ? (
+                                        <FormHelperText>
+                                            Complete Description.
+                                        </FormHelperText>
+                                    ) : (
+                                        <FormErrorMessage></FormErrorMessage>
+                                    )}
+
+                                </FormControl>
+
+                                <br></br>
+
+                                <Button colorScheme='teal' variant='solid' onClick={SubmitModifyRoom}>
+                                    Submit
+                                </Button>
+
+                            </div> :
+
+                            <div></div>
+
+                        }
 
                     </Box>
 
@@ -1125,4 +1011,4 @@ function DeleteUser() {
 
 }
 
-export default DeleteUser;
+export default Modify;

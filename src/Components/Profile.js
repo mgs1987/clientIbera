@@ -4,7 +4,8 @@ import {
     Card, CardBody, Image,
     Heading, Text, Divider,
     FormControl, FormLabel, Input,
-    FormHelperText, FormErrorMessage
+    FormHelperText, FormErrorMessage,
+    Alert, AlertIcon, AlertTitle, AlertDescription
 } from '@chakra-ui/react';
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -14,6 +15,7 @@ function Profile() {
     const { user, isAuthenticated, isLoading } = useAuth0();
     const [newUser, setNewUser] = useState("");
     const [buttonModify, setButtonModify] = useState("");
+    const [errorSubmit, setErrorSubmit] = useState("");
     const [input, setInput] = useState({
         first_name: "",
         last_name: "",
@@ -81,11 +83,17 @@ function Profile() {
 
         const SubmitModifyUser = (e) => {
 
-            axios.put(`http://localhost:3010/users/modify/${newUser.email}`, input)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
+            if (!input.first_name || !input.last_name || !input.nationality || !input.date_birth ||
+                !input.mobile) {
+                setErrorSubmit("error");
+            } else {
+                axios.put(`http://localhost:3010/users/modify/${newUser.email}`, input)
+                    .then((res) => console.log(res))
+                    .catch((err) => console.log(err));
 
-            window.location.reload();
+                window.location.reload();
+            };
+
         };
 
         return (
@@ -220,9 +228,28 @@ function Profile() {
 
                                 <Button colorScheme="teal" variant="solid"
                                     onClick={SubmitModifyUser}
-                                >Submit</Button>
+                                >
+                                    Submit
+                                </Button>
 
                             </Stack>
+
+                            {errorSubmit ?
+
+                                <div>
+
+                                    <Alert status='error'>
+                                        <AlertIcon />
+                                        Missing send mandatory data
+                                    </Alert>
+
+                                </div>
+
+                                :
+
+                                <div></div>
+
+                            }
 
                         </div>
 

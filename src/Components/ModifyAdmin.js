@@ -17,6 +17,7 @@ function Modify() {
 
     const [render, setRender] = useState("");
     const { user, isAuthenticated, isLoading } = useAuth0();
+    const [errorSubmit, setErrorSubmit] = useState("");
 
     const hotels = [];
     const [stateHotel, setStateHotel] = useState([]);
@@ -225,23 +226,31 @@ function Modify() {
 
         const SubmitModifyHotel = (e) => {
 
-            axios.put(`http://localhost:3010/hotels/modify/${newHotel[0].idHotels}`, inputHotelForm)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
+            if (!inputHotelForm.name || !inputHotelForm.address || !inputHotelForm.city ||
+                !inputHotelForm.description || !inputHotelForm.stars) {
+                setErrorSubmit("error")
+            } else {
+
+                axios.put(`http://localhost:3010/hotels/modify/${newHotel[0].idHotels}`, inputHotelForm)
+                    .then((res) => console.log(res))
+                    .catch((err) => console.log(err));
 
 
-            setInputHotel("");
-            setNewHotel("");
-            setModifyHotel("");
-            setInputHotelForm({
-                name: "",
-                address: "",
-                city: "",
-                description: "",
-                stars: ""
-            });
-            setAlertHotel("submit");
-            setAlert2Hotel("submit");
+                setInputHotel("");
+                setNewHotel("");
+                setModifyHotel("");
+                setInputHotelForm({
+                    name: "",
+                    address: "",
+                    city: "",
+                    description: "",
+                    stars: ""
+                });
+                setAlertHotel("submit");
+                setAlert2Hotel("submit");
+                setErrorSubmit("");
+
+            }
 
         };
 
@@ -498,6 +507,23 @@ function Modify() {
                                     Submit
                                 </Button>
 
+                                {errorSubmit ?
+
+                                    <div>
+
+                                        <Alert status='error'>
+                                            <AlertIcon />
+                                            Missing send mandatory data
+                                        </Alert>
+
+                                    </div>
+
+                                    :
+
+                                    <div></div>
+
+                                }
+
                             </div> :
 
                             <div></div>
@@ -633,23 +659,31 @@ function Modify() {
 
         const SubmitModifyRoom = (e) => {
 
-            axios.put(`http://localhost:3010/rooms/modify/${newRoom2[0].idRooms}`, inputRoomForm)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err));
+            if (!inputRoomForm.name || !inputRoomForm.bed_quantity || !inputRoomForm.price ||
+                !inputRoomForm.description) {
+                setErrorSubmit("error")
+            } else {
+
+                axios.put(`http://localhost:3010/rooms/modify/${newRoom2[0].idRooms}`, inputRoomForm)
+                    .then((res) => console.log(res))
+                    .catch((err) => console.log(err));
 
 
-            setInputRoom("");
-            setNewRoom("");
-            setNewRoom2("");
-            setModifyRoom("");
-            setInputRoomForm({
-                name: "",
-                bed_quantity: "",
-                price: "",
-                description: ""
-            });
-            setAlertRoom("submit");
-            setAlert2Room("submit");
+                setInputRoom("");
+                setNewRoom("");
+                setNewRoom2("");
+                setModifyRoom("");
+                setInputRoomForm({
+                    name: "",
+                    bed_quantity: "",
+                    price: "",
+                    description: ""
+                });
+                setAlertRoom("submit");
+                setAlert2Room("submit");
+                setErrorSubmit("");
+
+            }
 
         };
 
@@ -981,6 +1015,23 @@ function Modify() {
                                 <Button colorScheme='teal' variant='solid' onClick={SubmitModifyRoom}>
                                     Submit
                                 </Button>
+
+                                {errorSubmit ?
+
+                                    <div>
+
+                                        <Alert status='error'>
+                                            <AlertIcon />
+                                            Missing send mandatory data
+                                        </Alert>
+
+                                    </div>
+
+                                    :
+
+                                    <div></div>
+
+                                }
 
                             </div> :
 

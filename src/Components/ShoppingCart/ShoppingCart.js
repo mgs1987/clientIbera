@@ -45,6 +45,11 @@ function ShoppingCart() {
   }, [dispatch]);
 
 
+  if (!document.cookie) {
+    alert("you must login to reserve")
+    window.location.href = "http://localhost:3000"
+  };
+
   if (isAuthenticated) {
 
     const email = user.email;

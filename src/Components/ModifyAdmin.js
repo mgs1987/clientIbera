@@ -336,13 +336,18 @@ function Modify() {
         var errorStars = "";
         var errorSsuccessful = "";
 
-        if (inputHotelForm.stars.length > 1) {
+        if (inputHotelForm.stars.length > 1 || isNaN(inputHotelForm.stars) || inputHotelForm.stars >= 6
+            || inputHotelForm.stars <= 0) {
             errorStars = "error"
+        } else {
+
+            if (inputHotelForm.stars.length === 1) {
+                errorSsuccessful = "error"
+            };
+
         };
 
-        if (inputHotelForm.stars.length === 1) {
-            errorSsuccessful = "error"
-        };
+
 
         if (stateHotel.length !== 0) {
 
@@ -488,6 +493,10 @@ function Modify() {
 
                                 <br></br>
 
+                                <Button colorScheme='teal' variant='solid' onClick={ButtonModifyHotel}>
+                                    Modify
+                                </Button>
+
                             </Box>
                             :
                             <div></div>}
@@ -498,10 +507,6 @@ function Modify() {
 
                             <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
                                 Return
-                            </Button>
-
-                            <Button colorScheme='teal' variant='solid' onClick={ButtonModifyHotel}>
-                                Modify
                             </Button>
 
                         </Stack>
@@ -628,6 +633,7 @@ function Modify() {
                                     {errorStars && !errorSsuccessful ? (
                                         <FormHelperText color="blue">
                                             Error: Stars should have 1 number.
+                                            Less than 6 and greater than 0
                                         </FormHelperText>
                                     ) : (
                                         <FormErrorMessage></FormErrorMessage>
@@ -852,28 +858,35 @@ function Modify() {
         };
 
 
+
         var errorBed_quantity = "";
         var errorBsuccessful = "";
 
-        if (inputRoomForm.bed_quantity.length > 1) {
+        if (inputRoomForm.bed_quantity.length > 1 || isNaN(inputRoomForm.bed_quantity) || inputRoomForm.bed_quantity > 5
+            || inputRoomForm.bed_quantity < 1) {
             errorBed_quantity = "error"
-        };
+        } else {
 
-        if (inputRoomForm.bed_quantity.length === 1) {
-            errorBsuccessful = "error"
+            if (inputRoomForm.bed_quantity.length === 1) {
+                errorBsuccessful = "error"
+            };
+
         };
 
 
         var errorPrice = "";
         var errorPsuccessful = "";
 
-        if (inputRoomForm.price.length > 0 && inputRoomForm.price.length < 3 || inputRoomForm.price.length > 3) {
+        if (inputRoomForm.price.length < 3 || inputRoomForm.price.length > 4 || isNaN(inputRoomForm.price)) {
             errorPrice = "error"
+        } else {
+
+            if (inputRoomForm.price.length === 3) {
+                errorPsuccessful = "error"
+            };
+
         };
 
-        if (inputRoomForm.price.length === 3) {
-            errorPsuccessful = "error"
-        };
 
 
         var errorDescription = "";
@@ -1136,6 +1149,10 @@ function Modify() {
 
                                 <br></br>
 
+                                <Button colorScheme='teal' variant='solid' onClick={ButtonModifyRoom}>
+                                    Modify
+                                </Button>
+
                             </Box> :
 
                             <div></div>
@@ -1148,10 +1165,6 @@ function Modify() {
 
                             <Button colorScheme='teal' variant='solid' onClick={onClickRefresh}>
                                 Return
-                            </Button>
-
-                            <Button colorScheme='teal' variant='solid' onClick={ButtonModifyRoom}>
-                                Modify
                             </Button>
 
                         </Stack>
@@ -1203,6 +1216,7 @@ function Modify() {
                                     {errorBed_quantity && !errorBsuccessful ? (
                                         <FormHelperText color="blue">
                                             Error: Bed_quantity should have 1 number.
+                                            Less than 6 and greater than 0
                                         </FormHelperText>
                                     ) : (
                                         <FormErrorMessage></FormErrorMessage>

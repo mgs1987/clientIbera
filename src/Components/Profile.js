@@ -52,9 +52,11 @@ function Profile() {
 
     } else if (isAuthenticated) {
 
-        if (isAuthenticated) {
+        if (isAuthenticated && !newUser) {
+
             var axiosUser;
             var email = user.email;
+
 
             axios
                 .get("http://localhost:3010/users")
@@ -94,6 +96,23 @@ function Profile() {
                 setButtonModify("modify")
             } else {
                 setButtonModify("")
+                errorBirthday = "";
+                errorBsuccessful = "";
+                errorName = "";
+                errorNsuccessful = "";
+                errorLastName = "";
+                errorLNsuccessful = "";
+                errorMobile = "";
+                errorMsuccessful = "";
+                errorNation = "";
+                errorNTsuccessful = "";
+                setInput({
+                    first_name: "",
+                    last_name: "",
+                    date_birth: "",
+                    mobile: "",
+                    nationality: ""
+                })
             }
 
         };
@@ -144,6 +163,8 @@ function Profile() {
 
         };
 
+
+
         var errorBirthday = "error";
         var errorBsuccessful = "";
 
@@ -187,16 +208,23 @@ function Profile() {
         };
 
 
+
         var errorMobile = "";
         var errorMsuccessful = "";
 
-        if (input.mobile.length > 0 && input.mobile.length < 10) {
+        if (input.mobile.length > 0 && input.mobile.length < 10 && isNaN(input.mobile)) {
             errorMobile = "error"
+        } else {
+
+            if (input.mobile.length >= 10 && !isNaN(input.mobile)) {
+                errorMsuccessful = "error"
+            } else {
+                errorMobile = "error"
+            }
+
         };
 
-        if (input.mobile.length >= 10) {
-            errorMsuccessful = "error"
-        };
+
 
         return (
 

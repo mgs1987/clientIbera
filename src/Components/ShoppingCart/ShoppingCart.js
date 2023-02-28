@@ -16,8 +16,8 @@ import { FaBed } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
 import axios from "axios";
 import { v4 } from "uuid";
-const { REACT_APP_PAYMENT_CREATE, REACT_APP_MERCADOPAGO_CHECKOUT } =
-  process.env;
+
+const { REACT_APP_MERCADOPAGO_CHECKOUT, REACT_APP_ORDER_CREATE } = process.env;
 const { getServices } = allActions;
 
 function ShoppingCart() {
@@ -112,36 +112,59 @@ function ShoppingCart() {
   //   );
   //   return storeLocal;
   // }
-
-  /*const sendPayment = {
-    //token: authUser?.accessToken, ACA VA LO DE LOG IN
-    id: 1,
-    item: "monto total",
-    quantity: 1,
-    price: 500,
-  };*/
-
-  // console.log("payment aqui", sendPayment);
-
   async function handlePayment() {
+    var fechaActual = new Date();
+    console.log("esta es fecha actual", fechaActual);
+    var anio = fechaActual.getFullYear();
+    var mes = ("0" + (fechaActual.getMonth() + 1)).slice(-2);
+    var dia = ("0" + fechaActual.getDate()).slice(-2);
+    console.log("esta es año", anio);
+    console.log("esta es mes", mes);
+    console.log("esta es dia", dia);
+    var fecha = anio + "-" + mes + "-" + dia;
+    var fechaString = fecha.toString();
+
+    console.log("esta es la fecha:", fechaString);
+
+    /* const newBill =
+      //token: authUser?.accessToken, ACA VA LO DE LOG IN
+      await axios
+        .post(REACT_APP_ORDER_CREATE, {
+          item: "monto total",
+          quantity: 1,
+          date: fechaString,
+          price: totalPrice,
+          idUser: 1,
+        })
+        .then((res) => res.data);*/
+
+    //async function handlePayment() {
     //   //  setToggle(true); //hace aparecer el boton
 
     const paymentBasic = await axios
-      .post(REACT_APP_PAYMENT_CREATE, {
-        id: 1,
+      .post(REACT_APP_ORDER_CREATE, {
         item: "monto total",
         quantity: 1,
+        date: fechaString,
         price: totalPrice,
+        idUser: 1,
       })
-      .then((res) => (window.location.href = res.data.init_point));
+      /*.post(REACT_APP_PAYMENT_CREATE, {
+        id,
+        item,
+        quantity: newBill.quantity,
+        price: newBill.price,
+      })*/
+      .then((res) => (window.location.href = res.data));
+
     console.log(paymentBasic);
 
-    /*const script = document.createElement("script");
+    const script = document.createElement("script");
     const attr_data_preference = document.createAttribute("data-preference-id");
     attr_data_preference.value = paymentBasic.data.id;
     script.src = REACT_APP_MERCADOPAGO_CHECKOUT;
     script.setAttributeNode(attr_data_preference);
-    document.getElementById("pay").appendChild(script);*/
+    document.getElementById("pay").appendChild(script);
   }
   //   //window.localStorage.removeItem("roomcart");
   // }
@@ -253,3 +276,13 @@ function ShoppingCart() {
 }
 
 export default ShoppingCart;
+/*{
+  /*id: 1,
+        item: "monto total",
+        quantity: 1,
+        price: totalPrice,*/
+/*console.log("orden aqui", res.data);
+          console.log("id aqui", res.data.id);
+          console.log("item aqui", res.data.item);
+          console.log("quantity aqui", res.data.quantity);
+          console.log("price aqui", res.data.price);*/

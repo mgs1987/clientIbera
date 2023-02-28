@@ -1,19 +1,7 @@
-// import {
-//   //GET_HOTELS,
-//   CITIES,
-//   FILTER_BY_CITY,
-//   FILTER_BY_STARS,
-//   GET_ALL_HOTELS,
-//   GET_HOTEL_BY_ID,
-//   GET_ALL_SERVICES,
-//   GET_ALL_AMENITIES,
-//   CLEAN_FILTER,
-//   SORT_PRICE,
-//   CREATE_HOTEL,
-// } from "../actions-types/index";
 
 import {
   CITIES,
+  CREATE_ROOM,
   FILTER_BY_CITY,
   FILTER_BY_STARS,
   GET_ALL_HOTELS,
@@ -92,6 +80,17 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         hotelDetails: action.payload,
       };
+
+    case CREATE_HOTEL:
+      return {
+        ...state,
+      }
+
+    case CREATE_ROOM:
+      return {
+        ...state,
+      }
+
     case GET_ALL_SERVICES:
       return {
         ...state,

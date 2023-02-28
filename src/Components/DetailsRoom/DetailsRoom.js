@@ -34,7 +34,6 @@ function DetailsRoom({
       price: price, //aca es unit_price
       image: image, //picture_url
       quantity: dayqty,
-
       //
     };
 

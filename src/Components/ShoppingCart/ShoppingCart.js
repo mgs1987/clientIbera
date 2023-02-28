@@ -25,10 +25,13 @@ function ShoppingCart() {
   const [service, setService] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
 
+ 
+
   const dispatch = useDispatch();
   const services = useSelector((state) => state.services);
 
   useEffect(() => {
+ 
     const cart = window.localStorage.getItem("roomcart");
     setLocal(cart ? JSON.parse(cart) : {});
     const serv = window.localStorage.getItem("servicecart");
@@ -178,7 +181,10 @@ function ShoppingCart() {
   //   return <Navigate to={redirect} />;
   // }
 
+  function handleRemoveItem(id) {}
+
   return (
+
     <Box>
       <Box align="center" backgroundColor="teal">
         <Heading size="md" mt="30px" mb="30px" color="white">

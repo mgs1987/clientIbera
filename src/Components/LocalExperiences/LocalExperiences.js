@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CardActivities from "../CardActivities/CardActivities.js";
 import { Box } from "@chakra-ui/react";
-import SearchBar from "../SearchBar/SearchBar.js";
 import { getServices } from "../../Redux/actions/services";
 
 function LocalExperiences() {
@@ -20,10 +19,6 @@ function LocalExperiences() {
 
         return (
             <div>
-                <Box mt="30px">
-                    <SearchBar />
-                </Box>
-                <br></br>
                 {activities.length > 1 && activities.map((activitie) => {
                     return (
                         <CardActivities

@@ -13,14 +13,13 @@ function Destinations() {
       .then((res) => {
         console.log(res);
         setHotels(res.data);
-        setState("active");
       })
       .catch((err) => console.log(err))
 
   }, []);
 
 
-  const [state, setState] = useState("");
+  const [state, setState] = useState("active");
   const [hotels, setHotels] = useState([]);
   const [newhotels, setNewHotels] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -176,10 +175,12 @@ function Destinations() {
     };
 
     if (newhotels.length === 0 && state === "active") {
-
       setNewHotels([...hotels].splice(0, ITEMS_PER_PAGE));
       setState("");
+    };
 
+    if (newhotels.length > 16) {
+      setNewHotels([...hotels].splice(0, ITEMS_PER_PAGE));
     };
 
     console.log(hotels);

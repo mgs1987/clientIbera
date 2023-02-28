@@ -1,16 +1,3 @@
-// import {
-//   //GET_HOTELS,
-//   CITIES,
-//   FILTER_BY_CITY,
-//   FILTER_BY_STARS,
-//   GET_ALL_HOTELS,
-//   GET_HOTEL_BY_ID,
-//   GET_ALL_SERVICES,
-//   GET_ALL_AMENITIES,
-//   CLEAN_FILTER,
-//   SORT_PRICE,
-//   CREATE_HOTEL,
-// } from "../actions-types/index";
 
 import {
   CITIES,

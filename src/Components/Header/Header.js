@@ -267,7 +267,7 @@ function Header() {
               <PopoverContent>
                 <PopoverArrow />
                 <PopoverHeader>
-                  <Link color="teal" fontSize={18} href="/myprofile">
+                  <Link color="teal" fontSize={18} href="/profile">
                   My profile{" "}
                   </Link>
                 </PopoverHeader>

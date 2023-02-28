@@ -10,7 +10,7 @@ import DeleteUser from "./Components/DeleteUser/DeleteUser"
 import HotelDetails from "../src/Components/HotelDetails/HotelDetails.js";
 import AboutUs from "./Components/AboutUs/AboutUs";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
-
+import MyProfile from "./Components/MyProfile/MyProfile"
 import Login from "./Components/Login/Login";
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
           <Route exact path="/aboutus" element={<AboutUs />} />
           {/* <Route exact path="/activities" element={<Reservations/>}/> */}
           <Route exact path="/shoppingcart" element={<ShoppingCart />} />
+          <Route exact path="/profile" element={<MyProfile/>} />
         </Routes>
         <Footer />
       </div>

@@ -13,6 +13,7 @@ import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 import Profile from "./Components/Profile";
 import Modify from "./Components/ModifyAdmin";
 import LocalExperiences from "./Components/LocalExperiences/LocalExperiences";
+import SubirImagenes from "./Components/pruebcloudinary"
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
           <Route exact path="/activities" element={<LocalExperiences/>}/>
           <Route exact path="/shoppingcart" element={<ShoppingCart />} />
           <Route exact path="/modify" element={<Modify />} />
+          <Route exact path="/imagenes" element={<SubirImagenes />} />
+
         </Routes>
         <Footer />
       </div>

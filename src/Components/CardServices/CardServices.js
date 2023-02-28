@@ -1,55 +1,30 @@
 import React from "react";
-import {
-  Box,
-  Card,
-  Text,
-  Image,
-  ButtonGroup,
-  Button,
-  Flex,
+import { v4 } from "uuid";
 
-} from "@chakra-ui/react";
+import { Box, Text, ButtonGroup, Button, Grid } from "@chakra-ui/react";
 
-function CardServices({
-  id,
-  name,
-  image,
-  price,
-  handleAddToCart,
-  handleRemoveItem,
-}) {
+function CardServices({ id, name, price, handleAddToCart, handleRemoveItem }) {
   return (
-
-    <Box display="center">
-      <Box
-        display="flex"
-        flexDirection="column"
-        border="solid"
-        borderColor="teal"
-        mt="10px"
-        maxW="100%"
-        padding="20px"
-        borderWidth="1px"
-        p="4"
-      >
-        <Grid templateColumns="1fr 1fr 1fr">
-          <Box>
-            <Image boxSize="50px" src={image} />
-          </Box>
-          <Box>
-            <Text>{name}</Text>
-          </Box>
-          <Box>
-            <Text>$ {price}</Text>
-          </Box>
-        </Grid>
-
-        <ButtonGroup color="teal" ml="80px">
-
-          <Button onClick={() => handleRemoveItem(id)}>-</Button>
-          <Button onClick={() => handleAddToCart(id)}>+</Button>
-        </ButtonGroup>
-      </Box>
+    <Box>
+      <Grid templateColumns="1fr 1fr">
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          key={v4()}
+          ml="100px"
+        >
+          <Text>
+            {name} $ {price}
+          </Text>
+        </Box>
+        <Box ml="1px">
+          <ButtonGroup color="teal" size="sm" alignItems="flex-end" mt="5px">
+            <Button onClick={() => handleRemoveItem(id)}>-</Button>
+            <Button onClick={() => handleAddToCart(id)}>+</Button>
+          </ButtonGroup>
+        </Box>
+      </Grid>
     </Box>
   );
 }

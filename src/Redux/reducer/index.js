@@ -1,5 +1,18 @@
+// import {
+//   //GET_HOTELS,
+//   CITIES,
+//   FILTER_BY_CITY,
+//   FILTER_BY_STARS,
+//   GET_ALL_HOTELS,
+//   GET_HOTEL_BY_ID,
+//   GET_ALL_SERVICES,
+//   GET_ALL_AMENITIES,
+//   CLEAN_FILTER,
+//   SORT_PRICE,
+//   CREATE_HOTEL,
+// } from "../actions-types/index";
+
 import {
-  //GET_HOTELS,
   CITIES,
   FILTER_BY_CITY,
   FILTER_BY_STARS,
@@ -8,8 +21,8 @@ import {
   GET_ALL_SERVICES,
   GET_ALL_AMENITIES,
   CLEAN_FILTER,
-  SORT_PRICE,
   CREATE_HOTEL,
+  GET_NAME_CITIES,
 } from "../actions-types/index";
 
 const initialState = {
@@ -63,13 +76,13 @@ export default function rootReducer(state = initialState, action) {
       //     return e.stars === parseInt(action.payload);
       //   });
       // }
-      let filterByStar = state.allHotels;
-      let filterStar = 
-      action.payload === ""
-      ?state.hotels
-      :state.hotels.filter((e)=>{
-        return e.stars === parseInt(action.payload)
-      })
+      // let filterByStar = state.allHotels;
+      let filterStar =
+        action.payload === ""
+          ? state.hotels
+          : state.hotels.filter((e) => {
+              return e.stars === parseInt(action.payload);
+            });
       return {
         ...state,
         hotels: filterStar,
@@ -91,16 +104,21 @@ export default function rootReducer(state = initialState, action) {
       };
     case CLEAN_FILTER:
       let clean = state.allHotels;
-      return{
+      return {
         ...state,
-        hotels: clean
-      }
-      case CREATE_HOTEL:
-        return {
-          ...state,
-          hotels: [...state.hotels, action.payload],
-          allHotels: [...state.allHotels, action.payload]
-        };
+        hotels: clean,
+      };
+    case CREATE_HOTEL:
+      return {
+        ...state,
+        hotels: [...state.hotels, action.payload],
+        allHotels: [...state.allHotels, action.payload],
+      };
+    case GET_NAME_CITIES:
+      return {
+        ...state,
+        hotels: action.payload,
+      };
 
     default:
       return state;

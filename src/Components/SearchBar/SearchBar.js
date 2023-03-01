@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// #13 58.78 src/Components/SearchBar/SearchBar.js
+// ﻿#13 58.78   Line 8:3:     'Select' is defined but never used           no-unused-vars
+// import {
+//   Input,
+//   Button,
+//   Box,
+//   Grid,
+//   Select,
+//   FormControl,
+//   FormLabel,
+//   FormHelperText,
+//   FormErrorMessage,
+// } from "@chakra-ui/react";
 import {
   Input,
   Button,
   Box,
   Grid,
-  Select,
   FormControl,
   FormLabel,
   FormHelperText,
   FormErrorMessage,
 } from "@chakra-ui/react";
+
 // import {
 //   AutoComplete,
 //   AutoCompleteInput,
@@ -19,7 +32,9 @@ import {
 // } from "@choc-ui/chakra-autocomplete";
 
 import "./searchbar.css";
-import { FiArrowDown } from "react-icons/fi";
+// #13 58.78 src/Components/SearchBar/SearchBar.js
+// ﻿#13 58.78   Line 22:10:   'FiArrowDown' is defined but never used      no-unused-vars
+// import { FiArrowDown } from "react-icons/fi";
 import allActions from "../../Redux/actions";
 import CardHotel from "../CardHotel/CardHotel";
 const { getAllHotels, getCity, getRoomsCities } = allActions;
@@ -42,7 +57,12 @@ function SearchBar() {
   const [destination] = useState("");
   const [inDate, setInDate] = useState("");
   const [outDate, setOutDate] = useState("");
-  const [beds, setBeds] = useState("");
+  // #13 58.78 src/Components/SearchBar/SearchBar.js
+  // ﻿#13 58.78   Line 39:10:   'beds' is assigned a value but never used    no-unused-vars
+  // const [beds, setBeds] = useState("");
+  // #13 45.96 src/Components/SearchBar/SearchBar.js
+  // ﻿#13 45.96   Line 57:10:  'setBeds' is assigned a value but never used  no-unused-vars
+  // const [setBeds] = useState("");
   const [city, setCity] = useState("");
   const [ciudad, setCiudad] = useState([]);
   // src/Components/SearchBar/SearchBar.js
@@ -119,9 +139,11 @@ function SearchBar() {
   function handleInputCheckOut(e) {
     setOutDate(e.target.value);
   }
-  function handleInputBeds(e) {
-    setBeds(e.target.value);
-  }
+  // #13 58.78 src/Components/SearchBar/SearchBar.js
+  // ﻿#13 58.78   Line 115:12:  'handleInputBeds' is defined but never used  no-unused-vars
+  // function handleInputBeds(e) {
+  //   setBeds(e.target.value);
+  // }
   function handleSubmit(e) {
     e.preventDefault();
     if (onlyLettersCheck(e.target.value)) {

@@ -7,6 +7,9 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+const { REACT_APP_GET_ALL_HOTELS, REACT_APP_GET_ALL_USERS, REACT_APP_FRONT,
+    REACT_APP_DISABLE_USERS, REACT_APP_DELETE_HOTELS, REACT_APP_DISABLE_HOTELS,
+    REACT_APP_DELETE_ROOMS, REACT_APP_DISABLE_ROOMS } = process.env;
 
 
 function DeleteUser() {
@@ -16,7 +19,7 @@ function DeleteUser() {
     }, []);
 
     if (!document.cookie) {
-        window.location.href = "http://localhost:3000"
+        window.location.href = REACT_APP_FRONT
     };
 
     const [render, setRender] = useState("");
@@ -69,7 +72,7 @@ function DeleteUser() {
 
     if (isAuthenticated) {
 
-        axios.get("http://localhost:3010/users")
+        axios.get(REACT_APP_GET_ALL_USERS)
             .then((res) => {
 
                 const logUser = res.data.find((u) => {
@@ -78,7 +81,7 @@ function DeleteUser() {
 
                 if (res.data) {
                     if (logUser.privilige !== true) {
-                        window.location.href = "http://localhost:3000"
+                        window.location.href = REACT_APP_FRONT
                     };
                 };
 
@@ -131,7 +134,7 @@ function DeleteUser() {
 
         if (state.length === 0 || alert2 === "submit") {
 
-            axios.get("http://localhost:3010/users")
+            axios.get(REACT_APP_GET_ALL_USERS)
                 .then((res) => {
 
                     for (let i = 0; i < res.data.length; i++) {
@@ -165,7 +168,7 @@ function DeleteUser() {
 
         const handeleEnableDisable = (e) => {
 
-            axios.put("http://localhost:3010/users/disable", { email: newUser[0].email })
+            axios.put(REACT_APP_DISABLE_USERS, { email: newUser[0].email })
                 .then((res) => console.log(res))
                 .catch((err) => console.log(err));
 
@@ -403,7 +406,7 @@ function DeleteUser() {
 
         if (stateHotel.length === 0 || alert2Hotel === "submit") {
 
-            axios.get("http://localhost:3010/hotels")
+            axios.get(REACT_APP_GET_ALL_HOTELS)
                 .then((res) => {
 
                     for (let i = 0; i < res.data.length; i++) {
@@ -473,7 +476,7 @@ function DeleteUser() {
 
         const DeleteHotel = (e) => {
 
-            axios.delete(`http://localhost:3010/hotels/delete/${newHotel[0].idHotels}`)
+            axios.delete(`${REACT_APP_DELETE_HOTELS}${newHotel[0].idHotels}`)
                 .then((res) => console.log(res))
                 .catch((err) => console.log(err));
 
@@ -487,7 +490,7 @@ function DeleteUser() {
 
         const DisableHotel = (e) => {
 
-            axios.put(`http://localhost:3010/hotels/disable/${newHotel[0].idHotels}`)
+            axios.put(`${REACT_APP_DISABLE_HOTELS}${newHotel[0].idHotels}`)
                 .then((res) => console.log(res))
                 .catch((err) => console.log(err));
 
@@ -700,7 +703,7 @@ function DeleteUser() {
 
         if (stateRoom.length === 0 || alert2Room === "submit") {
 
-            axios.get("http://localhost:3010/hotels")
+            axios.get(REACT_APP_GET_ALL_HOTELS)
                 .then((res) => {
 
                     for (let i = 0; i < res.data.length; i++) {
@@ -795,7 +798,7 @@ function DeleteUser() {
 
         const DeleteRoom = (e) => {
 
-            axios.delete(`http://localhost:3010/rooms/delete/${newRoom2[0].idRooms}`)
+            axios.delete(`${REACT_APP_DELETE_ROOMS}${newRoom2[0].idRooms}`)
                 .then((res) => console.log(res))
                 .catch((err) => console.log(err));
 
@@ -810,7 +813,7 @@ function DeleteUser() {
 
         const DisableRoom = (e) => {
 
-            axios.put(`http://localhost:3010/rooms/disable/${newRoom2[0].idRooms}`)
+            axios.put(`${REACT_APP_DISABLE_ROOMS}${newRoom2[0].idRooms}`)
                 .then((res) => console.log(res))
                 .catch((err) => console.log(err));
 

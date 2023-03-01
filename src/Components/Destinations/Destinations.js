@@ -4,20 +4,35 @@ import { Box, Flex, Button, Select, Stack } from "@chakra-ui/react";
 import SearchBar from "../SearchBar/SearchBar.js";
 import axios from "axios";
 
+<<<<<<< HEAD
+=======
+const { REACT_APP_GET_ALL_HOTELS } = process.env;
+>>>>>>> b20ecf1140180f794252ca20ae599e3482c0744b
 
 function Destinations() {
 
   useEffect(() => {
 
+<<<<<<< HEAD
     axios.get("http://localhost:3010/hotels")
+=======
+
+    axios.get(REACT_APP_GET_ALL_HOTELS)
+>>>>>>> b20ecf1140180f794252ca20ae599e3482c0744b
       .then((res) => {
         console.log(res);
         setHotels(res.data);
       })
       .catch((err) => console.log(err))
+<<<<<<< HEAD
 
   }, []);
 
+=======
+
+  }, []);
+
+>>>>>>> b20ecf1140180f794252ca20ae599e3482c0744b
 
   const [state, setState] = useState("active");
   const [hotels, setHotels] = useState([]);
@@ -312,4 +327,8 @@ function Destinations() {
 
 };
 
+<<<<<<< HEAD
 export default Destinations;
+=======
+export default Destinations;
+>>>>>>> b20ecf1140180f794252ca20ae599e3482c0744b

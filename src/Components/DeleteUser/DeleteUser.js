@@ -5,22 +5,31 @@ import {
     Card, CardBody, Image,
     Heading, Text, Divider
 } from '@chakra-ui/react';
-import { useEffect, useState } from "react";
+// #13 45.96 src/Components/DeleteUser/DeleteUser.js
+// #13 45.96   Line 8:10:  'useEffect' is defined but never used  no-unused-vars
+// import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
 function DeleteUser() {
-
-    useEffect(() => {
-        console.log(users);
-    }, []);
+    // #13 58.78 src/Components/DeleteUser/DeleteUser.js
+    // ﻿#13 58.78   Line 16:8:   React Hook useEffect has a missing dependency: 'users'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+    // useEffect(() => {
+    //     console.log(users);
+    // }, []);
 
     if (!document.cookie) {
         window.location.href = "http://localhost:3000"
     };
 
     const [render, setRender] = useState("");
-    const { user, isAuthenticated, isLoading } = useAuth0();
+
+    // #13 58.78 src/Components/DeleteUser/DeleteUser.js
+    // ﻿#13 58.78   Line 23:36:  'isLoading' is assigned a value but never used                                                            no-unused-vars
+    // const { user, isAuthenticated, isLoading } = useAuth0();
+    const { user, isAuthenticated } = useAuth0();
+
 
     const users = [];
     const [state, setState] = useState([]);
@@ -133,6 +142,7 @@ function DeleteUser() {
 
             axios.get("http://localhost:3010/users")
                 .then((res) => {
+
                     const logUser = res.data.find((u) => {
                         return u.email === user.email
                     })
@@ -142,6 +152,7 @@ function DeleteUser() {
                             window.location.href = "http://localhost:3000"
                         };
                     };
+
 
                     for (let i = 0; i < res.data.length; i++) {
                         users.push(res.data[i])
@@ -345,6 +356,7 @@ function DeleteUser() {
                                             alt='User Image'
                                             borderRadius='lg'
                                             maxWidth={310}
+
                                         />
                                         <Stack mt='6' spacing='3'>
                                             <Heading size='md'>User Information</Heading>
@@ -370,6 +382,7 @@ function DeleteUser() {
                                 <Stack direction='row' spacing={4} align='center'>
 
                                     {newUser.length > 0 && newUser[0].status === "active" ?
+
 
                                         <Stack direction='row' spacing={4} align='center'>
                                         <Button colorScheme='teal' variant='solid' onClick={handeleEnableDisable}>
@@ -416,7 +429,9 @@ function DeleteUser() {
 
     } else if (render === "hotel") {
 
+
         //!------------------Delete Hotel---------------------
+
 
         if (stateHotel.length === 0 || alert2Hotel === "submit") {
 
@@ -488,6 +503,7 @@ function DeleteUser() {
             setCleanHotel("")
             setInput("")
             
+
         };
 
         const DeleteHotel = (e) => {
@@ -645,6 +661,7 @@ function DeleteUser() {
                                             alt='Hotel Image'
                                             borderRadius='lg'
                                             maxWidth={300}
+
                                         />
                                         <Stack mt='6' spacing='3'>
                                             <Heading size='md'>Hotle Information</Heading>
@@ -698,6 +715,7 @@ function DeleteUser() {
 
                                     <Button colorScheme='teal' variant='solid' onClick={DeleteHotel}>
                                         Modify Hotel
+
                                     </Button>
 
                                 </Stack>
@@ -719,7 +737,9 @@ function DeleteUser() {
 
     } else if (render === "room") {
 
+
         //!!------------------Delete Room--------------------------------------------------
+
 
         if (stateRoom.length === 0 || alert2Room === "submit") {
 
@@ -968,7 +988,9 @@ function DeleteUser() {
 
                         <FormLabel>Select Hotel:</FormLabel>
 
-                        <Select id="selec-room" placeholder='Select-Hotel' borderWidth='3px' maxW='sm' onClick={onClickSelect} onChange={handleSelectChangeRoom}>
+
+                        <Select id="selec-room" placeholder='Select-Room' borderWidth='3px' maxW='sm' onClick={onClickSelect} onChange={handleSelectChangeRoom}>
+
                             {stateRoom && stateRoom.map((r) => {
                                 return (
                                     <option>{r.name}</option>
@@ -1007,7 +1029,9 @@ function DeleteUser() {
                                             maxWidth={200}
                                         />
                                         <Stack mt='6' spacing='3'>
-                                            <Heading size='md'>Hotel Information</Heading>
+
+                                            <Heading size='md'>Hotle Information</Heading>
+
                                             <Text>
                                                 Name: {newRoom[0].name}
                                             </Text>
@@ -1067,7 +1091,9 @@ function DeleteUser() {
                                             maxWidth={200}
                                         />
                                         <Stack mt='6' spacing='3'>
-                                            <Heading size='md'>Room Information</Heading>
+
+
+                                            <Heading size='md'>Hotle Information</Heading>
                                             <Text>
                                                 Name: {newRoom2[0].name}
                                             </Text>

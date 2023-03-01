@@ -70,10 +70,6 @@ function Header() {
     var name = user.name;
     var email = user.email;
 
-    console.log("user", user);
-    console.log("name", name);
-    console.log("email", email);
-
     axios
       .get("http://localhost:3010/users")
       .then((res) => {
@@ -81,7 +77,6 @@ function Header() {
         status = res.data.find((u) => {
           return u.email === user.email;
         });
-        console.log("status", status);
 
         if (status.privilige === true) {
           setAdmin("admin");
@@ -94,6 +89,12 @@ function Header() {
       })
       .catch((err) => console.log(err));
   }
+
+  // #13 58.78 src/Components/Header/Header.js
+  // ﻿#13 58.78   Line 93:9:  'buttonProfile' is assigned a value but never used  no-unused-vars
+  // const buttonProfile = (e) => {
+  //   window.location.href = "http://localhost:3000/profile";
+  // };
 
   return (
     <div>
@@ -159,7 +160,7 @@ function Header() {
             )} */}
  {/* //!!--------------BOTONES DE ADMIN-------------------- */}            
 
-            {/* {isAuthenticated && admin ? (
+            {isAuthenticated && admin ? (
               <Link color="red" fontSize={18} href="/createHotel">
                 Create Hotel{" "}
               </Link>
@@ -173,44 +174,9 @@ function Header() {
               </Link>
             ) : (
               <div></div>
-            )} */}
-{/* //!!---------------------------------- */}
-<Popover trigger="hover">
-              <PopoverTrigger>
-              {isAuthenticated && admin 
-              ? (<Button colorScheme="red" variant="outline">
-                  Admin Controllers
-                </Button>) 
-              : (<div></div>)}
-              </PopoverTrigger>
-              <PopoverContent>
-                <PopoverArrow />
-
-                <PopoverHeader>
-                {isAuthenticated && admin ? (
-              <Link color="red" fontSize={18} href="/createHotel">
-                Create Hotel{" "}
-              </Link>
-            ) : (
-              <div></div>
             )}
-            </PopoverHeader>
-            <PopoverHeader>
-            {isAuthenticated && admin ? (
-              <Link color="red" fontSize={18} href="/delete">
-                Delete User{" "}
-              </Link>
-            ) : (
-              <div></div>
-            )}
-                </PopoverHeader>
-              </PopoverContent>
-            </Popover>
-{/* //!!--------------BOTONES DE ADMIN-------------------- */}
 
-            
-{/* //!!--------------BOTONES DE USERS / LOGOUT-------------------- */}
-            {/* {isAuthenticated ? (
+            {isAuthenticated ? (
               <Button
                 colorScheme="teal"
                 variant="solid"
@@ -228,15 +194,51 @@ function Header() {
               >
                 Login
               </Button>
-            )}
-
-            {isAuthenticated ? (
-              <Button colorScheme="teal" variant="outline">
-                {name}
-              </Button>
             ) : (
               <div></div>
             )}
+
+
+            {isAuthenticated ? (
+
+              <Popover trigger="hover">
+
+                <PopoverTrigger>
+
+                  <Button colorScheme="teal" variant="outline">
+                    {name}
+                  </Button>
+
+                </PopoverTrigger>
+
+                <PopoverContent>
+
+                  <PopoverHeader>
+                    <Link color="teal" fontSize={18} href="/profile">
+                      My profile{" "}
+                    </Link>
+                  </PopoverHeader>
+
+                  <PopoverHeader>
+                    <Button
+                      colorScheme="teal"
+                      variant="solid"
+                      onClick={() =>
+                        logout({ logoutParams: { returnTo: window.location.origin } })
+                      }>
+                      Logout
+                    </Button>
+                  </PopoverHeader>
+
+                </PopoverContent>
+
+              </Popover>
+
+
+            ) : (
+              <div></div>
+            )}
+
           </HStack>
         </Box>
       </Flex>

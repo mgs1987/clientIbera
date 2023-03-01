@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button } from "@chakra-ui/react";
+
 import { useSelector } from "react-redux";
 function Pages({
   currentHotels,
@@ -13,11 +14,13 @@ function Pages({
   const hotels = useSelector((state) => state.hotels);
   const pageNumbers = [];
 
+
   for (let i = 1; i <= Math.ceil(hotels.length / hotelsPerPage); i++) {
     pageNumbers.push(i);
   }
 
   function handleNext() {
+
     if(pageNumbers[pageNumbers.length -1] !== currentPage){
       
       page(prevPage => prevPage +1)
@@ -25,8 +28,13 @@ function Pages({
 
     // setCurrentPage((x) => x + 1);
     
+
+    pageNumbers.length - 1 === currentPage ? page(1) : page((x) => x + 1);//!
+
   }
+
   function handlePrev() {
+
     if (currentPage !== 1) {
               page(currentPage - 1);
            }
@@ -36,7 +44,11 @@ function Pages({
     //   setCurrentPage(1);
     //   return;
     // }
+
+    currentPage === 1 ? page(pageNumbers.length - 1) : page((x) => x - 1);
+
   }
+
   return (
     <Box mt="20px">
       <Button
@@ -66,6 +78,7 @@ function Pages({
             
         );
       })}
+        
       <Button
         
         ml="5px"

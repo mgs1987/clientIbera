@@ -22,6 +22,8 @@ import {
   GET_ALL_AMENITIES,
   CLEAN_FILTER,
   CREATE_HOTEL,
+  GET_NAME_CITIES,
+  GET_ROOMS_CITIES
 } from "../actions-types/index";
 
 const initialState = {
@@ -31,6 +33,7 @@ const initialState = {
   hotelDetails: {},
   services: [],
   amenities: [],
+  citycheckinout: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -75,13 +78,13 @@ export default function rootReducer(state = initialState, action) {
       //     return e.stars === parseInt(action.payload);
       //   });
       // }
-      let filterByStar = state.allHotels;
+      // let filterByStar = state.allHotels;
       let filterStar =
         action.payload === ""
           ? state.hotels
           : state.hotels.filter((e) => {
-            return e.stars === parseInt(action.payload)
-          })
+            return e.stars === parseInt(action.payload);
+          });
       return {
         ...state,
         hotels: filterStar,
@@ -105,16 +108,28 @@ export default function rootReducer(state = initialState, action) {
       let clean = state.allHotels;
       return {
         ...state,
-        hotels: clean
-      }
+        hotels: clean,
+      };
     case CREATE_HOTEL:
       return {
         ...state,
         hotels: [...state.hotels, action.payload],
-        allHotels: [...state.allHotels, action.payload]
+        allHotels: [...state.allHotels, action.payload],
       };
+    case GET_NAME_CITIES:
+      return {
+        ...state,
+        hotels: action.payload,
+      };
+    case GET_ROOMS_CITIES:
+      return {
+        ...state,
+        citycheckinout: action.payload,
+      }
+
 
     default:
       return state;
   }
 }
+

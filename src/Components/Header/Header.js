@@ -62,7 +62,7 @@ function Header() {
 
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const [admin, setAdmin] = useState("");
 
   if (isAuthenticated) {
@@ -160,7 +160,7 @@ function Header() {
             )} */}
  {/* //!!--------------BOTONES DE ADMIN-------------------- */}            
 
-            {isAuthenticated && admin ? (
+            {/* {isAuthenticated && admin ? (
               <Link color="red" fontSize={18} href="/createHotel">
                 Create Hotel{" "}
               </Link>
@@ -196,7 +196,7 @@ function Header() {
               </Button>
             ) : (
               <div></div>
-            )}
+            )} }
 
 
             {isAuthenticated ? (
@@ -242,7 +242,7 @@ function Header() {
           </HStack>
         </Box>
       </Flex>
-    </div> */}
+            </div> */}
 {/* //!!---------------------------------- */}
 
      {!isAuthenticated ? (

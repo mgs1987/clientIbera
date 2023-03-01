@@ -254,6 +254,7 @@ function Destinations() {
                 img={hotel.image}
                 stars={hotel.stars}
                 id={hotel.idHotels}
+                status={hotel.status}
               />
             );
           })}

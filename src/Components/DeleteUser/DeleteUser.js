@@ -5,7 +5,7 @@ import {
     Card, CardBody, Image,
     Heading, Text, Divider
 } from '@chakra-ui/react';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 const { REACT_APP_GET_ALL_HOTELS, REACT_APP_GET_ALL_USERS, REACT_APP_FRONT,
     REACT_APP_DISABLE_USERS, REACT_APP_DELETE_HOTELS, REACT_APP_DISABLE_HOTELS,
@@ -13,10 +13,6 @@ const { REACT_APP_GET_ALL_HOTELS, REACT_APP_GET_ALL_USERS, REACT_APP_FRONT,
 
 
 function DeleteUser() {
-
-    useEffect(() => {
-        console.log(users);
-    }, []);
 
     if (!document.cookie) {
         window.location.href = REACT_APP_FRONT

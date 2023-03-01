@@ -22,6 +22,7 @@ function DetailsRoom({
   description,
   price,
   image,
+  status
 }) {
   const navigate = useNavigate();
   const [dayqty, setDayqty] = useState("");
@@ -93,19 +94,31 @@ function DetailsRoom({
           </CardBody>
 
           <CardFooter>
-            <Button
-              ml="70%"
-              variant="solid"
-              colorScheme="teal"
-              onClick={() => handleBanana()}
-            >
-              Reserve
-            </Button>
+
+            {status === false ?
+
+              <Button variant="solid" colorScheme="teal">
+                Disable
+              </Button>
+
+              :
+
+              <Button
+                variant="solid"
+                colorScheme="teal"
+                onClick={() => handleBanana()}
+              >
+                Reserve
+              </Button>
+
+            }
+
             <Select onChange={(e) => handleSelect(e)}>
               <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={3}>3</option>
             </Select>
+
           </CardFooter>
         </Stack>
       </Card>

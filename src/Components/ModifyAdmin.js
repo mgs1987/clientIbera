@@ -7,12 +7,14 @@ import {
     Card, CardBody, Image, FormHelperText,
     Heading, Text, Divider, FormControl
 } from '@chakra-ui/react';
+const { REACT_APP_GET_ALL_HOTELS, REACT_APP_GET_ALL_USERS, REACT_APP_FRONT,
+    REACT_APP_MODIFY_HOTELS, REACT_APP_MODIFY_ROOMS } = process.env;
 
 
 function Modify() {
 
     if (!document.cookie) {
-        window.location.href = "http://localhost:3000"
+        window.location.href = REACT_APP_FRONT
     };
 
     const [render, setRender] = useState("");
@@ -75,7 +77,7 @@ function Modify() {
 
     if (isAuthenticated) {
 
-        axios.get("http://localhost:3010/users")
+        axios.get(REACT_APP_GET_ALL_USERS)
             .then((res) => {
 
                 const logUser = res.data.find((u) => {
@@ -84,7 +86,7 @@ function Modify() {
 
                 if (res.data) {
                     if (logUser.privilige !== true) {
-                        window.location.href = "http://localhost:3000"
+                        window.location.href = REACT_APP_FRONT
                     };
                 };
 
@@ -133,7 +135,7 @@ function Modify() {
 
         if (stateHotel.length === 0 || alert2Hotel === "submit") {
 
-            axios.get("http://localhost:3010/hotels")
+            axios.get(REACT_APP_GET_ALL_HOTELS)
                 .then((res) => {
 
                     for (let i = 0; i < res.data.length; i++) {
@@ -237,7 +239,7 @@ function Modify() {
 
                 } else {
 
-                    axios.put(`http://localhost:3010/hotels/modify/${newHotel[0].idHotels}`, inputHotelForm)
+                    axios.put(`${REACT_APP_MODIFY_HOTELS}${newHotel[0].idHotels}`, inputHotelForm)
                         .then((res) => console.log(res))
                         .catch((err) => console.log(err));
 
@@ -690,7 +692,7 @@ function Modify() {
 
         if (stateRoom.length === 0 || alert2Room === "submit") {
 
-            axios.get("http://localhost:3010/hotels")
+            axios.get(REACT_APP_GET_ALL_HOTELS)
                 .then((res) => {
 
                     for (let i = 0; i < res.data.length; i++) {
@@ -816,7 +818,7 @@ function Modify() {
 
                 } else {
 
-                    axios.put(`http://localhost:3010/rooms/modify/${newRoom2[0].idRooms}`, inputRoomForm)
+                    axios.put(`${REACT_APP_MODIFY_ROOMS}${newRoom2[0].idRooms}`, inputRoomForm)
                         .then((res) => console.log(res))
                         .catch((err) => console.log(err));
 

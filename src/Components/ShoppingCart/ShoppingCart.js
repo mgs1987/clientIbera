@@ -265,6 +265,7 @@ function ShoppingCart() {
                     </Button>
 
                     <Input value={email} id="email" name="email" />
+                    <Input value={totalPrice} id="price" name="price" />
 
                   </div>
 
@@ -286,3 +287,5 @@ function ShoppingCart() {
 };
 
 export default ShoppingCart;
+
+

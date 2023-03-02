@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CardActivities from "../CardActivities/CardActivities.js";
+import CardActivities from "./CardActivities/CardActivities";
 import axios from "axios";
 const { REACT_APP_GET_ALL_SERVICES } = process.env;
 

@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// #13 58.78 src/Components/SearchBar/SearchBar.js
+// ﻿#13 58.78   Line 8:3:     'Select' is defined but never used           no-unused-vars
+// import {
+//   Input,
+//   Button,
+//   Box,
+//   Grid,
+//   Select,
+//   FormControl,
+//   FormLabel,
+//   FormHelperText,
+//   FormErrorMessage,
+// } from "@chakra-ui/react";
 import {
   Input,
   Button,
   Box,
   Grid,
-  Select,
   FormControl,
   FormLabel,
   FormHelperText,
   FormErrorMessage,
 } from "@chakra-ui/react";
+
 // import {
 //   AutoComplete,
 //   AutoCompleteInput,
@@ -19,9 +32,12 @@ import {
 // } from "@choc-ui/chakra-autocomplete";
 
 import "./searchbar.css";
-import { FiArrowDown } from "react-icons/fi";
+// #13 58.78 src/Components/SearchBar/SearchBar.js
+// ﻿#13 58.78   Line 22:10:   'FiArrowDown' is defined but never used      no-unused-vars
+// import { FiArrowDown } from "react-icons/fi";
 import allActions from "../../Redux/actions";
-const { getAllHotels, getCity } = allActions;
+import CardHotel from "../CardHotel/CardHotel";
+const { getAllHotels, getCity, getRoomsCities } = allActions;
 
 function SearchBar() {
   const dispatch = useDispatch();
@@ -30,14 +46,28 @@ function SearchBar() {
   }, [dispatch]);
 
   const hotels = useSelector((state) => state.hotels);
+
+  const nuevaCiudad = useSelector((state) => state.citycheckinout);
+
+  //dispatch(getRoomsCities())
+  console.log('esot es nuevaCiudad: ', nuevaCiudad);
   // #13 50.71 src/Components/SearchBar/SearchBar.js
   // ﻿#13 50.71   Line 33:23:  'setDestination' is assigned a value but never used  no-unused-vars
   // const [destination, setDestination] = useState("");
   const [destination] = useState("");
   const [inDate, setInDate] = useState("");
   const [outDate, setOutDate] = useState("");
-  const [beds, setBeds] = useState("");
+  // #13 58.78 src/Components/SearchBar/SearchBar.js
+  // ﻿#13 58.78   Line 39:10:   'beds' is assigned a value but never used    no-unused-vars
+  // const [beds, setBeds] = useState("");
+  // #13 45.96 src/Components/SearchBar/SearchBar.js
+  // ﻿#13 45.96   Line 57:10:  'setBeds' is assigned a value but never used  no-unused-vars
+  // const [setBeds] = useState("");
   const [city, setCity] = useState("");
+  // #13 54.88 src/Components/SearchBar/SearchBar.js
+  // #13 54.88   Line 67:10:  'ciudad' is assigned a value but never used     no-unused-vars
+  // #13 54.88   Line 67:18:  'setCiudad' is assigned a value but never used  no-unused-vars
+  // const [ciudad, setCiudad] = useState([]);
   // src/Components/SearchBar/SearchBar.js
   // Line 38:10:  'newUser' is assigned a value but never used        no-unused-vars
   // Line 38:19:  'setNewUser' is assigned a value but never used     no-unused-vars
@@ -51,7 +81,7 @@ function SearchBar() {
 
   function handleImputChange(e) {
     e.preventDefault();
-    setCity(e.target.value);
+     setCity(e.target.value);
   }
 
   function buttonSubmit(e) {
@@ -112,17 +142,29 @@ function SearchBar() {
   function handleInputCheckOut(e) {
     setOutDate(e.target.value);
   }
-  function handleInputBeds(e) {
-    setBeds(e.target.value);
-  }
+  // #13 58.78 src/Components/SearchBar/SearchBar.js
+  // ﻿#13 58.78   Line 115:12:  'handleInputBeds' is defined but never used  no-unused-vars
+  // function handleInputBeds(e) {
+  //   setBeds(e.target.value);
+  // }
   function handleSubmit(e) {
     e.preventDefault();
     if (onlyLettersCheck(e.target.value)) {
     }
   }
+
+  function handleTest(e) {
+    e.preventDefault();
+    dispatch(getRoomsCities(city))
+  
+
+
+    console.log("esto es setCity: ",);
+  }
   const isError = destination === "";
 
   return (
+    <div>
     <Box
       borderRadius="8px"
       bgColor="teal"
@@ -237,10 +279,37 @@ function SearchBar() {
                 Check Availability
               </Button>
             </Box>
+            <Box>
+              <Button
+                mr="160px"
+                mt="31px"
+                color="white"
+                colorScheme="teal"
+                variant="outline"
+                type="submit"
+                onClick={(e) => handleTest(e)}
+              >
+                TestCity
+              </Button>
+            </Box>
           </Grid>
         </FormControl>
+
       </Box>
+      
     </Box>
+    {nuevaCiudad.length && nuevaCiudad.map((hotel) => { 
+        return(
+          <CardHotel
+              name={hotel.name}
+              city={hotel.city}
+              img={hotel.image}
+              stars={hotel.stars}
+              id={hotel.idHotels}
+            />
+        )
+      })}
+    </div>
   );
 }
 

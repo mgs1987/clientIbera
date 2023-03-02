@@ -1,35 +1,4 @@
 import React, { useEffect, useState } from "react";
-
-// src/Components/Header/Header.js
-//   Line 13:3:  'PopoverBody' is defined but never used         no-unused-vars
-//   Line 14:3:  'PopoverFooter' is defined but never used       no-unused-vars
-//   Line 16:3:  'PopoverCloseButton' is defined but never used  no-unused-vars
-//   Line 17:3:  'Alert' is defined but never used               no-unused-vars
-//   Line 18:3:  'AlertIcon' is defined but never used           no-unused-vars
-//   Line 19:3:  'AlertTitle' is defined but never used          no-unused-vars
-//   Line 20:3:  'AlertDescription' is defined but never used    no-unused-vars
-//   Line 21:3:  'Stack' is defined but never used               no-unused-vars
-// import {
-//   Box,
-//   Button,
-//   Image,
-//   Link,
-//   HStack,
-//   Flex,
-//   Popover,
-//   PopoverTrigger,
-//   PopoverContent,
-//   PopoverHeader,
-//   PopoverBody,
-//   PopoverFooter,
-//   PopoverArrow,
-//   PopoverCloseButton,
-//   Alert,
-//   AlertIcon,
-//   AlertTitle,
-//   AlertDescription,
-//   Stack,
-// } from "@chakra-ui/react";
 import {
   Box,
   Button,
@@ -49,12 +18,13 @@ import Icon from "@chakra-ui/icon";
 import { RiLuggageCartLine } from "react-icons/ri";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+const { REACT_APP_POST_USERS, REACT_APP_GET_ALL_USERS } = process.env;
 
 function Header() {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .post("http://localhost:3010/users/create", { email: email })
+        .post(REACT_APP_POST_USERS, { email: email })
         .then((res) => console.log("post axios", res))
         .catch((err) => console.log(err));
     }
@@ -71,7 +41,7 @@ function Header() {
     var email = user.email;
 
     axios
-      .get("http://localhost:3010/users")
+      .get(REACT_APP_GET_ALL_USERS)
       .then((res) => {
         console.log("get axios", res.data);
         status = res.data.find((u) => {
@@ -89,10 +59,6 @@ function Header() {
       })
       .catch((err) => console.log(err));
   }
-
-  const buttonProfile = (e) => {
-    window.location.href = "http://localhost:3000/profile";
-  };
 
   return (
     <div>
@@ -177,7 +143,13 @@ function Header() {
 
                   <PopoverHeader>
                     <Link color="red" fontSize={18} href="/createHotel">
-                      Create{" "}
+                      Create Hotel{" "}
+                    </Link>
+                  </PopoverHeader>
+
+                  <PopoverHeader>
+                    <Link color="red" fontSize={18} href="/createRoom">
+                      Create Room{" "}
                     </Link>
                   </PopoverHeader>
 
@@ -256,4 +228,3 @@ function Header() {
 }
 
 export default Header;
-

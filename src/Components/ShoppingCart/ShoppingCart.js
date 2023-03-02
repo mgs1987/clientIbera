@@ -16,14 +16,17 @@ import { FaBed } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
 import axios from "axios";
 import { v4 } from "uuid";
+import { useAuth0 } from "@auth0/auth0-react";
+import emailjs from "emailjs-com";
 
-const { REACT_APP_MERCADOPAGO_CHECKOUT, REACT_APP_ORDER_CREATE } = process.env;
+const { REACT_APP_MERCADOPAGO_CHECKOUT, REACT_APP_ORDER_CREATE, REACT_APP_FRONT } = process.env;
 const { getServices } = allActions;
 
 function ShoppingCart() {
   const [local, setLocal] = useState("");
   const [service, setService] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
+  const { user, isAuthenticated } = useAuth0();
 
   const dispatch = useDispatch();
   const services = useSelector((state) => state.services);
@@ -35,11 +38,18 @@ function ShoppingCart() {
     setService(serv ? JSON.parse(serv) : {});
     const priceTotal = window.localStorage.getItem("totalprice");
     setTotalPrice(priceTotal ? parseInt(JSON.parse(priceTotal)) : 0);
+    
+   if (!document.cookie) {
+    alert("you must login to reserve")
+    window.location.href = REACT_APP_FRONT
+  };
 
     dispatch(getServices());
   }, [dispatch]);
+  
+  if (isAuthenticated) { 
 
-  function handleResetCart() {
+ function handleResetCart() {
     window.localStorage.setItem("servicecart", JSON.stringify({}));
     ///VER ACA ==> un localstorage para los precios de services
     setService({});
@@ -265,14 +275,36 @@ function ShoppingCart() {
               })}
             <Divider color="teal" border="solid" borderWidth="1px" mt="20px" />
             <Text mt="20px">Total amount ${totalPrice}</Text>
-            <Button mt="40px" color="teal" onClick={handlePayment}>
-              Continue to payment <Icon ml="10px" as={FiArrowRight}></Icon>
-            </Button>
+              <div>
+
+                <form onSubmit={handlePayment}>
+
+                  <div>
+
+                    <Button type="submit" mt="40px" color="teal">
+                      Continue to payment <Icon ml="10px" as={FiArrowRight}></Icon>
+                    </Button>
+
+                    <Input value={email} id="email" name="email" />
+                    <Input value={totalPrice} id="price" name="price" />
+
+                  </div>
+
+                </form>
+
+              </div>
           </Box>
         </Flex>
       </Grid>
     </Box>
   );
+
+} else {
+
+    <div>Loading...</div>
+
+  }
+ 
 }
 
 export default ShoppingCart;

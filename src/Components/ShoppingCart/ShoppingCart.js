@@ -20,8 +20,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import emailjs from "emailjs-com";
 
 
-const { REACT_APP_PAYMENT_CREATE, REACT_APP_MERCADOPAGO_CHECKOUT } =
-  process.env;
+const { REACT_APP_PAYMENT_CREATE, REACT_APP_MERCADOPAGO_CHECKOUT, REACT_APP_FRONT } = process.env;
+
 const { getServices } = allActions;
 
 function ShoppingCart() {
@@ -47,7 +47,7 @@ function ShoppingCart() {
 
   if (!document.cookie) {
     alert("you must login to reserve")
-    window.location.href = "http://localhost:3000"
+    window.location.href = REACT_APP_FRONT
   };
 
   if (isAuthenticated) {
@@ -57,7 +57,6 @@ function ShoppingCart() {
     console.log("aca esta el estado price", totalPrice);
     function handleResetCart() {
       window.localStorage.setItem("servicecart", JSON.stringify({}));
-      ///VER ACA ==> un localstorage para los precios de services
       setService({});
       window.localStorage.setItem("roomcart", JSON.stringify({}));
       setLocal({});
@@ -88,7 +87,6 @@ function ShoppingCart() {
         delete service[id];
       }
 
-      //window.localStorage.setItem("totalprice"); //precio room y servicios
     }
     function handleAddToCart(id) {
       const filterService = services.filter((e) => e.id === id);
@@ -111,40 +109,9 @@ function ShoppingCart() {
     }
     console.log("aca esta service", service);
 
-    // function adapt() {
-    //   var storeLocal = [];
-    //   Object.keys(
-    //     service.forEach((key) => {
-    //       let id = service[key].id;
-    //       let item = service[key].name;
-    //       let quantity = service[id].quantity;
-    //       let unit_price = service[id].price;
-    //       storeLocal.push({
-    //         id: id,
-    //         item: item,
-    //         quantity: quantity,
-    //         price: unit_price,
-    //       });
-    //     })
-    //   );
-    //   return storeLocal;
-    // }
-
-
-    /*const sendPayment = {
-      //token: authUser?.accessToken, ACA VA LO DE LOG IN
-      id: 1,
-      item: "monto total",
-      quantity: 1,
-      price: 500,
-    };*/
-
-    // console.log("payment aqui", sendPayment);
 
 
     async function handlePayment(e) {
-      //   //  setToggle(true); //hace aparecer el boton
-
 
       e.preventDefault();
 
@@ -170,17 +137,6 @@ function ShoppingCart() {
       script.setAttributeNode(attr_data_preference);
       document.getElementById("pay").appendChild(script);
     }
-    //   //window.localStorage.removeItem("roomcart");
-    // }
-    //esta parte seria lo q viene por props);
-    //despues le hace un .then((resp)y lo lleva al init point)
-    // if (paymentBasic.status === 400) {
-    //   window.alert(
-    //     "One of more of the seats you selected are already taken, please select new seats"
-    //   );
-    //   const redirect = `/schedule/${sendPayment.scheduleId.schedule_id}`;
-    //   return <Navigate to={redirect} />;
-    // }
 
     return (
       <Box>

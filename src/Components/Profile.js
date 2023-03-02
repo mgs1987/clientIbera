@@ -5,7 +5,7 @@ import {
     Heading, Text, Divider, Select,
     FormControl, FormLabel, Input,
     FormHelperText, FormErrorMessage,
-    Alert, AlertIcon, AlertTitle, AlertDescription
+    Alert, AlertIcon
 } from '@chakra-ui/react';
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -96,15 +96,10 @@ function Profile() {
                 setButtonModify("modify")
             } else {
                 setButtonModify("")
-                errorBirthday = "";
                 errorBsuccessful = "";
-                errorName = "";
                 errorNsuccessful = "";
-                errorLastName = "";
                 errorLNsuccessful = "";
-                errorMobile = "";
                 errorMsuccessful = "";
-                errorNation = "";
                 errorNTsuccessful = "";
                 setInput({
                     first_name: "",
@@ -139,8 +134,7 @@ function Profile() {
             const selectYear = document.getElementById('select-year');
 
             if (
-                !errorName && !errorLastName && !errorMobile && errorMsuccessful &&
-                errorNsuccessful && errorLNsuccessful && input.nationality
+                errorMsuccessful && errorNsuccessful && errorLNsuccessful && input.nationality
                 && input.date_birth && selectDay.value && selectMonth.value && selectYear.value
             ) {
 
@@ -164,66 +158,29 @@ function Profile() {
         };
 
 
-
-        var errorBirthday = "error";
-        var errorBsuccessful = "";
-
         if (input.date_birth.length >= 8) {
-            var errorBirthday = "";
             var errorBsuccessful = "error";
         };
 
 
-        var errorNTsuccessful = "";
-        var errorNation = "error";
-
         if (input.nationality) {
             var errorNTsuccessful = "error";
-            var errorNation = "";
         };
 
-
-        var errorName = "";
-        var errorNsuccessful = "";
-
-        if (input.first_name.length > 0 && input.first_name.length < 3) {
-            errorName = "error"
-        };
 
         if (input.first_name.length >= 3) {
-            errorNsuccessful = "error"
+            var errorNsuccessful = "error"
         };
 
-
-
-        var errorLastName = "";
-        var errorLNsuccessful = "";
-
-        if (input.last_name.length > 0 && input.last_name.length < 3) {
-            errorLastName = "error"
-        };
 
         if (input.last_name.length >= 3) {
-            errorLNsuccessful = "error"
+            var errorLNsuccessful = "error"
         };
 
 
-
-        var errorMobile = "";
-        var errorMsuccessful = "";
-
-        if (input.mobile.length > 0 && input.mobile.length < 10 && isNaN(input.mobile)) {
-            errorMobile = "error"
-        } else {
-
-            if (input.mobile.length >= 10 && !isNaN(input.mobile)) {
-                errorMsuccessful = "error"
-            } else {
-                errorMobile = "error"
-            }
-
+        if (input.mobile.length >= 10 && !isNaN(input.mobile)) {
+            var errorMsuccessful = "error"
         };
-
 
 
         return (
@@ -289,16 +246,9 @@ function Profile() {
 
                                 <FormLabel>Name</FormLabel>
                                 <Input type='text' value={input.first_name} name="first_name" onChange={handleInputChange} borderWidth='3px' />
-                                {!errorName && !errorNsuccessful ? (
+                                {!errorNsuccessful ? (
                                     <FormHelperText>
-                                        Complete Name.
-                                    </FormHelperText>
-                                ) : (
-                                    <FormErrorMessage></FormErrorMessage>
-                                )}
-                                {errorName && !errorNsuccessful ? (
-                                    <FormHelperText color="blue">
-                                        Error: Name should have 3 letters.
+                                        Name should have 3 letters.
                                     </FormHelperText>
                                 ) : (
                                     <FormErrorMessage></FormErrorMessage>
@@ -313,16 +263,9 @@ function Profile() {
 
                                 <FormLabel>Last Name</FormLabel>
                                 <Input type='text' value={input.last_name} name="last_name" onChange={handleInputChange} borderWidth='3px' />
-                                {!errorLastName && !errorLNsuccessful ? (
+                                {!errorLNsuccessful ? (
                                     <FormHelperText>
-                                        Complete Last Name.
-                                    </FormHelperText>
-                                ) : (
-                                    <FormErrorMessage></FormErrorMessage>
-                                )}
-                                {errorLastName && !errorLNsuccessful ? (
-                                    <FormHelperText color="blue">
-                                        Error: Last Name should have 3 letters.
+                                        Last Name should have 3 letters.
                                     </FormHelperText>
                                 ) : (
                                     <FormErrorMessage></FormErrorMessage>
@@ -339,16 +282,9 @@ function Profile() {
 
                                     <FormLabel>Mobile</FormLabel>
                                     <Input type='text' value={input.mobile} name="mobile" onChange={handleInputChange} borderWidth='3px' />
-                                    {!errorMobile && !errorMsuccessful ? (
+                                    {!errorMsuccessful ? (
                                         <FormHelperText>
-                                            Complete Mobile.
-                                        </FormHelperText>
-                                    ) : (
-                                        <FormErrorMessage></FormErrorMessage>
-                                    )}
-                                    {errorMobile && !errorMsuccessful ? (
-                                        <FormHelperText color="blue">
-                                            Error: Mobile should have 10 numbers.
+                                            Mobile should have 10 numbers.
                                         </FormHelperText>
                                     ) : (
                                         <FormErrorMessage></FormErrorMessage>
@@ -398,14 +334,14 @@ function Profile() {
 
                                 <FormControl>
 
-                                    {errorBirthday && !errorBsuccessful ? (
+                                    {!errorBsuccessful ? (
                                         <FormHelperText>
                                             Complete Birthday.
                                         </FormHelperText>
                                     ) : (
                                         <FormErrorMessage></FormErrorMessage>
                                     )}
-                                    {!errorBirthday && errorBsuccessful ? (
+                                    {errorBsuccessful ? (
                                         <FormHelperText color="red" className="letter" fontWeight='bold'>
                                             Successful
                                         </FormHelperText>
@@ -435,14 +371,14 @@ function Profile() {
 
                                 <FormControl>
 
-                                    {errorNation && !errorNTsuccessful ? (
+                                    {!errorNTsuccessful ? (
                                         <FormHelperText>
                                             Complete Nationality.
                                         </FormHelperText>
                                     ) : (
                                         <FormErrorMessage></FormErrorMessage>
                                     )}
-                                    {!errorNation && errorNTsuccessful ? (
+                                    {errorNTsuccessful ? (
                                         <FormHelperText color="red" className="letter" fontWeight='bold'>
                                             Successful
                                         </FormHelperText>

@@ -19,7 +19,7 @@ function DeleteUser() {
     };
 
     const [render, setRender] = useState("");
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    const { user, isAuthenticated } = useAuth0();
 
     const users = [];
     const [state, setState] = useState([]);

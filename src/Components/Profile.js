@@ -1,15 +1,4 @@
 import axios from "axios";
-// #13 58.78 src/Components/Profile.js
-// ﻿#13 58.78   Line 8:23:    'AlertTitle' is defined but never used        no-unused-vars
-// ﻿#13 58.78   Line 8:35:    'AlertDescription' is defined but never used  no-unused-vars
-// import {
-//     Box, Stack, Button,
-//     Card, CardBody, Image,
-//     Heading, Text, Divider, Select,
-//     FormControl, FormLabel, Input,
-//     FormHelperText, FormErrorMessage,
-//     Alert, AlertIcon, AlertTitle, AlertDescription
-// } from '@chakra-ui/react';
 import {
     Box, Stack, Button,
     Card, CardBody, Image,
@@ -18,9 +7,10 @@ import {
     FormHelperText, FormErrorMessage,
     Alert, AlertIcon
 } from '@chakra-ui/react';
-
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+const { REACT_APP_GET_ALL_USERS, REACT_APP_MODIFY_USERS } = process.env;
+
 
 function Profile() {
 
@@ -35,10 +25,6 @@ function Profile() {
         mobile: "",
         nationality: ""
     });
-
-    // #13 58.78 src/Components/Profile.js
-    // ﻿#13 58.78   Line 27:13:   'logout' is assigned a value but never used   no-unused-vars
-    // const { logout } = useAuth0();
 
     const PaisesArray = ["Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bangladés", "Barbados", "Baréin", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Ciudad del Vaticano", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guyana", "Guinea", "Guinea ecuatorial", "Guinea-Bisáu", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán", "Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos", "Pakistán", "Palaos", "Palestina", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal", "Reino Unido", "República Centroafricana", "República Checa", "República de Macedonia", "República del Congo", "República Democrática del Congo", "República Dominicana", "República Sudafricana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"];
     const DayArray = [];
@@ -73,7 +59,7 @@ function Profile() {
 
 
             axios
-                .get("http://localhost:3010/users")
+                .get(REACT_APP_GET_ALL_USERS)
                 .then((res) => {
                     console.log("get axios profile", res.data);
 
@@ -106,43 +92,15 @@ function Profile() {
 
         const HandleModify = (e) => {
 
-            // #13 31.41 src/Components/Profile.js
-            // ﻿#13 31.41   Line 113:17:  'errorBirthday' is not defined      no-undef
-            // ﻿#13 31.41   Line 114:17:  'errorBsuccessful' is not defined   no-undef
-            // ﻿#13 31.41   Line 121:17:  'errorNation' is not defined        no-undef
-            // ﻿#13 31.41   Line 122:17:  'errorNTsuccessful' is not defined  no-undef
-            // if (buttonModify === "") {
-            //     setButtonModify("modify")
-            // } else {
-            //     setButtonModify("")
-            //     errorBirthday = "";
-            //     errorBsuccessful = "";
-            //     errorName = "";
-            //     errorNsuccessful = "";
-            //     errorLastName = "";
-            //     errorLNsuccessful = "";
-            //     errorMobile = "";
-            //     errorMsuccessful = "";
-            //     errorNation = "";
-            //     errorNTsuccessful = "";
-            //     setInput({
-            //         first_name: "",
-            //         last_name: "",
-            //         date_birth: "",
-            //         mobile: "",
-            //         nationality: ""
-            //     })
-            // }
             if (buttonModify === "") {
                 setButtonModify("modify")
             } else {
                 setButtonModify("")
-                errorName = "";
+                errorBsuccessful = "";
                 errorNsuccessful = "";
-                errorLastName = "";
                 errorLNsuccessful = "";
-                errorMobile = "";
                 errorMsuccessful = "";
+                errorNTsuccessful = "";
                 setInput({
                     first_name: "",
                     last_name: "",
@@ -176,8 +134,7 @@ function Profile() {
             const selectYear = document.getElementById('select-year');
 
             if (
-                !errorName && !errorLastName && !errorMobile && errorMsuccessful &&
-                errorNsuccessful && errorLNsuccessful && input.nationality
+                errorMsuccessful && errorNsuccessful && errorLNsuccessful && input.nationality
                 && input.date_birth && selectDay.value && selectMonth.value && selectYear.value
             ) {
 
@@ -187,7 +144,7 @@ function Profile() {
                     setErrorSubmit("error");
 
                 } else {
-                    axios.put(`http://localhost:3010/users/modify/${newUser.email}`, input)
+                    axios.put(`${REACT_APP_MODIFY_USERS}${newUser.email}`, input)
                         .then((res) => console.log(res))
                         .catch((err) => console.log(err));
 
@@ -201,70 +158,29 @@ function Profile() {
         };
 
 
-        // #13 58.78 src/Components/Profile.js
-        // ﻿#13 58.78   Line 172:17:  'errorBirthday' is already defined            no-redeclare
-        // ﻿#13 58.78   Line 173:17:  'errorBsuccessful' is already defined         no-redeclare
-        // ﻿#13 58.78   Line 181:17:  'errorNTsuccessful' is already defined        no-redeclare
-        // ﻿#13 58.78   Line 182:17:  'errorNation' is already defined              no-redeclare
-        // var errorBirthday = "error";
-        // var errorBsuccessful = "";
-
-        // if (input.date_birth.length >= 8) {
-        //     var errorBirthday = "";
-        //     var errorBsuccessful = "error";
-        // };
-
-
-        // var errorNTsuccessful = "";
-        // var errorNation = "error";
-
-        // if (input.nationality) {
-        //     var errorNTsuccessful = "error";
-        //     var errorNation = "";
-        // };
-
-
-        var errorName = "";
-        var errorNsuccessful = "";
-
-        if (input.first_name.length > 0 && input.first_name.length < 3) {
-            errorName = "error"
+        if (input.date_birth.length >= 8) {
+            var errorBsuccessful = "error";
         };
+
+
+        if (input.nationality) {
+            var errorNTsuccessful = "error";
+        };
+
 
         if (input.first_name.length >= 3) {
-            errorNsuccessful = "error"
+            var errorNsuccessful = "error"
         };
 
-
-
-        var errorLastName = "";
-        var errorLNsuccessful = "";
-
-        if (input.last_name.length > 0 && input.last_name.length < 3) {
-            errorLastName = "error"
-        };
 
         if (input.last_name.length >= 3) {
-            errorLNsuccessful = "error"
+            var errorLNsuccessful = "error"
         };
 
 
-
-        var errorMobile = "";
-        var errorMsuccessful = "";
-
-        if (input.mobile.length > 0 && input.mobile.length < 10 && isNaN(input.mobile)) {
-            errorMobile = "error"
-        } else {
-
-            if (input.mobile.length >= 10 && !isNaN(input.mobile)) {
-                errorMsuccessful = "error"
-            } else {
-                errorMobile = "error"
-            }
-
+        if (input.mobile.length >= 10 && !isNaN(input.mobile)) {
+            var errorMsuccessful = "error"
         };
-
 
 
         return (
@@ -330,16 +246,9 @@ function Profile() {
 
                                 <FormLabel>Name</FormLabel>
                                 <Input type='text' value={input.first_name} name="first_name" onChange={handleInputChange} borderWidth='3px' />
-                                {!errorName && !errorNsuccessful ? (
+                                {!errorNsuccessful ? (
                                     <FormHelperText>
-                                        Complete Name.
-                                    </FormHelperText>
-                                ) : (
-                                    <FormErrorMessage></FormErrorMessage>
-                                )}
-                                {errorName && !errorNsuccessful ? (
-                                    <FormHelperText color="blue">
-                                        Error: Name should have 3 letters.
+                                        Name should have 3 letters.
                                     </FormHelperText>
                                 ) : (
                                     <FormErrorMessage></FormErrorMessage>
@@ -354,16 +263,9 @@ function Profile() {
 
                                 <FormLabel>Last Name</FormLabel>
                                 <Input type='text' value={input.last_name} name="last_name" onChange={handleInputChange} borderWidth='3px' />
-                                {!errorLastName && !errorLNsuccessful ? (
+                                {!errorLNsuccessful ? (
                                     <FormHelperText>
-                                        Complete Last Name.
-                                    </FormHelperText>
-                                ) : (
-                                    <FormErrorMessage></FormErrorMessage>
-                                )}
-                                {errorLastName && !errorLNsuccessful ? (
-                                    <FormHelperText color="blue">
-                                        Error: Last Name should have 3 letters.
+                                        Last Name should have 3 letters.
                                     </FormHelperText>
                                 ) : (
                                     <FormErrorMessage></FormErrorMessage>
@@ -380,16 +282,9 @@ function Profile() {
 
                                     <FormLabel>Mobile</FormLabel>
                                     <Input type='text' value={input.mobile} name="mobile" onChange={handleInputChange} borderWidth='3px' />
-                                    {!errorMobile && !errorMsuccessful ? (
+                                    {!errorMsuccessful ? (
                                         <FormHelperText>
-                                            Complete Mobile.
-                                        </FormHelperText>
-                                    ) : (
-                                        <FormErrorMessage></FormErrorMessage>
-                                    )}
-                                    {errorMobile && !errorMsuccessful ? (
-                                        <FormHelperText color="blue">
-                                            Error: Mobile should have 10 numbers.
+                                            Mobile should have 10 numbers.
                                         </FormHelperText>
                                     ) : (
                                         <FormErrorMessage></FormErrorMessage>
@@ -437,16 +332,16 @@ function Profile() {
 
                             <div>
 
-                                {/* <FormControl>
+                                <FormControl>
 
-                                    {errorBirthday && !errorBsuccessful ? (
+                                    {!errorBsuccessful ? (
                                         <FormHelperText>
                                             Complete Birthday.
                                         </FormHelperText>
                                     ) : (
                                         <FormErrorMessage></FormErrorMessage>
                                     )}
-                                    {!errorBirthday && errorBsuccessful ? (
+                                    {errorBsuccessful ? (
                                         <FormHelperText color="red" className="letter" fontWeight='bold'>
                                             Successful
                                         </FormHelperText>
@@ -454,7 +349,7 @@ function Profile() {
                                         <FormErrorMessage></FormErrorMessage>
                                     )}
 
-                                </FormControl> */}
+                                </FormControl>
 
                             </div>
 
@@ -474,16 +369,16 @@ function Profile() {
 
                             <div>
 
-                                {/* <FormControl>
+                                <FormControl>
 
-                                    {errorNation && !errorNTsuccessful ? (
+                                    {!errorNTsuccessful ? (
                                         <FormHelperText>
                                             Complete Nationality.
                                         </FormHelperText>
                                     ) : (
                                         <FormErrorMessage></FormErrorMessage>
                                     )}
-                                    {!errorNation && errorNTsuccessful ? (
+                                    {errorNTsuccessful ? (
                                         <FormHelperText color="red" className="letter" fontWeight='bold'>
                                             Successful
                                         </FormHelperText>
@@ -491,7 +386,7 @@ function Profile() {
                                         <FormErrorMessage></FormErrorMessage>
                                     )}
 
-                                </FormControl> */}
+                                </FormControl>
 
                             </div>
 

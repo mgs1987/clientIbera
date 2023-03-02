@@ -23,7 +23,6 @@ import {
   CLEAN_FILTER,
   CREATE_HOTEL,
   GET_NAME_CITIES,
-  GET_UNLOCODE,
 } from "../actions-types/index";
 
 const initialState = {
@@ -33,7 +32,6 @@ const initialState = {
   hotelDetails: {},
   services: [],
   amenities: [],
-  unlocode:[],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -108,28 +106,19 @@ export default function rootReducer(state = initialState, action) {
       let clean = state.allHotels;
       return {
         ...state,
-
-        hotels: clean
-      }
-      case CREATE_HOTEL:
-        return {
-          ...state,
-          hotels: [...state.hotels, action.payload],
-          allHotels: [...state.allHotels, action.payload]
-        };
-        case GET_NAME_CITIES:
-          return{
-            ...state,
-          hotels: action.payload
-          }
-        case GET_UNLOCODE:
-          // let unlocodeCity = state.unlocode;
-          // let filterUnlocode= unlocodeCity.filter((e)=>e.NameWoDiacritics)
-
-          return{
-            ...state,
-            unlocode : action.payload
-          }
+        hotels: clean,
+      };
+    case CREATE_HOTEL:
+      return {
+        ...state,
+        hotels: [...state.hotels, action.payload],
+        allHotels: [...state.allHotels, action.payload],
+      };
+    case GET_NAME_CITIES:
+      return {
+        ...state,
+        hotels: action.payload,
+      };
 
     default:
       return state;

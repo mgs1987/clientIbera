@@ -5,11 +5,16 @@ import SearchBar from "../SearchBar/SearchBar.js";
 import axios from "axios";
 
 
+
+const { REACT_APP_GET_ALL_HOTELS } = process.env;
+
+
 function Destinations() {
 
   useEffect(() => {
 
-    axios.get("http://localhost:3010/hotels")
+
+    axios.get(REACT_APP_GET_ALL_HOTELS)
       .then((res) => {
         console.log(res);
         setHotels(res.data);
@@ -254,6 +259,7 @@ function Destinations() {
                 img={hotel.image}
                 stars={hotel.stars}
                 id={hotel.idHotels}
+                status={hotel.status}
               />
             );
           })}
@@ -312,4 +318,6 @@ function Destinations() {
 
 };
 
+
 export default Destinations;
+

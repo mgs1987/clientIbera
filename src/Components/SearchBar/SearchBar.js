@@ -35,8 +35,6 @@ function SearchBar() {
 
 
   const hotels = useSelector((state) => state.hotels);
-
-
   const nuevaCiudad = useSelector((state) => state.citycheckinout);
 
   //dispatch(getRoomsCities())

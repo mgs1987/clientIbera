@@ -15,6 +15,9 @@ import Modify from "./Components/ModifyAdmin";
 import LocalExperiences from "./Components/LocalExperiences/LocalExperiences";
 import CreateRoom from "./Components/Create/CreateRoom";
 import CreateComent from "./Components/CreateComment/CreateComment";
+import { Pending } from "./Components/PaymentProcess/Pending";
+import { Success } from "./Components/PaymentProcess/Success";
+import { Error } from "./Components/PaymentProcess/Error";
 
 function App() {
   return (
@@ -35,6 +38,10 @@ function App() {
           <Route exact path="/modify" element={<Modify />} />
           <Route exact path="/activities" element={<LocalExperiences />} />
           <Route exact path="/createcomment" element={<CreateComent />} />
+            
+          <Route exact path="/pending" element={<Pending />} />
+          <Route exact path="/success" element={<Success />} />
+          <Route exact path="/fail" element={<Error />} />
         </Routes>
         <Footer />
       </div>

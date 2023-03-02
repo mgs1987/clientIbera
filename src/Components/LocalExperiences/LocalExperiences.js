@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CardActivities from "../CardActivities/CardActivities.js";
-import { Box } from "@chakra-ui/react";
 import { getServices } from "../../Redux/actions/services";
 
 function LocalExperiences() {

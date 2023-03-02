@@ -27,6 +27,8 @@ import Swal from 'sweetalert2'
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
+const { REACT_APP_GET_ALL_USERS, REACT_APP_FRONT, REACT_APP_POST_HOTELS } = process.env;
+
 const avatars = [
   {
     name: '1',
@@ -54,7 +56,7 @@ const avatars = [
 export default function CreateHotelIbera() {
 
   if (!document.cookie) {
-    window.location.href = "http://localhost:3000"
+    window.location.href = REACT_APP_FRONT
   };
 
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -71,16 +73,16 @@ export default function CreateHotelIbera() {
     city: "",
     description: "",
     address: "",
-    stars: "",
-    image: [],
-
+    stars: ""
   })
+
   const [errors, setErrors] = useState({})
+  const [logUser, setLogUser] = useState("users")
   const validateName = /^[a-zA-Z\s]+$/
 
 
   // const [image, setImage] = useState(null)
-  const [image] = useState(null)
+  //const [image] = useState(null)
 
   // const uploadImage = (e) => {
   //   const file = e.target.files[0];
@@ -112,6 +114,8 @@ export default function CreateHotelIbera() {
 
   function handleChange(e) {
 
+    console.log(input)
+
     setInput({
       ...input,
       [e.target.name]: e.target.value
@@ -123,6 +127,7 @@ export default function CreateHotelIbera() {
       })
     )
   }
+
   function handleSubmit(e) {
     e.preventDefault()
     if (!input.name || !input.city || !input.stars) {
@@ -135,11 +140,19 @@ export default function CreateHotelIbera() {
       })
     } else {
 
-      if (image !== null) {
+      /*if (image !== null) {
         input.image = image.url
-      }
+      }*/
+
+
+      axios.post(REACT_APP_POST_HOTELS, input)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+
       setErrors(validate(input))
-      dispatch(createHotel(input))
+
+      //dispatch(createHotel(input))
+
       Swal.fire({
         icon: 'success',
         title: 'Operación exitosa!',
@@ -152,29 +165,33 @@ export default function CreateHotelIbera() {
         city: "",
         description: "",
         address: "",
-        stars: "",
-        image: [],
-
+        stars: ""
       })
 
     }
   }
 
-  axios.get("http://localhost:3010/users")
-    .then((res) => {
-      console.log("get axios", res.data)
+  if (logUser === "users") {
 
-      const logUser = res.data.find((u) => {
-        return u.email === user.email
-      })
+    setLogUser("")
 
-      if (res.data) {
-        if (logUser.privilige !== true) {
-          window.location.href = "http://localhost:3000"
+    axios.get(REACT_APP_GET_ALL_USERS)
+      .then((res) => {
+        console.log("get axios", res.data)
+
+        const logUser = res.data.find((u) => {
+          return u.email === user.email
+        })
+
+        if (res.data) {
+          if (logUser.privilige !== true) {
+            window.location.href = REACT_APP_FRONT
+          };
         };
-      };
-    })
-    .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+
+  }
 
   return (
     <Box position={'relative'}>
@@ -360,30 +377,6 @@ export default function CreateHotelIbera() {
                 {errors.stars && (
                   <FormHelperText color='red.400'>{errors.stars}</FormHelperText>
                 )}
-                <Input
-                  name="status"
-                  onChange={(e) => handleChange(e)}
-                  value={input.status}
-                  placeholder="Status"
-                  bg={'gray.100'}
-                  border={0}
-                  color={'gray.500'}
-                  _placeholder={{
-                    color: 'gray.500',
-                  }}
-                />
-                <Input
-                  name="image"
-                  onChange={(e) => handleChange(e)}
-                  value={input.image}
-                  placeholder="Upload Image"
-                  bg={'gray.100'}
-                  border={0}
-                  color={'gray.500'}
-                  _placeholder={{
-                    color: 'gray.500',
-                  }}
-                />
 
               </Stack>
               <HStack>

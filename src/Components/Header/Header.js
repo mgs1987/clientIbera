@@ -174,7 +174,13 @@ function Header() {
 
                   <PopoverHeader>
                     <Link color="red" fontSize={18} href="/createHotel">
-                      Create{" "}
+                      Create Hotel{" "}
+                    </Link>
+                  </PopoverHeader>
+
+                  <PopoverHeader>
+                    <Link color="red" fontSize={18} href="/createRoom">
+                      Create Room{" "}
                     </Link>
                   </PopoverHeader>
 

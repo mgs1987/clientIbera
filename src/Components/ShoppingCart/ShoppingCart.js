@@ -28,7 +28,7 @@ function ShoppingCart() {
   const [local, setLocal] = useState("");
   const [service, setService] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   const dispatch = useDispatch();
   const services = useSelector((state) => state.services);

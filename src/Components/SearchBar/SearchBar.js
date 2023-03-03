@@ -59,7 +59,7 @@ function SearchBar({ setEnable }) {
   return (
     <Box
       borderRadius="8px"
-      bgColor="teal"
+      bg="teal"
       opacity="0.9"
       paddingBottom="10px"
       paddingTop="10px"
@@ -71,8 +71,8 @@ function SearchBar({ setEnable }) {
           <Input
             mr="300px"
             width="500px"
-            backgroundColor="white"
-            placeHolder="Destination"
+            bg="white"
+            placeholder="Destination"
             type="text"
             value={city}
             id="input-filter"
@@ -84,7 +84,7 @@ function SearchBar({ setEnable }) {
               <FormLabel color="white">Check-In</FormLabel>
               <input
                 className="checkin"
-                bgColor="white"
+                bg="white"
                 type="date"
                 value={inDate}
                 min={today}
@@ -95,7 +95,7 @@ function SearchBar({ setEnable }) {
               <FormLabel color="white">Check-out</FormLabel>
               <input
                 className="checkin"
-                bgColor="white"
+                bg="white"
                 type="date"
                 value={outDate}
                 min={today}

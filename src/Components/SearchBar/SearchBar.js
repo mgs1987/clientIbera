@@ -13,7 +13,7 @@ import "./searchbar.css";
 import allActions from "../../Redux/actions";
 const { getAllHotels, getCity, passDate } = allActions;
 
-function SearchBar() {
+function SearchBar({ setEnable }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllHotels());
@@ -31,6 +31,7 @@ function SearchBar() {
   function buttonSubmit(e) {
     console.log(e);
     e.preventDefault();
+    setEnable(true);
     dispatch(getCity(city));
     dispatch(passDate(inDate, outDate));
     setCity("");

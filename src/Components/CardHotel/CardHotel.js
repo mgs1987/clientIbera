@@ -47,23 +47,23 @@ function CardHotel({ id, name, city, img, stars, status }) {
           </CardBody>
           <Divider />
           <CardFooter>
-
-            {status === false ?
-
+            {status === false ? (
               <Button variant="solid" colorScheme="teal">
                 Disable
               </Button>
-
-              :
-
+            ) : (
               <Link to={`/hotels/${id}`}>
                 <Button variant="solid" colorScheme="teal">
-                  View more info
+                  Reserve Now!
                 </Button>
               </Link>
-
-            }
-
+            )}
+            <Link to="/createcomment">
+              <Button variant="solid" colorScheme="teal" ml="5px">
+                {" "}
+                Give us your opinion!
+              </Button>
+            </Link>
           </CardFooter>
         </Card>
       </Box>

@@ -12,8 +12,11 @@ import AboutUs from "./Components/AboutUs/AboutUs";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 import Profile from "./Components/Profile";
 import Modify from "./Components/ModifyAdmin";
+
 import LocalExperiences from "./Components/LocalExperiences/LocalExperiences";
-import CreateRoom from "./Components/Create/CreateRoom"
+import CreateRoom from "./Components/Create/CreateRoom";
+import CreateComent from "./Components/CreateComment/CreateComment";
+
 
 function App() {
   return (
@@ -33,6 +36,7 @@ function App() {
           <Route exact path="/shoppingcart" element={<ShoppingCart />} />
           <Route exact path="/modify" element={<Modify />} />
           <Route exact path="/activities" element={<LocalExperiences />} />
+          <Route exact path="/createcomment" element={<CreateComent />} />
         </Routes>
         <Footer />
       </div>

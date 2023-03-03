@@ -12,11 +12,6 @@ import {
   REACT_APP_PASS_DATE,
   REACT_APP_TAKE_DATE,
   GET_CLOUDINARY_IMG,
-<<<<<<< HEAD
-=======
-  GET_COMMENTS,
-  CREATE_COMMENTS,
->>>>>>> 79505511e7b59637a7cbb1c0b7059dc9c1b6b984
 } from "../actions-types/index";
 
 const initialState = {
@@ -27,7 +22,6 @@ const initialState = {
   services: [],
   amenities: [],
   dates: [],
-  comments: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -113,16 +107,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         productImg: action.payload,
       };
-    case GET_COMMENTS:
-      return {
-        ...state,
-        comments: action.payload,
-      };
-    case CREATE_COMMENTS:
-      return {
-        ...state,
-        comments: [...state.comments, action.payload],
-      };
+
     default:
       return state;
   }

@@ -20,8 +20,10 @@ function Destinations() {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [hotelsPerPage, setHotelsPerPage] = useState(6);
-  const [enable, setEnable] = useState(false);
+  // #13 30.54 src/Components/Destinations/Destinations.js
+  // ﻿#13 30.54   Line 23:25:  'setHotelsPerPage' is assigned a value but never used  no-unused-vars
+  // const [hotelsPerPage, setHotelsPerPage] = useState(6);
+  const [hotelsPerPage] = useState(6);
 
   const indexOfLastHotel = currentPage * hotelsPerPage;
   const indexOfFirstHotel = indexOfLastHotel - hotelsPerPage;
@@ -52,7 +54,7 @@ function Destinations() {
   return (
     <div>
       <Box mt="30px">
-        <SearchBar setCurrentPage={setCurrentPage} setEnable={setEnable} />
+        <SearchBar setCurrentPage={setCurrentPage} />
       </Box>
 
       <Flex justifyContent="flex-start" ml="50px" mt="40px">
@@ -104,7 +106,6 @@ function Destinations() {
               id={hotel.idHotels}
               checkIn={hotel.checkIn}
               checkOut={hotel.checkOut}
-              enable={enable}
             />
           );
         })}

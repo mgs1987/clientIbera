@@ -39,7 +39,8 @@ function DetailsRoom({
     return dias;
   }
 
-  let diferenciaEnDias = restarFechas(dates[0], dates[1]);
+  let diferenciaEnDias;
+  if (dates) diferenciaEnDias = restarFechas(dates[0], dates[1]);
 
   function handleBanana() {
     let room = {

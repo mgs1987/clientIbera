@@ -39,7 +39,7 @@ function AboutUs() {
           We’re glad you asked
         </Text>
 
-        <Text mt="20px" width="70%" ml="300px">
+        <Text mt="20px" width="70%" ml="200px">
           Iberá Hotels offers its guests beautiful places to stay, travel and
           work abroad indefinitely. In addition, we use our in-depth local
           knowledge to continuously create authentic activities and experiences

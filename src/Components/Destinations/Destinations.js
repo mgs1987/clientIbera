@@ -21,6 +21,7 @@ function Destinations() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [hotelsPerPage, setHotelsPerPage] = useState(6);
+  const [enable, setEnable] = useState(false);
 
   const indexOfLastHotel = currentPage * hotelsPerPage;
   const indexOfFirstHotel = indexOfLastHotel - hotelsPerPage;
@@ -51,7 +52,7 @@ function Destinations() {
   return (
     <div>
       <Box mt="30px">
-        <SearchBar setCurrentPage={setCurrentPage} />
+        <SearchBar setCurrentPage={setCurrentPage} setEnable={setEnable} />
       </Box>
 
       <Flex justifyContent="flex-start" ml="50px" mt="40px">
@@ -103,6 +104,7 @@ function Destinations() {
               id={hotel.idHotels}
               checkIn={hotel.checkIn}
               checkOut={hotel.checkOut}
+              enable={enable}
             />
           );
         })}

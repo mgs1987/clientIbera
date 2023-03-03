@@ -1,6 +1,6 @@
 import axios from "axios";
-import { GET_ROOMS_CITIES } from "../actions-types";
-const { REACT_APP_GET_ALL_ROOMS_CITIES } = process.env;
+import { GET_ROOMS_CITIES, GET_CLOUDINARY_IMG } from "../actions-types";
+const { REACT_APP_GET_ALL_ROOMS_CITIES, REACT_APP_CLOUDINARY_URL } = process.env;
 
 export function getRoomsCities(payload) {
   return async function (dispatch) {
@@ -26,10 +26,6 @@ export function getRoomsCities(payload) {
     }
   };
 }
-
-import { GET_CLOUDINARY_IMG } from "../action-types";
-import axios from "axios";
-const { REACT_APP_CLOUDINARY_URL } = process.env;
 
 export async function fileUpload(file) {
   console.log("uploading file");

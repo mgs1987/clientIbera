@@ -19,9 +19,7 @@ import {
   FormControl,
 } from '@chakra-ui/react';
 
-import { createHotel } from "../../Redux/actions/hotels";
-import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -59,12 +57,11 @@ export default function CreateHotelIbera() {
     window.location.href = REACT_APP_FRONT
   };
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user } = useAuth0();
 
   const breakpoint1 = useBreakpointValue({ base: 'md', md: 'lg' });
   const breakpoint2 = useBreakpointValue({ base: '44px', md: '60px' });
 
-  const dispatch = useDispatch()
   // const navigate = useNavigate()
 
   const [input, setInput] = useState({

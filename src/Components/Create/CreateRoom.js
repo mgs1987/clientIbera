@@ -12,7 +12,7 @@ const { REACT_APP_GET_ALL_USERS, REACT_APP_CREATE_ROOMS, REACT_APP_FRONT } = pro
 function CreateRoom() {
 
   const [logUser, setLogUser] = useState("users")
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const [input, setInput] = useState({
     name: "",
     bed_quantity: "",

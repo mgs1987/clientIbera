@@ -45,7 +45,7 @@ function Home() {
                 top="400px"
                 colorScheme="teal"
                 left="46%"
-                backgroundColor="white"
+                bg="white"
                 variant="outline"
                 size="lg"
                 position="absolute"
@@ -59,13 +59,13 @@ function Home() {
           <Image src={homeImage3} />
         </Box>
       </Grid>
-      <Box height="4px" width="100%" backgroundColor="teal" />
+      <Box height="4px" width="100%" bg="teal" />
       <Box marginTop="60px">
         <Text fontSize="5xl" color="teal" fontWeight="bold">
           Our best Offers
         </Text>
       </Box>
-      <Box height="2px" width="50%" ml="25%" backgroundColor="teal" />
+      <Box height="2px" width="50%" ml="25%" bg="teal" />
       <Grid templateColumns="1fr 1fr">
         <Box marginTop="60px">
           <Text fontSize="3xl"> Stay 3 nights, pay 2</Text>
@@ -123,13 +123,7 @@ function Home() {
           </Link>
         </Box>
       </Grid>
-      <Box
-        height="2px"
-        width="50%"
-        ml="25%"
-        backgroundColor="teal"
-        marginTop="60px"
-      />
+      <Box height="2px" width="50%" ml="25%" bg="teal" marginTop="60px" />
       <Grid templateColumns="1fr 1fr">
         <Box marginTop="90px">
           <Image
@@ -151,13 +145,7 @@ function Home() {
           </Text>
         </Box>
       </Grid>
-      <Box
-        height="2px"
-        width="50%"
-        ml="25%"
-        backgroundColor="teal"
-        marginTop="10px"
-      />
+      <Box height="2px" width="50%" ml="25%" bg="teal" marginTop="10px" />
 
       <Grid templateColumns="1fr 1fr">
         <Box marginTop="85px">
@@ -182,7 +170,7 @@ function Home() {
           <Image src={trekking} borderRadius="8px" boxSize="70%" ml="80px" />
         </Box>
       </Grid>
-      <Box height="2px" width="50%" ml="25%" backgroundColor="teal" />
+      <Box height="2px" width="50%" ml="25%" bg="teal" />
 
       <Box mb="40px">
         <Text ml="40px" marginTop="40px" fontSize="3xl">
@@ -192,13 +180,7 @@ function Home() {
           Ibera Hotels has rooms for all types of travellers.
         </Text>
       </Box>
-      <Box
-        height="2px"
-        width="50%"
-        ml="25%"
-        backgroundColor="teal"
-        marginTop="3px"
-      />
+      <Box height="2px" width="50%" ml="25%" bg="teal" marginTop="3px" />
       <Grid templateColumns="1fr 1fr" mt="30px">
         <Box>
           <Text fontSize="3xl" color="teal" mt="40px">
@@ -216,13 +198,7 @@ function Home() {
           </Link>
         </Box>
       </Grid>
-      <Box
-        height="2px"
-        width="50%"
-        ml="25%"
-        backgroundColor="teal"
-        marginTop="50px"
-      />
+      <Box height="2px" width="50%" ml="25%" bg="teal" marginTop="50px" />
     </div>
   );
 }

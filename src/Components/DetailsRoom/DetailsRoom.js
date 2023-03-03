@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 } from "uuid";
 
 import {
   Card,
@@ -61,12 +62,12 @@ function DetailsRoom({
   }
   const bed_icons = [];
   for (let i = 0; i < bed_quantity; i++) {
-    bed_icons.push(<Icon key={i} as={IoBedSharp} />);
+    bed_icons.push(<Icon key={v4()} as={IoBedSharp} />);
   }
 
   useEffect(() => {
     dispatch(takeDate());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box mt="20px" padding="20px" boxSize="">
@@ -99,7 +100,6 @@ function DetailsRoom({
               </Text>
             </Text>
             <Text mr="70%" color="teal" mt="10px">
-              {" "}
               Price per night: ${price}
             </Text>
           </CardBody>
@@ -113,7 +113,9 @@ function DetailsRoom({
             >
               Reserve
             </Button>
-            <Text>Days: {diferenciaEnDias}</Text>
+            <Box mt={"7px"} ml={"0.7rem"}>
+              <Text>Days Selected: {diferenciaEnDias}</Text>
+            </Box>
           </CardFooter>
         </Stack>
       </Card>

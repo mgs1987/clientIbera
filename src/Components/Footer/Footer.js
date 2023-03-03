@@ -8,7 +8,7 @@ import { BsInstagram } from "react-icons/bs";
 function Footer() {
   return (
     <div>
-      <Box backgroundColor="grey" opacity="0.5" mt="30px">
+      <Box bg="grey" opacity="0.5" mt="30px">
         <Grid templateColumns="1fr 1fr 1fr">
           <Box>
             <Flex align="flex-start" justify="flex-start">

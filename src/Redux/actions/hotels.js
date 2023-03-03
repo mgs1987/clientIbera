@@ -67,14 +67,10 @@ export function createHotel(payload) {
   };
 }
 
-export function getCity(city, inDate, outDate) {
-  console.log(inDate);
-  console.log(outDate);
+export function getCity(city) {
   return async function (dispatch) {
     try {
       let json = await axios.get(`${REACT_APP_GET_ALL_HOTELS}?city=${city}`);
-      json.data.forEach((h) => ((h.checkIn = inDate), (h.checkOut = outDate)));
-
       return dispatch({
         type: GET_NAME_CITIES,
         payload: json.data,
